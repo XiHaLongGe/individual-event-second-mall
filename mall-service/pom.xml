@@ -10,6 +10,33 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>mall-service</artifactId>
+    <dependencies>
+        <dependency>
+            <groupId>com.nf</groupId>
+            <artifactId>mall-dao</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <!--
+        ///////////////////////////////
+        spring的测试依赖
+        ///////////////////////////////
+        -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency>
+        <!--
+        ///////////////////////////////
+        JUnit is a unit testing framework for Java, created by Erich Gamma and Kent Beck.
+
+        JUnit是由Erich Gamma和Kent Beck创建的Java单元测试框架。
+        ///////////////////////////////
+        -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+        </dependency>
+    </dependencies>
 
 
 </project>

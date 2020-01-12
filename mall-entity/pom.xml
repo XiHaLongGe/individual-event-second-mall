@@ -12,9 +12,91 @@
     <artifactId>mall-entity</artifactId>
 
     <dependencies>
+        <!--
+        ///////////////////////////////
+        为实体类提供了自动注入get set以及相关构造函数的注解
+        ///////////////////////////////
+        -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+        <!--
+        ///////////////////////////////
+        The MyBatis SQL mapper framework makes it easier to use a relational database
+        with object-oriented applications. MyBatis couples objects with stored procedures
+        or SQL statements using a XML descriptor or annotations. Simplicity is the biggest
+        advantage of the MyBatis data mapper over object relational mapping tools.
+
+        MyBatis SQL mapper框架简化了关系数据库的使用
+        与面向对象的应用程序。MyBatis将对象与存储过程绑定在一起
+        或使用XML描述符或注释的SQL语句。简单是最大的
+        MyBatis数据映射器相对于对象关系映射工具的优势。
+        ///////////////////////////////
+        -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis</artifactId>
+        </dependency>
+        <!--
+        ///////////////////////////////
+        An easy-to-use Spring bridge for MyBatis sql mapping framework.
+        一个易于使用的MyBatis sql映射框架的Spring桥。
+        ///////////////////////////////
+        -->
+        <dependency>
+            <groupId>org.mybatis</groupId>
+            <artifactId>mybatis-spring</artifactId>
+        </dependency>
+        <!--
+        ///////////////////////////////
+        以下是spring的相关依赖
+        ///////////////////////////////
+        -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+        </dependency>
+        <!--
+        ///////////////////////////////
+        An JDBC datasource implementation
+
+        JDBC数据源实现,是一个数据库连接池依赖
+        ///////////////////////////////
+        -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid</artifactId>
+        </dependency>
+        <!--
+        ///////////////////////////////
+        连接MySql数据库的驱动依赖
+        ///////////////////////////////
+        -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+        <!--
+        ///////////////////////////////
+        MyBatis分页插件的依赖
+        ///////////////////////////////
+        -->
+        <dependency>
+            <groupId>com.github.pagehelper</groupId>
+            <artifactId>pagehelper</artifactId>
         </dependency>
     </dependencies>
 

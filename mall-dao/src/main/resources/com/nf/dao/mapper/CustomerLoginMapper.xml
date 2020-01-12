@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.dao.port.CustomerLoginDao">
+    <sql id="selectParams">
+        login_id,
+        head_icon_url,
+        login_name,
+        login_account,
+        login_password,
+        activate_code,
+        account_stats
+    </sql>
+    <select id="verifyLogin" resultType="boolean">
+        select count(*) from customer_login
+        where
+            login_account = #{customerLoginEntity.loginAccount}
+        and
+            login_password = #{customerLoginEntity.loginPassword}
+    </select>
+</mapper>
