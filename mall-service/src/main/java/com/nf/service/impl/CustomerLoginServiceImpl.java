@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  * @Author: LJP
  * @Classname CustomerLoginServiceImpl
  * @Date: 2020-01-12 21:45
- * @Description: 用户登录表service层
+ * @Description: 用户登录的service层
  */
 @Service
 public class CustomerLoginServiceImpl implements CustomerLoginService {

@@ -23,7 +23,7 @@ import java.util.Properties;
  * @Author: LJP
  * @Classname AppConfig
  * @Date: 2020-01-12 22:20
- * @Description:
+ * @Description: 用来处理与数据库连接相关的配置类
  */
 @Configuration
 @ComponentScan("com.nf.service.impl")
