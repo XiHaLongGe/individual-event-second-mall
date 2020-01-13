@@ -2,6 +2,7 @@ package com.nf.service.impl;
 
 import com.nf.config.AppConfig;
 import com.nf.entity.CustomerLoginEntity;
+import com.nf.util.Md5Util;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,6 @@ public class CustomerLoginServiceImplTest {
     private CustomerLoginServiceImpl customerLoginService;
     @Test
     public void verifyLogin() {
-        System.out.println(customerLoginService.verifyLogin(CustomerLoginEntity.newBuilder().loginAccount("18546320231").loginPassword("96e79218965eb72c92a549dd5a330112").build()));
+        System.out.println(customerLoginService.verifyLogin(CustomerLoginEntity.newBuilder().loginAccount("18546320231").loginPassword(Md5Util.encodeByMd5("111111")).build()));
     }
 }

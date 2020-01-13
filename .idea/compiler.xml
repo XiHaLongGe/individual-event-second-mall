@@ -10,6 +10,7 @@
         <module name="mall-entity" />
         <module name="mall-service" />
         <module name="mall-dao" />
+        <module name="mall-util" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -18,6 +19,7 @@
       <module name="mall-dao" target="1.8" />
       <module name="mall-entity" target="1.8" />
       <module name="mall-service" target="1.8" />
+      <module name="mall-util" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
