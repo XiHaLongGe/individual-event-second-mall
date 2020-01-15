@@ -16,4 +16,11 @@ public interface CustomerLoginDao {
      * @return 根据用户输入的账号密码作为条件在数据库中进行匹配，返回匹配结果
      */
     boolean verifyLogin(@Param("customerLoginEntity")CustomerLoginEntity customerLoginEntity);
+
+    /**
+     * 新用户用户注册
+     * @param customerLoginEntity 使用实体类保存用户输入的注册信息
+     * @return 返回用户注册结果，返回在数据库中的影响行数
+     */
+    Integer insertCustomer(@Param("customerLoginEntity")CustomerLoginEntity customerLoginEntity);
 }

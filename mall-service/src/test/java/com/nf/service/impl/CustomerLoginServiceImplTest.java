@@ -18,4 +18,14 @@ public class CustomerLoginServiceImplTest {
     public void verifyLogin() {
         System.out.println(customerLoginService.verifyLogin(CustomerLoginEntity.newBuilder().loginAccount("18546320231").loginPassword(Md5Util.encodeByMd5("111111")).build()));
     }
+
+    @Test
+    public void insertCustomer() {
+        CustomerLoginEntity customerLoginEntity = CustomerLoginEntity.newBuilder().loginName("123").loginAccount("12345678901").loginPassword(Md5Util.encodeByMd5("111111")).accountStats(Byte.valueOf("0")).build();
+        System.out.println(customerLoginEntity.getLoginId());
+        System.out.println("/////////////////////////////////////////////////////");
+        customerLoginService.insertCustomer(customerLoginEntity);
+        System.out.println("/////////////////////////////////////////////////////");
+        System.out.println(customerLoginEntity.getLoginId());
+    }
 }

@@ -1,6 +1,7 @@
 package com.nf.service.port;
 
 import com.nf.entity.CustomerLoginEntity;
+import org.apache.ibatis.annotations.Param;
 
 /**
  * @Author: LJP
@@ -15,4 +16,6 @@ public interface CustomerLoginService {
      * @return 根据用户输入的账号密码作为条件在数据库中进行匹配，返回匹配结果
      */
     boolean verifyLogin(CustomerLoginEntity customerLoginEntity);
+
+    Integer insertCustomer(@Param("customerLoginEntity")CustomerLoginEntity customerLoginEntity);
 }

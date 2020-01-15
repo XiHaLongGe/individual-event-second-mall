@@ -16,34 +16,6 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerLoginEntity {
-    private CustomerLoginEntity(Builder builder) {
-        loginId = builder.loginId;
-        headIconUrl = builder.headIconUrl;
-        loginName = builder.loginName;
-        loginAccount = builder.loginAccount;
-        loginPassword = builder.loginPassword;
-        activateCode = builder.activateCode;
-        accountStats = builder.accountStats;
-        creationTime = builder.creationTime;
-    }
-
-    public static Builder newBuilder() {
-        return new Builder();
-    }
-
-    public static Builder newBuilder(CustomerLoginEntity copy) {
-        Builder builder = new Builder();
-        builder.loginId = copy.getLoginId();
-        builder.headIconUrl = copy.getHeadIconUrl();
-        builder.loginName = copy.getLoginName();
-        builder.loginAccount = copy.getLoginAccount();
-        builder.loginPassword = copy.getLoginPassword();
-        builder.activateCode = copy.getActivateCode();
-        builder.accountStats = copy.getAccountStats();
-        builder.creationTime = copy.getCreationTime();
-        return builder;
-    }
-
     @Override
     public String toString() {
         return "CustomerLoginEntity{" +
@@ -101,6 +73,33 @@ public class CustomerLoginEntity {
     private Date creationTime;
 
 
+    private CustomerLoginEntity(Builder builder) {
+        loginId = builder.loginId;
+        headIconUrl = builder.headIconUrl;
+        loginName = builder.loginName;
+        loginAccount = builder.loginAccount;
+        loginPassword = builder.loginPassword;
+        activateCode = builder.activateCode;
+        accountStats = builder.accountStats;
+        creationTime = builder.creationTime;
+    }
+
+    public static Builder newBuilder() {
+        return new Builder();
+    }
+
+    public static Builder newBuilder(CustomerLoginEntity copy) {
+        Builder builder = new Builder();
+        builder.loginId = copy.getLoginId();
+        builder.headIconUrl = copy.getHeadIconUrl();
+        builder.loginName = copy.getLoginName();
+        builder.loginAccount = copy.getLoginAccount();
+        builder.loginPassword = copy.getLoginPassword();
+        builder.activateCode = copy.getActivateCode();
+        builder.accountStats = copy.getAccountStats();
+        builder.creationTime = copy.getCreationTime();
+        return builder;
+    }
     public static final class Builder {
         private Integer loginId;
         private String headIconUrl;

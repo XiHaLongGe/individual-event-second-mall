@@ -12,6 +12,14 @@
         activate_code,
         account_stats
     </sql>
+    <sql id="insertParams">
+        login_name,
+        login_account,
+        login_password,
+        activate_code,
+        account_stats
+    </sql>
+    <!--验证用户登录时输入的账号密码是否正确-->
     <select id="verifyLogin" resultType="boolean">
         select count(*) from customer_login
         where
@@ -19,4 +27,25 @@
         and
             login_password = #{customerLoginEntity.loginPassword}
     </select>
+    <!--
+        useGenerateKeys这个属性，意思就是使用自增。我们需要将这个字段设置为 true 。
+        使用 keyProperty=""来指定bean中的哪一个属性是这个自增字段。
+        因为在CustomerLoginDao接口中的insertCustomer方法中的参数使用了@Param注解，所以keyProperty需要指定为 customerLoginEntity.loginId。
+
+        数据插入成功后，id值被反填到CustomerLoginEntity对象中，调用getLoginId()就可以获取。
+    -->
+    <!--新用户用户注册-->
+    <insert id="insertCustomer" useGeneratedKeys="true" keyProperty="customerLoginEntity.loginId">
+        insert into customer_login(<include refid="insertParams"/>) values
+        (
+            #{customerLoginEntity.loginName},
+            #{customerLoginEntity.loginAccount},
+            #{customerLoginEntity.loginPassword},
+            #{customerLoginEntity.activateCode},
+            #{customerLoginEntity.accountStats}
+        );
+        <!--<selectKey keyProperty="loginId" resultType="Integer" order="AFTER">
+           select LAST_INSERT_ID();
+        </selectKey>-->
+    </insert>
 </mapper>

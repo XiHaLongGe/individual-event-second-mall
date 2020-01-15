@@ -32,7 +32,12 @@ public class CustomerLoginController {
     @PostMapping("/verify")
     @ResponseBody
     public ResponseVo verify(@RequestBody CustomerLoginEntity customerLoginEntity){
-        return ResponseVo.newBuilder().code(200).message("账号密码正确，验证通过").data(customerLoginService.verifyLogin(customerLoginEntity)).build();
+        boolean result = customerLoginService.verifyLogin(customerLoginEntity);
+        Integer code = result ? 200 : 500;
+        String message = result ? "账号密码正确，验证通过" : "账号或密码输入错误，验证未通过";
+        return ResponseVo.newBuilder().code(code).message(message).data(result).build();
     }
+
+
 
 }
