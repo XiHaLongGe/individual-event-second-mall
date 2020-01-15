@@ -15,17 +15,16 @@ import javax.servlet.ServletContext;
  * @Description: 继承AbstractAnnotationConfigDispatcherServletInitializer类
  *               来达到自动配置DispatcherServlet(前置控制器)和Spring应用上下文
  */
-@Configuration
 public class SystemConfig extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{AppConfig.class};
+        return new Class[]{MvcConfig.class};
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[]{MvcConfig.class};
+        return null;
     }
 
     @Override

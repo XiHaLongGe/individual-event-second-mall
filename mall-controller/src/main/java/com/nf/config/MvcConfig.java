@@ -6,10 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.format.datetime.DateFormatter;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 /**
@@ -29,7 +26,11 @@ public class MvcConfig implements WebMvcConfigurer {
      */
     @Bean
     public InternalResourceViewResolver viewResolver(){
-        return new InternalResourceViewResolver(".jsp", "/WEB-INF/");
+        //"/WEB-INF/view/",".jsp"
+        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
+        viewResolver.setPrefix("/WEB-INF/view/");
+        viewResolver.setSuffix(".jsp");
+        return viewResolver;
     }
 
     /**
@@ -47,8 +48,13 @@ public class MvcConfig implements WebMvcConfigurer {
      */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-//        registry.addResourceHandler("").addResourceLocations("");
-//        registry.addResourceHandler("").addResourceLocations("");
+        registry.addResourceHandler("/static/**")
+                .addResourceLocations(
+                    new String [] {
+                            "classpath:/static/login",
+                            "classpath:/static/toolTip",
+                            "classpath:/static/"
+                    });
     }
 
     /**
