@@ -103,6 +103,15 @@
             <groupId>com.github.pagehelper</groupId>
             <artifactId>pagehelper</artifactId>
         </dependency>
+        <!--
+        ///////////////////////////////
+        spring与ajax整合需要以下依赖来处理json数据的传输
+        ///////////////////////////////
+        -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
     </dependencies>
 
 

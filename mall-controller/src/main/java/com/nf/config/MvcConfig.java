@@ -26,11 +26,7 @@ public class MvcConfig implements WebMvcConfigurer {
      */
     @Bean
     public InternalResourceViewResolver viewResolver(){
-        //"/WEB-INF/view/",".jsp"
-        InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
-        viewResolver.setPrefix("/WEB-INF/view/");
-        viewResolver.setSuffix(".jsp");
-        return viewResolver;
+        return new InternalResourceViewResolver("/WEB-INF/view/",".jsp");
     }
 
     /**
@@ -50,11 +46,10 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/static/**")
                 .addResourceLocations(
-                    new String [] {
                             "classpath:/static/login",
                             "classpath:/static/toolTip",
                             "classpath:/static/"
-                    });
+                );
     }
 
     /**

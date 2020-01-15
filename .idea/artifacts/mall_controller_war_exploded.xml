@@ -26,6 +26,7 @@
           <element id="archive" name="mall-util-1.0-SNAPSHOT.jar">
             <element id="module-output" name="mall-util" />
           </element>
+          <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.18.10" />
           <element id="library" level="project" name="Maven: org.mybatis:mybatis:3.5.2" />
           <element id="library" level="project" name="Maven: org.mybatis:mybatis-spring:2.0.2" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context:5.2.0.RELEASE" />
@@ -42,6 +43,9 @@
           <element id="library" level="project" name="Maven: mysql:mysql-connector-java:5.1.47" />
           <element id="library" level="project" name="Maven: com.github.pagehelper:pagehelper:5.1.10" />
           <element id="library" level="project" name="Maven: com.github.jsqlparser:jsqlparser:2.0" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.10.1" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.10.1" />
+          <element id="library" level="project" name="Maven: com.fasterxml.jackson.core:jackson-core:2.10.1" />
           <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
         </element>
       </element>

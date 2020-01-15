@@ -1,11 +1,12 @@
 package com.nf.controller;
 
 
+import com.nf.entity.CustomerLoginEntity;
 import com.nf.service.impl.CustomerLoginServiceImpl;
+import com.nf.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Author: LJP
@@ -20,12 +21,18 @@ public class CustomerLoginController {
     private CustomerLoginServiceImpl customerLoginService;
 
     /**
-     * 打开登录视图的控制器方法
+     * 打开登录视图
      * @return
      */
     @GetMapping("/login")
     public String login(){
         return "login/index";
+    }
+
+    @PostMapping("/verify")
+    @ResponseBody
+    public ResponseVo verify(@RequestBody CustomerLoginEntity customerLoginEntity){
+        return ResponseVo.newBuilder().code(200).message("账号密码正确，验证通过").data(customerLoginService.verifyLogin(customerLoginEntity)).build();
     }
 
 }

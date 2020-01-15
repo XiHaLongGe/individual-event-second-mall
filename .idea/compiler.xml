@@ -2,15 +2,16 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
       <profile name="Maven default annotation processors profile" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="mall-controller" />
-        <module name="mall-entity" />
         <module name="mall-service" />
         <module name="mall-dao" />
+        <module name="mall-controller" />
         <module name="mall-util" />
+        <module name="mall-entity" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>

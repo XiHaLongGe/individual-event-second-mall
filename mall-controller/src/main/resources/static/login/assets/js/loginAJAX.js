@@ -2,44 +2,15 @@ $(document).ready(function(){
     //登录按钮点击事件
     $("#loginBtn").click(function(){
         if(formTextIsEmpty("#loginForm input")){
-            ajaxIntoBackstage("/customer/login/verify","#loginForm","登录成功");
+            ajaxIntoBackstage("/mall/verify","#loginForm");
         }else{
-            alert("你输入的信息有误！");
+            alert("账号密码不可为空！");
         }
-        /*var verifyResult = true;
-        $("#loginForm input").each(function(i,e){
-            if($(this).val() == ""){
-                $(this).addClass('input-error');
-                verifyResult = false;
-            }
-        })
-        if(verifyResult){
-            var $jsonData = {};
-            /!*下面是将form表单的数据转换成一个json的数据格式*!/
-            $.each($("#loginForm").serializeArray(), function(i,e){
-                $jsonData[e.name] = e.value;
-            })
-            $.ajax({
-                url:"/customer/login/verify",
-                type:"POST",
-                data:JSON.stringify($jsonData),
-                dataType:"json",
-                contentType: "application/json",
-                success:function (data) {
-                    if(data.code == 200){
-                        alert("成功")
-                    }else{
-                        alert("失败")
-                        /!*$("#myModal").modal('show');*!/
-                    }
-                }
-            })
-        }*/
     })
     //注册按钮点击事件
     $("#registerBtn").click(function(){
         if(registerVerify("#registerForm input")){
-            ajaxIntoBackstage("/customer/login/register","#registerForm","注册成功");
+            ajaxIntoBackstage("/customer/login/register","#registerForm");
         }else{
             alert("你输入的信息有误！");
         }
@@ -94,7 +65,7 @@ $(document).ready(function(){
         return verifyResult;
     }
     //将表单数据以json数据格式传输到后台
-    function ajaxIntoBackstage(url,formId,message){
+    function ajaxIntoBackstage(url,formId){
         $.ajax({
             url:url,
             type:"POST",
@@ -106,7 +77,6 @@ $(document).ready(function(){
                     window.location.href = "/foreground/home/";
                 }else{
                     alert("失败")
-                    /*$("#myModal").modal('show');*/
                 }
             }
         })
