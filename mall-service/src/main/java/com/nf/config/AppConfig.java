@@ -27,7 +27,7 @@ import java.util.Properties;
  */
 @Configuration
 @ComponentScan("com.nf.service.impl")
-@MapperScan("com.nf,dao.port")
+@MapperScan("com.nf.dao.port")
 @PropertySource("classpath:db/db.properties")
 @EnableTransactionManagement
 public class AppConfig {
@@ -55,7 +55,7 @@ public class AppConfig {
         factoryBean.setDataSource(dataSource());
         factoryBean.setPlugins(pageInterceptor());
         PathMatchingResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
-        Resource[] resources = resourcePatternResolver.getResources("classpath:com/nf/dao/mapper/**/*Mapper.xml");
+        Resource[] resources = resourcePatternResolver.getResources("classpath:mapper/**/*Mapper.xml");
         factoryBean.setMapperLocations(resources);
         factoryBean.setConfiguration(getConfiguration());
         return factoryBean.getObject();

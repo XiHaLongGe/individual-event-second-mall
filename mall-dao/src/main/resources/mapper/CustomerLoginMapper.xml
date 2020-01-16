@@ -44,8 +44,5 @@
             #{customerLoginEntity.activateCode},
             #{customerLoginEntity.accountStats}
         );
-        <!--<selectKey keyProperty="loginId" resultType="Integer" order="AFTER">
-           select LAST_INSERT_ID();
-        </selectKey>-->
     </insert>
 </mapper>

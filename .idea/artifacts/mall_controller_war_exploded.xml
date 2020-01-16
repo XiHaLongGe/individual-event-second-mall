@@ -26,6 +26,8 @@
           <element id="archive" name="mall-util-1.0-SNAPSHOT.jar">
             <element id="module-output" name="mall-util" />
           </element>
+          <element id="library" level="project" name="Maven: javax.mail:mail:1.4.7" />
+          <element id="library" level="project" name="Maven: javax.activation:activation:1.1" />
           <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.18.10" />
           <element id="library" level="project" name="Maven: org.mybatis:mybatis:3.5.2" />
           <element id="library" level="project" name="Maven: org.mybatis:mybatis-spring:2.0.2" />

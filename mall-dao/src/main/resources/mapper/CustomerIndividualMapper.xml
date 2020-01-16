@@ -4,6 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nf.dao.port.CustomerIndividualDao">
     <sql id="insertParams">
+        login_id,
         customer_individual_phone,
         customer_individual_email
     </sql>
@@ -11,6 +12,7 @@
     <insert id="insertIndividual">
         insert into customer_individual(<include refid="insertParams"/>) values
         (
+            #{customerIndividualEntity.loginId},
             #{customerIndividualEntity.customerIndividualPhone},
             #{customerIndividualEntity.customerIndividualEmail}
         );

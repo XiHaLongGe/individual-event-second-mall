@@ -10,7 +10,7 @@ $(document).ready(function(){
     //注册按钮点击事件
     $("#registerBtn").click(function(){
         if(registerVerify("#registerForm input")){
-            ajaxIntoBackstage("/customer/login/register","#registerForm");
+            ajaxIntoBackstage("/mall/register","#registerForm");
         }else{
             alert("你输入的信息有误！");
         }

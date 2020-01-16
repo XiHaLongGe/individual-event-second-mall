@@ -5,10 +5,14 @@ import com.nf.dao.port.CustomerLoginDao;
 import com.nf.entity.CustomerIndividualEntity;
 import com.nf.entity.CustomerLoginEntity;
 import com.nf.service.port.CustomerLoginService;
+import com.nf.util.CodeUtil;
+import com.nf.util.MailUtil;
 import com.nf.util.Md5Util;
+import com.nf.util.RandomCodeUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @Author: LJP
@@ -30,14 +34,34 @@ public class CustomerLoginServiceImpl implements CustomerLoginService {
     }
 
     @Override
+    @Transactional(rollbackFor = Throwable.class)
     public boolean registerCustomer(CustomerLoginEntity customerLoginEntity) {
+        //获取到用户填入邮箱
+        String emailStr = customerLoginEntity.getCustomerIndividualEmail();
+        //对用户填入的密码进行加密
+        String loginPassword = Md5Util.encodeByMd5(customerLoginEntity.getLoginPassword());
+        //生成一个11位长度的帐号
+        String loginAccount = RandomCodeUtil.randomGenerate();
+        //生成帐号激活码
+        String activateCode = CodeUtil.generateUniqueCode();
+        //帐号状态  0:未激活   1: 激活
+        Byte accountStats = Byte.valueOf("0");
         //获取到CustomerIndividualEntity个人信息表的实体类对象实例
         CustomerIndividualEntity customerIndividualEntity = CustomerIndividualEntity.newBuilder().build();
-        if(customerLoginDao.registerCustomer(customerLoginEntity) > 0){
+        //下面将系统生成的账号、帐号激活码...添加至实体类中
+        CustomerLoginEntity enhanceEntity = CustomerLoginEntity.newBuilder(customerLoginEntity)
+                                                                    .loginPassword(loginPassword)
+                                                                    .loginAccount(loginAccount)
+                                                                    .activateCode(activateCode)
+                                                                    .accountStats(accountStats)
+                                                                .build();
+        if(customerLoginDao.registerCustomer(enhanceEntity) > 0){
             //通过BeanUtils工具类将属性相同的值进行复制，
             //这里就是将CustomerLoginEntity类中的扩展字段中的数据复制到用户信息表的实体类中
-            BeanUtils.copyProperties(customerLoginEntity,customerIndividualEntity);
+            BeanUtils.copyProperties(enhanceEntity,customerIndividualEntity);
             if(customerIndividualDao.insertIndividual(customerIndividualEntity) > 0){
+                //这里发送激活帐号的邮件给用户填入的邮箱
+                new Thread(new MailUtil(emailStr, activateCode)).start();
                 return true;
             }
         }

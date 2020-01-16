@@ -16,6 +16,18 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerLoginEntity {
+    private CustomerLoginEntity(Builder builder) {
+        loginId = builder.loginId;
+        headIconUrl = builder.headIconUrl;
+        loginName = builder.loginName;
+        loginAccount = builder.loginAccount;
+        loginPassword = builder.loginPassword;
+        activateCode = builder.activateCode;
+        accountStats = builder.accountStats;
+        customerIndividualPhone = builder.customerIndividualPhone;
+        customerIndividualEmail = builder.customerIndividualEmail;
+    }
+
     @Override
     public String toString() {
         return "CustomerLoginEntity{" +
@@ -26,6 +38,8 @@ public class CustomerLoginEntity {
                 ", loginPassword='" + loginPassword + '\'' +
                 ", activateCode='" + activateCode + '\'' +
                 ", accountStats=" + accountStats +
+                ", customerIndividualPhone='" + customerIndividualPhone + '\'' +
+                ", customerIndividualEmail='" + customerIndividualEmail + '\'' +
                 '}';
     }
 
@@ -77,20 +91,9 @@ public class CustomerLoginEntity {
     /**
      * customerIndividualEmail: 用户邮箱
      */
-        private String customerIndividualEmail;
-
+    private String customerIndividualEmail;
 
     /*===================================   扩展字段   end   ==================================*/
-
-    private CustomerLoginEntity(Builder builder) {
-        loginId = builder.loginId;
-        headIconUrl = builder.headIconUrl;
-        loginName = builder.loginName;
-        loginAccount = builder.loginAccount;
-        loginPassword = builder.loginPassword;
-        activateCode = builder.activateCode;
-        accountStats = builder.accountStats;
-    }
 
     public static Builder newBuilder() {
         return new Builder();
@@ -105,6 +108,8 @@ public class CustomerLoginEntity {
         builder.loginPassword = copy.getLoginPassword();
         builder.activateCode = copy.getActivateCode();
         builder.accountStats = copy.getAccountStats();
+        builder.customerIndividualPhone = copy.getCustomerIndividualPhone();
+        builder.customerIndividualEmail = copy.getCustomerIndividualEmail();
         return builder;
     }
     public static final class Builder {
@@ -115,6 +120,8 @@ public class CustomerLoginEntity {
         private String loginPassword;
         private String activateCode;
         private Byte accountStats;
+        private String customerIndividualPhone;
+        private String customerIndividualEmail;
 
         private Builder() {
         }
@@ -154,8 +161,19 @@ public class CustomerLoginEntity {
             return this;
         }
 
+        public Builder customerIndividualPhone(String val) {
+            customerIndividualPhone = val;
+            return this;
+        }
+
+        public Builder customerIndividualEmail(String val) {
+            customerIndividualEmail = val;
+            return this;
+        }
+
         public CustomerLoginEntity build() {
             return new CustomerLoginEntity(this);
         }
     }
+
 }
