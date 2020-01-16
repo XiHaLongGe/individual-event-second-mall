@@ -26,7 +26,6 @@ public class CustomerLoginEntity {
                 ", loginPassword='" + loginPassword + '\'' +
                 ", activateCode='" + activateCode + '\'' +
                 ", accountStats=" + accountStats +
-                ", creationTime=" + creationTime +
                 '}';
     }
 
@@ -67,11 +66,21 @@ public class CustomerLoginEntity {
      */
     private Byte accountStats;
 
-    /**
-     * creationTime: 账号创建日期
-     */
-    private Date creationTime;
 
+    /*===================================   扩展字段   begin   ==================================*/
+
+    //以下扩展字段是用来暂存用户信息
+    /**
+     * customerIndividualPhone: 用户手机号
+     */
+    private String customerIndividualPhone;
+    /**
+     * customerIndividualEmail: 用户邮箱
+     */
+        private String customerIndividualEmail;
+
+
+    /*===================================   扩展字段   end   ==================================*/
 
     private CustomerLoginEntity(Builder builder) {
         loginId = builder.loginId;
@@ -81,7 +90,6 @@ public class CustomerLoginEntity {
         loginPassword = builder.loginPassword;
         activateCode = builder.activateCode;
         accountStats = builder.accountStats;
-        creationTime = builder.creationTime;
     }
 
     public static Builder newBuilder() {
@@ -97,7 +105,6 @@ public class CustomerLoginEntity {
         builder.loginPassword = copy.getLoginPassword();
         builder.activateCode = copy.getActivateCode();
         builder.accountStats = copy.getAccountStats();
-        builder.creationTime = copy.getCreationTime();
         return builder;
     }
     public static final class Builder {
@@ -108,7 +115,6 @@ public class CustomerLoginEntity {
         private String loginPassword;
         private String activateCode;
         private Byte accountStats;
-        private Date creationTime;
 
         private Builder() {
         }
@@ -145,11 +151,6 @@ public class CustomerLoginEntity {
 
         public Builder accountStats(Byte val) {
             accountStats = val;
-            return this;
-        }
-
-        public Builder creationTime(Date val) {
-            creationTime = val;
             return this;
         }
 

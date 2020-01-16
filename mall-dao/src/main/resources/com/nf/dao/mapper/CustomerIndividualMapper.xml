@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.dao.port.CustomerIndividualDao">
+    <sql id="insertParams">
+        customer_individual_phone,
+        customer_individual_email
+    </sql>
+    <!--将用户注册时填写的个人信息添加到用户信息表当中-->
+    <insert id="insertIndividual">
+        insert into customer_individual(<include refid="insertParams"/>) values
+        (
+            #{customerIndividualEntity.customerIndividualPhone},
+            #{customerIndividualEntity.customerIndividualEmail}
+        );
+    </insert>
+</mapper>

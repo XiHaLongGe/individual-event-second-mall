@@ -65,10 +65,10 @@
                         <input type="password" placeholder="确认密码" class="r-form-first-name form-control" id="confirmPassword" maxlength='16' value="123456">
                     </div>
                     <div class="form-group">
-                        <input type="text" name="customerPhone" placeholder="手机号" class=" form-control" id="for-phone" maxlength='11' value="13526386954">
+                        <input type="text" name="customerIndividualPhone" placeholder="手机号" class=" form-control" id="for-phone" maxlength='11' value="13526386954">
                     </div>
                     <div class="form-group">
-                        <input type="text" name="customerEmail" placeholder="邮箱" class="r-form-email form-control" id="for-email"  maxlength='17' value="1530937232@qq.com">
+                        <input type="text" name="customerIndividualEmail" placeholder="邮箱" class="r-form-email form-control" id="for-email"  maxlength='17' value="1530937232@qq.com">
                     </div>
                     <div class="form-group">
                         <div class="col-sm-7">

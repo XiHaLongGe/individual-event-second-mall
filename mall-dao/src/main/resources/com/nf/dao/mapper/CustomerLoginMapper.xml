@@ -35,7 +35,7 @@
         数据插入成功后，id值被反填到CustomerLoginEntity对象中，调用getLoginId()就可以获取。
     -->
     <!--新用户用户注册-->
-    <insert id="insertCustomer" useGeneratedKeys="true" keyProperty="customerLoginEntity.loginId">
+    <insert id="registerCustomer" useGeneratedKeys="true" keyProperty="customerLoginEntity.loginId">
         insert into customer_login(<include refid="insertParams"/>) values
         (
             #{customerLoginEntity.loginName},

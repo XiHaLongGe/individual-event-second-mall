@@ -17,5 +17,10 @@ public interface CustomerLoginService {
      */
     boolean verifyLogin(CustomerLoginEntity customerLoginEntity);
 
-    Integer insertCustomer(@Param("customerLoginEntity")CustomerLoginEntity customerLoginEntity);
+    /**
+     * 新用户注册
+     * @param customerLoginEntity 使用实体类保存用户输入的注册信息
+     * @return 返回用户的注册结果
+     */
+    boolean registerCustomer(CustomerLoginEntity customerLoginEntity);
 }

@@ -18,9 +18,10 @@ public interface CustomerLoginDao {
     boolean verifyLogin(@Param("customerLoginEntity")CustomerLoginEntity customerLoginEntity);
 
     /**
-     * 新用户用户注册
+     * 新用户注册
      * @param customerLoginEntity 使用实体类保存用户输入的注册信息
-     * @return 返回用户注册结果，返回在数据库中的影响行数
+     * @return 返回对数据库的影响行数，在mapper文件中已将添加数据的自增id赋值给
+     *         参数CustomerLoginEntity对象的loginId属性中
      */
-    Integer insertCustomer(@Param("customerLoginEntity")CustomerLoginEntity customerLoginEntity);
+    Integer registerCustomer(@Param("customerLoginEntity")CustomerLoginEntity customerLoginEntity);
 }
