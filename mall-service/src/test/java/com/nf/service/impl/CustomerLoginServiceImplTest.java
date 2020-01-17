@@ -45,4 +45,12 @@ public class CustomerLoginServiceImplTest {
         System.out.println("customerLoginEntity" + customerLoginEntity);
         System.out.println("customerIndividualEntity" + customerIndividualEntity);
     }
+
+    @Test
+    public void updateAccountStats() {
+        System.out.println(customerLoginService.updateAccountStats(CustomerLoginEntity.newBuilder()
+                                                                                            .activateCode("42fa4af762b843dca0393605a1feba30")
+                                                                                            .accountStats(Byte.valueOf("1"))
+                                                                                        .build()));
+    }
 }

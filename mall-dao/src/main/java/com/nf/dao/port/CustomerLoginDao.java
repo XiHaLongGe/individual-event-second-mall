@@ -24,4 +24,11 @@ public interface CustomerLoginDao {
      *         参数CustomerLoginEntity对象的loginId属性中
      */
     Integer registerCustomer(@Param("customerLoginEntity")CustomerLoginEntity customerLoginEntity);
+
+    /**
+     * 修改用户的帐号状态
+     * @param customerLoginEntity 使用实体类保存用户输入的注册信息
+     * @return 返回对数据库的影响行数
+     */
+    Integer updateAccountStats(@Param("customerLoginEntity")CustomerLoginEntity customerLoginEntity);
 }

@@ -22,4 +22,11 @@ public interface CustomerLoginService {
      * @return 返回用户的注册结果
      */
     boolean registerCustomer(CustomerLoginEntity customerLoginEntity);
+
+    /**
+     * 修改用户的帐号状态
+     * @param customerLoginEntity 使用实体类保存用户输入的注册信息
+     * @return 返回修改的结果
+     */
+    boolean updateAccountStats(CustomerLoginEntity customerLoginEntity);
 }

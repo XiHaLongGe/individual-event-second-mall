@@ -10,6 +10,7 @@ USE malldb;
 
 -- /////////////////////////////////
 
+
 DROP TABLE IF EXISTS customer_login;
 
 CREATE TABLE customer_login (
@@ -19,22 +20,24 @@ CREATE TABLE customer_login (
 	login_account VARCHAR ( 11 ) COMMENT '登录账号',
 	login_password VARCHAR ( 32 ) COMMENT '登录密码',
 	activate_code VARCHAR(32) COMMENT '邮箱激活码',
-	account_stats BIT DEFAULT 0 COMMENT '账号状态(0:"未激活",1:"激活")'
+	account_stats BIT DEFAULT 0 COMMENT '账号状态(0:"未激活",1:"激活")',
+	webmaster BIT DEFAULT 0 COMMENT '管理员身份(0:"否",1:"是")'
 ) COMMENT '用户登录表';
 
 -- 密码默认六个1
-INSERT INTO customer_login(head_icon_url, login_name, login_account,  login_password, activate_code, account_stats) VALUES
-('', 'xiha1', '18546320231', '96e79218965eb72c92a549dd5a330112', '42fa4af762b843dca0393605a1feba30', 1),
-('', 'xiha2', '28546320232', '96e79218965eb72c92a549dd5a330112', '42fa4af762b843dca0393605a1feba30', 1),
-('', 'xiha3', '38546320233', '96e79218965eb72c92a549dd5a330112', '42fa4af762b843dca0393605a1feba30', 1),
-('', 'xiha4', '48546320234', '96e79218965eb72c92a549dd5a330112', '42fa4af762b843dca0393605a1feba30', 0),
-('', 'xiha5', '58546320235', '96e79218965eb72c92a549dd5a330112', '42fa4af762b843dca0393605a1feba30', 1),
-('', 'xiha6', '68546320236', '96e79218965eb72c92a549dd5a330112', '42fa4af762b843dca0393605a1feba30', 1),
-('', 'xiha7', '78546320237', '96e79218965eb72c92a549dd5a330112', '42fa4af762b843dca0393605a1feba30', 0),
-('', 'xiha8', '87546320238', '96e79218965eb72c92a549dd5a330112', '42fa4af762b843dca0393605a1feba30', 1),
-('', 'xiha9', '82854632039', '96e79218965eb72c92a549dd5a330112', '42fa4af762b843dca0393605a1feba30', 0),
-('', 'xiha10', '98546320230', '96e79218965eb72c92a549dd5a330112', '42fa4af762b843dca0393605a1feba30', 0),
-('', 'xiha11', '10854632021', '96e79218965eb72c92a549dd5a330112', '42fa4af762b843dca0393605a1feba30', 0);
+INSERT INTO customer_login(head_icon_url, login_name, login_account,  login_password, activate_code, account_stats, webmaster) VALUES
+('', 'xiha1', '18546320231', '96e79218965eb72c92a549dd5a330112', '42fa4af762b843dca0393605a1feba30', 1, 0),
+('', 'xiha2', '28546320232', '96e79218965eb72c92a549dd5a330112', '42fa4af762b843dca0393605a1feba30', 1, 0),
+('', 'xiha3', '38546320233', '96e79218965eb72c92a549dd5a330112', '42fa4af762b843dca0393605a1feba30', 1, 0),
+('', 'xiha4', '48546320234', '96e79218965eb72c92a549dd5a330112', '42fa4af762b843dca0393605a1feba30', 0, 0),
+('', 'xiha5', '58546320235', '96e79218965eb72c92a549dd5a330112', '42fa4af762b843dca0393605a1feba30', 1, 0),
+('', 'xiha6', '68546320236', '96e79218965eb72c92a549dd5a330112', '42fa4af762b843dca0393605a1feba30', 1, 0),
+('', 'xiha7', '78546320237', '96e79218965eb72c92a549dd5a330112', '42fa4af762b843dca0393605a1feba30', 0, 0),
+('', 'xiha8', '87546320238', '96e79218965eb72c92a549dd5a330112', '42fa4af762b843dca0393605a1feba30', 1, 0),
+('', 'xiha9', '82854632039', '96e79218965eb72c92a549dd5a330112', '42fa4af762b843dca0393605a1feba30', 0, 0),
+('', 'xiha10', '98546320230', '96e79218965eb72c92a549dd5a330112', '42fa4af762b843dca0393605a1feba30', 0, 0),
+('', 'xiha11', '10854632021', '96e79218965eb72c92a549dd5a330112', '42fa4af762b843dca0393605a1feba30', 0, 0),
+('', 'SmallRubbish', '11111111111', '96e79218965eb72c92a549dd5a330112', '42fa4af762b843dca0393605a1feba30', 1, 1);
 
 -- /////////////////////////////////
 select * from customer_login;

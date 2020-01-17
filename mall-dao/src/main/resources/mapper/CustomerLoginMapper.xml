@@ -45,4 +45,9 @@
             #{customerLoginEntity.accountStats}
         );
     </insert>
+    <!--修改用户帐号状态-->
+    <update id="updateAccountStats">
+        update customer_login set account_stats = #{customerLoginEntity.accountStats}
+        where activate_code = #{customerLoginEntity.activateCode}
+    </update>
 </mapper>

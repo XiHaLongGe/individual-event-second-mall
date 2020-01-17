@@ -67,4 +67,9 @@ public class CustomerLoginServiceImpl implements CustomerLoginService {
         }
         return false;
     }
+
+    @Override
+    public boolean updateAccountStats(CustomerLoginEntity customerLoginEntity) {
+        return customerLoginDao.updateAccountStats(customerLoginEntity) > 0;
+    }
 }
