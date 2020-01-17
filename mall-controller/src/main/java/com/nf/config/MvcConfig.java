@@ -1,5 +1,6 @@
 package com.nf.config;
 
+import com.nf.interceptor.CustomerLoginInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -35,7 +36,9 @@ public class MvcConfig implements WebMvcConfigurer {
      */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-//        registry.addInterceptor(new EncodingInterceptor()).addPathPatterns("/**");
+        //  "/mall/foreground/**" 表示前台的所有资源
+        //  "/mall/background/**" 表示后台的所有资源
+        registry.addInterceptor(new CustomerLoginInterceptor()).addPathPatterns("/mall/foreground/**", "/mall/background/**");
     }
 
     /**

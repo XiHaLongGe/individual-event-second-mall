@@ -2,7 +2,6 @@ package com.nf.controller;
 
 
 import com.nf.entity.CustomerLoginEntity;
-import com.nf.service.impl.CustomerLoginServiceImpl;
 import com.nf.service.port.CustomerLoginService;
 import com.nf.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +41,11 @@ public class CustomerLoginController {
         boolean result = customerLoginService.verifyLogin(customerLoginEntity);
         Integer code = result ? 200 : 500;
         String message = result ? "账号密码正确，验证通过" : "账号或密码输入错误，验证未通过";
-        return ResponseVo.newBuilder().code(code).message(message).data(result).build();
+        return ResponseVo.newBuilder()
+                                    .code(code)
+                                    .message(message)
+                                    .data(result)
+                                .build();
     }
 
     /**
@@ -56,7 +59,11 @@ public class CustomerLoginController {
         boolean result = customerLoginService.registerCustomer(customerLoginEntity);
         Integer code = result ? 200 : 500;
         String message = result ? "注册信息填写正确，注册成功" : "注册信息填写错误，注册失败";
-        return ResponseVo.newBuilder().code(code).message(message).data(result).build();
+        return ResponseVo.newBuilder()
+                                    .code(code)
+                                    .message(message)
+                                    .data(result)
+                                .build();
     }
 
     /**
@@ -67,7 +74,7 @@ public class CustomerLoginController {
      */
     @GetMapping("/activate")
     public String activate(String activateCode, Model model){
-        //创建一个CustomerLoginEntity实例，将激活码及帐号状态写入
+        //创建一个CustomerLoginEntity实例，将激活码及帐号状态写入    帐号状态: 0 表示未激活，1 表示激活
         CustomerLoginEntity customerLoginEntity = CustomerLoginEntity.newBuilder()
                                                                                 .activateCode(activateCode)
                                                                                 .accountStats(Byte.valueOf("1"))

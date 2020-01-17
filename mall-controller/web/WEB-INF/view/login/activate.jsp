@@ -19,7 +19,7 @@
     <script src="/static/js/jquery/jquery-3.3.1.min.js"></script>
 </head>
 <body>
-<span id="time"></span>
+<h1 id="time"></h1>
 <c:if test="${activate == true}">
     <p hidden id="activateResult">激活成功！</p>
 </c:if>
