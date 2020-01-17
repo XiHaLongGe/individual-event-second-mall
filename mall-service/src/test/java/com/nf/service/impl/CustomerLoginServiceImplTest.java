@@ -16,6 +16,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class CustomerLoginServiceImplTest {
     @Autowired
     private CustomerLoginService customerLoginService;
+
+    @Test
+    public void getByLoginAccount() {
+        System.out.println(customerLoginService.getByLoginAccount("11111111111"));
+    }
     @Test
     public void verifyLogin() {
         System.out.println(customerLoginService.verifyLogin(CustomerLoginEntity.newBuilder().loginAccount("18546320231").loginPassword("111111").build()));

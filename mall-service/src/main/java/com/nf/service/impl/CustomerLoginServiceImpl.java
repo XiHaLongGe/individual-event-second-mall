@@ -26,6 +26,12 @@ public class CustomerLoginServiceImpl implements CustomerLoginService {
     private CustomerLoginDao customerLoginDao;
     @Autowired
     private CustomerIndividualDao customerIndividualDao;
+
+    @Override
+    public CustomerLoginEntity getByLoginAccount(String loginAccount) {
+        return customerLoginDao.getByLoginAccount(loginAccount);
+    }
+
     @Override
     public boolean verifyLogin(CustomerLoginEntity customerLoginEntity) {
         /*对明文密码进行加密操作*/

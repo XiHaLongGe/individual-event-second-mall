@@ -19,6 +19,11 @@
         activate_code,
         account_stats
     </sql>
+    <select id="getByLoginAccount" resultType="com.nf.entity.CustomerLoginEntity">
+        select <include refid="selectParams"/>
+        from customer_login
+        where login_account = #{loginAccount}
+    </select>
     <!--验证用户登录时输入的账号密码是否正确-->
     <select id="verifyLogin" resultType="boolean">
         select count(*) from customer_login

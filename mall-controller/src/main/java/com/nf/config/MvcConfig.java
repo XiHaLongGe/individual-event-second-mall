@@ -38,7 +38,10 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         //  "/mall/foreground/**" 表示前台的所有资源
         //  "/mall/background/**" 表示后台的所有资源
-        registry.addInterceptor(new CustomerLoginInterceptor()).addPathPatterns("/mall/foreground/**", "/mall/background/**");
+        registry.addInterceptor(new CustomerLoginInterceptor()).addPathPatterns(
+                                                                                    "/mall/foreground/**",
+                                                                                    "/mall/background/**"
+                                                                            );
     }
 
     /**

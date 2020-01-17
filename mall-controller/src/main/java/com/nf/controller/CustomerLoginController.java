@@ -9,6 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 /**
  * @Author: LJP
  * @Classname CustomerLoginController
@@ -37,8 +40,9 @@ public class CustomerLoginController {
      */
     @PostMapping("/verify")
     @ResponseBody
-    public ResponseVo verify(@RequestBody CustomerLoginEntity customerLoginEntity){
+    public ResponseVo verify(@RequestBody CustomerLoginEntity customerLoginEntity, HttpServletRequest request){
         boolean result = customerLoginService.verifyLogin(customerLoginEntity);
+        if(result) {setSessionData(customerLoginEntity.getLoginAccount(), request);}
         Integer code = result ? 200 : 500;
         String message = result ? "账号密码正确，验证通过" : "账号或密码输入错误，验证未通过";
         return ResponseVo.newBuilder()
@@ -84,4 +88,19 @@ public class CustomerLoginController {
         return "login/activate";
     }
 
+    /**
+     * 将用户的登录数据写进会话中
+     * @param loginAccount 用户登录帐号
+     */
+    private void setSessionData(String loginAccount, HttpServletRequest request){
+        HttpSession session = request.getSession();
+        //根据用户登录帐号获取到用户的登录表信息
+        CustomerLoginEntity customerLoginEntity = customerLoginService.getByLoginAccount(loginAccount);
+        //将用户登录id写入会话中
+        session.setAttribute("loginId", customerLoginEntity.getLoginId());
+        //将用户昵称写入会话中
+        session.setAttribute("loginName", customerLoginEntity.getLoginName());
+        //将用户身份,是否为管理员
+        session.setAttribute("webmaster", customerLoginEntity.getWebmaster());
+    }
 }
