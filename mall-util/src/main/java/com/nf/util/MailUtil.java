@@ -77,12 +77,13 @@ public final class MailUtil implements Runnable {
                     "<html>" +
                             "<head></head>" +
                             "<body>" +
-                            "<h1>这是一封激活邮件,激活请点击以下链接</h1>" +
+                            "<h1>这是一封激活邮件,请点击下面激活按钮来激活你的帐号</h1>" +
                             "<h3>" +
-                            "<a href='http://localhost:8080/foreground/customer/login/activate?code=" + code + "'>" +
-                            "http://localhost:8080/foreground/customer/login/activate?code=" + code +
+                            "<a href='http://localhost:8080/mall/activate?activateCode=" + code + "'>" +
+                            "<button>激活</button>" +
                             "</a>" +
                             "</h3>" +
+                            "<p>如出现按钮点击无效的情况，请到浏览器输入<a>" + "http://localhost:8080/mall/activate?activateCode=" + code  + "</a>来激活你的帐号</p>" +
                             "</body>" +
                             "</html>";
             message.setContent(content, "text/html;charset=UTF-8");

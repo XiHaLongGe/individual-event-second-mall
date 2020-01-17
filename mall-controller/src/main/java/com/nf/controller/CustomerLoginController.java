@@ -7,6 +7,7 @@ import com.nf.service.port.CustomerLoginService;
 import com.nf.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -23,7 +24,7 @@ public class CustomerLoginController {
 
     /**
      * 打开登录视图
-     * @return
+     * @return 登录视图名
      */
     @GetMapping("/login")
     public String login(){
@@ -56,6 +57,24 @@ public class CustomerLoginController {
         Integer code = result ? 200 : 500;
         String message = result ? "注册信息填写正确，注册成功" : "注册信息填写错误，注册失败";
         return ResponseVo.newBuilder().code(code).message(message).data(result).build();
+    }
+
+    /**
+     * 处理用户激活帐号的操作
+     * @param activateCode 激活码
+     * @param model 用来将激活结果写入请求作用域
+     * @return 激活结果的视图名
+     */
+    @GetMapping("/activate")
+    public String activate(String activateCode, Model model){
+        //创建一个CustomerLoginEntity实例，将激活码及帐号状态写入
+        CustomerLoginEntity customerLoginEntity = CustomerLoginEntity.newBuilder()
+                                                                                .activateCode(activateCode)
+                                                                                .accountStats(Byte.valueOf("1"))
+                                                                            .build();
+        //下面这部操作将激活结果写入请求作用域，给予前台告知用户激活结果
+        model.addAttribute("activate", customerLoginService.updateAccountStats(customerLoginEntity));
+        return "login/activate";
     }
 
 }
