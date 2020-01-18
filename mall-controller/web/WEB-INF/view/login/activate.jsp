@@ -36,7 +36,7 @@
             timer: 5000
         });
         //5秒后返回首页
-        setTimeout(function (){window.location.href='/foreground/customer/login/index';},5000);
+        setTimeout(function (){window.location.href='/mall/login';},5000);
         after();
         function after(){
             $("#time").empty().append(i);

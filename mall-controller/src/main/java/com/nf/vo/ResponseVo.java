@@ -26,11 +26,16 @@ public class ResponseVo {
      * data： 响应数据
      */
     private Object data;
+    /**
+     * sessionData： 会话数据
+     */
+    private Object sessionData;
 
     private ResponseVo(Builder builder) {
         code = builder.code;
         message = builder.message;
         data = builder.data;
+        sessionData = builder.sessionData;
     }
 
     public static Builder newBuilder() {
@@ -42,6 +47,7 @@ public class ResponseVo {
         builder.code = copy.getCode();
         builder.message = copy.getMessage();
         builder.data = copy.getData();
+        builder.sessionData = copy.getSessionData();
         return builder;
     }
 
@@ -50,6 +56,7 @@ public class ResponseVo {
         private Integer code;
         private String message;
         private Object data;
+        private Object sessionData;
 
         private Builder() {
         }
@@ -66,6 +73,11 @@ public class ResponseVo {
 
         public Builder data(Object val) {
             data = val;
+            return this;
+        }
+
+        public Builder sessionData(Object val) {
+            sessionData = val;
             return this;
         }
 

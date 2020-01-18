@@ -50,8 +50,6 @@ public class CustomerLoginServiceImpl implements CustomerLoginService {
         String loginAccount = RandomCodeUtil.randomGenerate();
         //生成帐号激活码
         String activateCode = CodeUtil.generateUniqueCode();
-        //帐号状态  0:未激活   1: 激活
-        Byte accountStats = Byte.valueOf("0");
         //获取到CustomerIndividualEntity个人信息表的实体类对象实例
         CustomerIndividualEntity customerIndividualEntity = CustomerIndividualEntity.newBuilder().build();
         //下面将系统生成的账号、帐号激活码...添加至实体类中
@@ -59,7 +57,6 @@ public class CustomerLoginServiceImpl implements CustomerLoginService {
                                                                     .loginPassword(loginPassword)
                                                                     .loginAccount(loginAccount)
                                                                     .activateCode(activateCode)
-                                                                    .accountStats(accountStats)
                                                                 .build();
         if(customerLoginDao.registerCustomer(enhanceEntity) > 0){
             //通过BeanUtils工具类将属性相同的值进行复制，

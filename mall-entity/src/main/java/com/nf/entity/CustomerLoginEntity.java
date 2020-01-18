@@ -24,6 +24,7 @@ public class CustomerLoginEntity {
         loginPassword = builder.loginPassword;
         activateCode = builder.activateCode;
         accountStats = builder.accountStats;
+        webmaster = builder.webmaster;
         customerIndividualPhone = builder.customerIndividualPhone;
         customerIndividualEmail = builder.customerIndividualEmail;
     }
@@ -38,6 +39,7 @@ public class CustomerLoginEntity {
                 ", loginPassword='" + loginPassword + '\'' +
                 ", activateCode='" + activateCode + '\'' +
                 ", accountStats=" + accountStats +
+                ", webmaster=" + webmaster +
                 ", customerIndividualPhone='" + customerIndividualPhone + '\'' +
                 ", customerIndividualEmail='" + customerIndividualEmail + '\'' +
                 '}';
@@ -80,6 +82,13 @@ public class CustomerLoginEntity {
      */
     private Byte accountStats;
 
+    /**
+     * accountStats: 管理员身份
+     *              0:"否"
+     *              1:"是"
+     */
+    private Byte webmaster;
+
 
     /*===================================   扩展字段   begin   ==================================*/
 
@@ -95,6 +104,7 @@ public class CustomerLoginEntity {
 
     /*===================================   扩展字段   end   ==================================*/
 
+
     public static Builder newBuilder() {
         return new Builder();
     }
@@ -108,6 +118,7 @@ public class CustomerLoginEntity {
         builder.loginPassword = copy.getLoginPassword();
         builder.activateCode = copy.getActivateCode();
         builder.accountStats = copy.getAccountStats();
+        builder.webmaster = copy.getWebmaster();
         builder.customerIndividualPhone = copy.getCustomerIndividualPhone();
         builder.customerIndividualEmail = copy.getCustomerIndividualEmail();
         return builder;
@@ -120,6 +131,7 @@ public class CustomerLoginEntity {
         private String loginPassword;
         private String activateCode;
         private Byte accountStats;
+        private Byte webmaster;
         private String customerIndividualPhone;
         private String customerIndividualEmail;
 
@@ -158,6 +170,11 @@ public class CustomerLoginEntity {
 
         public Builder accountStats(Byte val) {
             accountStats = val;
+            return this;
+        }
+
+        public Builder webmaster(Byte val) {
+            webmaster = val;
             return this;
         }
 

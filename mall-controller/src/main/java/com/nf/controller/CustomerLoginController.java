@@ -34,6 +34,15 @@ public class CustomerLoginController {
     }
 
     /**
+     * 进入管理员选择界面，进入前台或者是后台
+     * @return 选择界面视图
+     */
+    @GetMapping("/master/option")
+    public String masterOption(){
+        return "login/masterOption";
+    }
+
+    /**
      * 对用户登录填入的帐号密码进行验证
      * @param customerLoginEntity 用来接收用户填入的账号密码
      * @return 以json数据格式响应ResponseVo对象给前台
@@ -41,6 +50,7 @@ public class CustomerLoginController {
     @PostMapping("/verify")
     @ResponseBody
     public ResponseVo verify(@RequestBody CustomerLoginEntity customerLoginEntity, HttpServletRequest request){
+        request.getSession(false);
         boolean result = customerLoginService.verifyLogin(customerLoginEntity);
         if(result) {setSessionData(customerLoginEntity.getLoginAccount(), request);}
         Integer code = result ? 200 : 500;
@@ -49,6 +59,8 @@ public class CustomerLoginController {
                                     .code(code)
                                     .message(message)
                                     .data(result)
+                                    //获取到当前用户写入会话的身份信息
+                                    .sessionData(request.getSession().getAttribute("webmaster"))
                                 .build();
     }
 

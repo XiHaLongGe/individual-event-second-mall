@@ -10,14 +10,14 @@
         login_account,
         login_password,
         activate_code,
-        account_stats
+        account_stats,
+        webmaster
     </sql>
-    <sql id="insertParams">
+    <sql id="registerParams">
         login_name,
         login_account,
         login_password,
-        activate_code,
-        account_stats
+        activate_code
     </sql>
     <select id="getByLoginAccount" resultType="com.nf.entity.CustomerLoginEntity">
         select <include refid="selectParams"/>
@@ -41,13 +41,12 @@
     -->
     <!--新用户用户注册-->
     <insert id="registerCustomer" useGeneratedKeys="true" keyProperty="customerLoginEntity.loginId">
-        insert into customer_login(<include refid="insertParams"/>) values
+        insert into customer_login(<include refid="registerParams"/>) values
         (
             #{customerLoginEntity.loginName},
             #{customerLoginEntity.loginAccount},
             #{customerLoginEntity.loginPassword},
-            #{customerLoginEntity.activateCode},
-            #{customerLoginEntity.accountStats}
+            #{customerLoginEntity.activateCode}
         );
     </insert>
     <!--修改用户帐号状态-->

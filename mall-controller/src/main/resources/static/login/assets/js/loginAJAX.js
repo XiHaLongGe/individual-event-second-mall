@@ -2,7 +2,7 @@ $(document).ready(function(){
     //登录按钮点击事件
     $("#loginBtn").click(function(){
         if(formTextIsEmpty("#loginForm input")){
-            ajaxIntoBackstage("/mall/verify","#loginForm");
+            ajaxIntoBackstage("/mall/verify","#loginForm", "登录");
         }else{
             alert("账号密码不可为空！");
         }
@@ -10,7 +10,7 @@ $(document).ready(function(){
     //注册按钮点击事件
     $("#registerBtn").click(function(){
         if(registerVerify("#registerForm input")){
-            ajaxIntoBackstage("/mall/register","#registerForm");
+            ajaxIntoBackstage("/mall/register","#registerForm", "注册");
         }else{
             alert("你输入的信息有误！");
         }
@@ -65,7 +65,8 @@ $(document).ready(function(){
         return verifyResult;
     }
     //将表单数据以json数据格式传输到后台
-    function ajaxIntoBackstage(url,formId){
+    //登录与注册共用的的Ajax
+    function ajaxIntoBackstage(url, formId, ajaxType){
         $.ajax({
             url:url,
             type:"POST",
@@ -73,14 +74,27 @@ $(document).ready(function(){
             dataType:"json",
             contentType: "application/json",
             success:function (data) {
+                //获取到用户身份信息  是否为管理员
                 if(data.code == 200){
-                    window.location.href = "/foreground/home/";
+                    if(ajaxType == "登录"){
+                        //data.sessionData == 1 , 为1的时候表示该用户是管理员
+                        if(data.sessionData == 1){
+                            //管理员登录，打开前后台选择界面
+                            window.location.href = "/mall/master/option";
+                        }else{
+                            //为普通用户的时候直接进入前台界面
+                            window.location.href = "/foreground/home/";
+                        }
+                    }else if(ajaxType == "注册"){
+                        window.location.href = "/foreground/home/";
+                    }
                 }else{
-                    alert("失败")
+                    console.log("发生错误")
                 }
             }
         })
     }
+
     //将表单数据转换成json数据
     function transformJSON(formId){
         var $jsonData = {};
