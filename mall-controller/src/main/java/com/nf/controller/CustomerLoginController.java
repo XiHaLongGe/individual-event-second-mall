@@ -33,6 +33,11 @@ public class CustomerLoginController {
         return "login/index";
     }
 
+    @GetMapping("/success/register")
+    public String successRegister(){
+        return "login/successRegister";
+    }
+
     /**
      * 进入管理员选择界面，进入前台或者是后台
      * @return 选择界面视图
@@ -58,9 +63,8 @@ public class CustomerLoginController {
         return ResponseVo.newBuilder()
                                     .code(code)
                                     .message(message)
-                                    .data(result)
                                     //获取到当前用户写入会话的身份信息
-                                    .sessionData(request.getSession().getAttribute("webmaster"))
+                                    .data(request.getSession().getAttribute("webmaster"))
                                 .build();
     }
 
@@ -78,7 +82,8 @@ public class CustomerLoginController {
         return ResponseVo.newBuilder()
                                     .code(code)
                                     .message(message)
-                                    .data(result)
+                                    //这里将系统为用户生成的帐号响应回去
+                                    .data(customerLoginEntity.getLoginAccount())
                                 .build();
     }
 

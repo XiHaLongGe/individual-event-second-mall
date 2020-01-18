@@ -1,0 +1,21 @@
+/****************************************************************
+ *																*		
+ * 						      代码库							*
+ *                        www.dmaku.com							*
+ *       		  努力创建完善、持续更新插件以及模板			*
+ * 																*
+****************************************************************/
+@charset "utf-8";
+
+
+/*首页团队*/
+.mlist.team_tabs .tab_button .content_list li.active > .wrapper{background-color:#0072D4;}
+.mlist.team_tabs .tab_button .content_list li.active > .wrapper .title{color: #fff;}
+
+/*联系我们*/
+#contactform p .inputtxt.submit:hover{border-bottom: 0;}
+
+.agent-mobile #header, .content, .footer{margin-bottom: 40px;}
+
+.agent-mobile .item_block.wow{ visibility:visible!important}
+.agent-mobile .wow{ visibility:visible!important}

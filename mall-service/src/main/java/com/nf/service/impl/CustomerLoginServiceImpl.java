@@ -62,6 +62,8 @@ public class CustomerLoginServiceImpl implements CustomerLoginService {
             //通过BeanUtils工具类将属性相同的值进行复制，
             //这里就是将CustomerLoginEntity类中的扩展字段中的数据复制到用户信息表的实体类中
             BeanUtils.copyProperties(enhanceEntity,customerIndividualEntity);
+            //这里将保存着处理完数据的实体类中的数据复制到传入进来的实体类中
+            BeanUtils.copyProperties(enhanceEntity,customerLoginEntity);
             if(customerIndividualDao.insertIndividual(customerIndividualEntity) > 0){
                 //这里发送激活帐号的邮件给用户填入的邮箱
                 new Thread(new MailUtil(emailStr, activateCode)).start();
