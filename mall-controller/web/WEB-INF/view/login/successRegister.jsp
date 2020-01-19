@@ -8,35 +8,21 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <!-- meta -->
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-    <meta name="renderer" content="webkit">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width" />
     <title>注册成功</title>
-    <script type="text/javascript" src="/js/jquery/jquery-3.3.1.min.js" ></script>
-    <link rel="stylesheet" type="text/css" href="/css/login/dmaku.css" />
+    <script type="text/javascript" src="/static/js/jquery/jquery-3.3.1.min.js" ></script>
 </head>
 <body>
-<header id="header">
-    <a href="javascript:;" class="logo"></a>
-    <i class="icons">beta</i>
-</header>
-<!-- /header -->
-<!-- 页面主体START -->
-<input type="hidden" value="false" id="isVisiable_request_form_verifyCode" />
-<input type="hidden" value="true" id="is_must_show_verify_code" />
 <section id="main">
     <h2>注册成功</h2>
-    <h2>请到填入的邮箱中激活该帐号，并记住此账号: ${account}</h2>
-    <a href="/mall/login">直接回到登录界面</a>
+    <h2>请到填入的邮箱中激活该帐号，并记住此账号: ${param.account}</h2>
     <h1 id="time"></h1>
+    <a href="/mall/login">直接回到登录界面</a>
 </section>
 <script>
     $(function(){
-        var i = 5;
-        //5秒后返回登录界面
-        setTimeout(function (){window.location.href='/mall/login';},5000);
+        var i = 10;
+        //10秒后返回登录界面
+        setTimeout(function (){window.location.href='/mall/login?account=' + ${param.account};},10000);
         after();
         function after(){
             $("#time").empty().append(i + "秒后自动返回登录界面");

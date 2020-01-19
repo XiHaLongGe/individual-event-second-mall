@@ -37,7 +37,7 @@
                 <div class="row clearfix">
                     <div class="col-md-3 column"></div>
                     <div class="col-md-2 column">
-                        <a class="btn btn-primary btn-lg" href="/backstage/home/index">管理页面</a>
+                        <a class="btn btn-primary btn-lg" href="/mall/background/home">后台页面</a>
                     </div>
                     <div class="col-md-1 column"></div>
                     <div class="col-md-1 column"></div>

@@ -45,7 +45,7 @@
             <div class="col-sm-4 col-sm-offset-4">
                 <form id="loginForm" role="form" action="" method="post" class="l-form">
                     <div class="form-group">
-                        <input type="text" name="loginAccount" placeholder="账号" class="l-form-username form-control" id="accountID"  onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;">
+                        <input type="text" name="loginAccount" placeholder="账号" class="l-form-username form-control" id="accountID"  onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;" value="${param.account}">
                     </div>
                     <div class="form-group">
                         <input type="password" name="loginPassword" placeholder="密码" class="l-form-password form-control" id="passwordID">
