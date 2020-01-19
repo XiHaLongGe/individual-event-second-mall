@@ -45,7 +45,7 @@
             <%--这里获取到登录用户的昵称显示于系统左上侧--%>
             <a href="javascript:;">${sessionScope.loginName}</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
-                <dd><a onclick="x_admin_show('个人信息','http://www.baidu.com')">个人信息</a></dd>
+                <dd><a onclick="x_admin_show('个人信息','/mall/background/personal/data')">个人信息</a></dd>
                 <dd><a id="logoutA" href="javascript:;">注销帐号</a></dd>
             </dl>
         </li>

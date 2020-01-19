@@ -55,6 +55,7 @@ public class MvcConfig implements WebMvcConfigurer {
                             "classpath:/static/login",
                             "classpath:/static/toolTip",
                             "classpath:/static/background/backend",
+                            "classpath:/static/background/personal-data",
                             "classpath:/static/"
                 );
     }
