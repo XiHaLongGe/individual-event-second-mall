@@ -106,6 +106,33 @@ public class CustomerLoginController {
     }
 
     /**
+     * 用来清除会话信息，并重定向到登录界面
+     * @param request 通过request请求对象来获取当前会话对象
+     * @return
+     */
+    @PostMapping("/clear/session")
+    @ResponseBody
+    public ResponseVo clearSession(HttpServletRequest request){
+        Integer code = 200;
+        String message = "会话信息成功清除！";
+        try{
+            //获取到当前会话
+            HttpSession session = request.getSession(false);
+            //清楚当前会话所有信息
+            session.invalidate();
+        }catch (Exception e){
+            code = 500;
+            message = "会话信息清除失败！";
+        }
+        return ResponseVo.newBuilder()
+                .code(code)
+                .message(message)
+                //这里返回登录视图的访问地址
+                .data("/mall/login")
+                .build();
+    }
+
+    /**
      * 将用户的登录数据写进会话中
      * @param loginAccount 用户登录帐号
      */

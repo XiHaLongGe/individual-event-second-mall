@@ -42,15 +42,31 @@
     </ul>
     <ul class="layui-nav right" lay-filter="">
         <li class="layui-nav-item">
-            <a href="javascript:;">admin</a>
+            <%--这里获取到登录用户的昵称显示于系统左上侧--%>
+            <a href="javascript:;">${sessionScope.loginName}</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
                 <dd><a onclick="x_admin_show('个人信息','http://www.baidu.com')">个人信息</a></dd>
-                <dd><a onclick="x_admin_show('切换帐号','http://www.baidu.com')">切换帐号</a></dd>
-                <dd><a href="/static/background/backend/home/html/login.html">退出</a></dd>
+                <dd><a id="logoutA" href="javascript:;">注销帐号</a></dd>
             </dl>
         </li>
         <li class="layui-nav-item to-index"><a href="/static/background/backend/home/html/#">前台首页</a></li>
     </ul>
+    <script>
+        $("#logoutA").click(function(){
+            $.ajax({
+                url:"/mall/clear/session",
+                type:"POST",
+                success:function(data){
+                    if(data.code == 200){
+                        window.location = data.data;
+                    }else{
+                        alert(data.message);
+                        console.log(data.message);
+                    }
+                }
+            })
+        })
+    </script>
 
 </div>
 <!-- 顶部结束 -->
