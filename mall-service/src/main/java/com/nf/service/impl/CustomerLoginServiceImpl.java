@@ -4,6 +4,7 @@ import com.nf.dao.port.CustomerIndividualDao;
 import com.nf.dao.port.CustomerLoginDao;
 import com.nf.entity.CustomerIndividualEntity;
 import com.nf.entity.CustomerLoginEntity;
+import com.nf.service.port.CustomerIndividualService;
 import com.nf.service.port.CustomerLoginService;
 import com.nf.util.CodeUtil;
 import com.nf.util.MailUtil;
@@ -25,7 +26,12 @@ public class CustomerLoginServiceImpl implements CustomerLoginService {
     @Autowired
     private CustomerLoginDao customerLoginDao;
     @Autowired
-    private CustomerIndividualDao customerIndividualDao;
+    private CustomerIndividualService customerIndividualService;
+
+    @Override
+    public CustomerLoginEntity getByLoginId(Integer loginId) {
+        return customerLoginDao.getByLoginId(loginId);
+    }
 
     @Override
     public CustomerLoginEntity getByLoginAccount(String loginAccount) {
@@ -36,7 +42,9 @@ public class CustomerLoginServiceImpl implements CustomerLoginService {
     public boolean verifyLogin(CustomerLoginEntity customerLoginEntity) {
         /*对明文密码进行加密操作*/
         String pwd = Md5Util.encodeByMd5(customerLoginEntity.getLoginPassword());
-        return customerLoginDao.verifyLogin(CustomerLoginEntity.newBuilder(customerLoginEntity).loginPassword(pwd).build());
+        //将加密后的密码覆盖明文密码
+        customerLoginEntity.setLoginPassword(pwd);
+        return customerLoginDao.verifyLogin(customerLoginEntity);
     }
 
     @Override
@@ -64,13 +72,19 @@ public class CustomerLoginServiceImpl implements CustomerLoginService {
             BeanUtils.copyProperties(enhanceEntity,customerIndividualEntity);
             //这里将保存着处理完数据的实体类中的数据复制到传入进来的实体类中
             BeanUtils.copyProperties(enhanceEntity,customerLoginEntity);
-            if(customerIndividualDao.insertIndividual(customerIndividualEntity) > 0){
+            //将个人信息添加到用户信息表
+            if(customerIndividualService.insertIndividual(customerIndividualEntity)){
                 //这里发送激活帐号的邮件给用户填入的邮箱
                 new Thread(new MailUtil(emailStr, activateCode)).start();
                 return true;
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean updateHeadIconUrl(CustomerLoginEntity customerLoginEntity) {
+        return customerLoginDao.updateHeadIconUrl(customerLoginEntity) > 0;
     }
 
     @Override

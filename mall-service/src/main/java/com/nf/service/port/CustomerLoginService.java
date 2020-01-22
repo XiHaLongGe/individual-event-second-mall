@@ -11,6 +11,12 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface CustomerLoginService {
     /**
+     * 根据用户登录ID来获取用户登录表的相关信息
+     * @param loginId 用户登录ID
+     * @return 用户登录表的相关信息
+     */
+    CustomerLoginEntity getByLoginId(Integer loginId);
+    /**
      * 根据用户帐号来获取用户登录表的相关信息
      * @param loginAccount 用户登录帐号
      * @return 用户登录表的相关信息
@@ -29,6 +35,13 @@ public interface CustomerLoginService {
      * @return 返回用户的注册结果
      */
     boolean registerCustomer(CustomerLoginEntity customerLoginEntity);
+
+    /**
+     * 更新用户的头像信息
+     * @param customerLoginEntity 使用实体类保存用户输入的更新信息
+     * @return 返回对数据库的影响行数
+     */
+    boolean updateHeadIconUrl(CustomerLoginEntity customerLoginEntity);
 
     /**
      * 修改用户的帐号状态

@@ -19,7 +19,6 @@
     <link rel="stylesheet" href="/static/background/backend/home/css/font.css">
     <link rel="stylesheet" href="/static/background/backend/home/css/xadmin.css">
     <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
-<%--    <script src="/static/background/backend/home/js/jquery.min.js"></script>--%>
     <script src="/static/background/backend/home/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="/static/background/backend/home/js/xadmin.js?v=<%= System.currentTimeMillis()%>"></script>
 </head>

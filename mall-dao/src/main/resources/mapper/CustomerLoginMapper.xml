@@ -19,6 +19,13 @@
         login_password,
         activate_code
     </sql>
+    <!--根据用户登录ID来获取用户登录表的相关信息-->
+    <select id="getByLoginId" resultType="com.nf.entity.CustomerLoginEntity">
+        select <include refid="selectParams"/>
+        from customer_login
+        where login_id = #{loginId}
+    </select>
+    <!--根据用户帐号来获取用户登录表的相关信息-->
     <select id="getByLoginAccount" resultType="com.nf.entity.CustomerLoginEntity">
         select <include refid="selectParams"/>
         from customer_login
@@ -51,7 +58,14 @@
     </insert>
     <!--修改用户帐号状态-->
     <update id="updateAccountStats">
-        update customer_login set account_stats = #{customerLoginEntity.accountStats}
+        update customer_login
+        set account_stats = #{customerLoginEntity.accountStats}
         where activate_code = #{customerLoginEntity.activateCode}
+    </update>
+    <!--修改用户头像路径-->
+    <update id="updateHeadIconUrl">
+        update customer_login
+        set head_icon_url = #{customerLoginEntity.headIconUrl}
+        where login_id = #{customerLoginEntity.loginId}
     </update>
 </mapper>

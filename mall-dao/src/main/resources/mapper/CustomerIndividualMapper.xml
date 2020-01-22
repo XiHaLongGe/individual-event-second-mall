@@ -3,11 +3,26 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nf.dao.port.CustomerIndividualDao">
+    <sql id="selectParams">
+        customer_individual_id,
+        login_id,
+        customer_individual_name,
+        customer_individual_gender,
+        customer_individual_card,
+        customer_individual_phone,
+        customer_individual_email
+    </sql>
     <sql id="insertParams">
         login_id,
         customer_individual_phone,
         customer_individual_email
     </sql>
+    <!--根据用户登录ID来获取用户信息表的数据-->
+    <select id="getByLoginId" resultType="com.nf.entity.CustomerIndividualEntity">
+        select <include refid="selectParams"/>
+        from customer_individual
+        where login_id = #{loginId}
+    </select>
     <!--将用户注册时填写的个人信息添加到用户信息表当中-->
     <insert id="insertIndividual">
         insert into customer_individual(<include refid="insertParams"/>) values
@@ -17,4 +32,14 @@
             #{customerIndividualEntity.customerIndividualEmail}
         );
     </insert>
+    <!--更新用户信息-->
+    <update id="updateCustomer">
+        update customer_individual
+            set customer_individual_name = #{customerIndividualEntity.customerIndividualName},
+                customer_individual_gender = #{customerIndividualEntity.customerIndividualGender},
+                customer_individual_card = #{customerIndividualEntity.customerIndividualCard},
+                customer_individual_phone = #{customerIndividualEntity.customerIndividualPhone},
+                customer_individual_email = #{customerIndividualEntity.customerIndividualEmail}
+        where login_id = #{customerIndividualEntity.loginId}
+    </update>
 </mapper>

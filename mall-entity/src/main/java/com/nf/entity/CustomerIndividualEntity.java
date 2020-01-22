@@ -84,6 +84,25 @@ public class CustomerIndividualEntity {
      */
     private String customerIndividualEmail;
 
+
+    /*===================================   扩展字段   begin   ==================================*/
+
+    //以下扩展字段是用来接收前台传输过来的用户登录信息
+    /**
+     * headIconUrl: 头像路径
+     */
+    private String headIconUrl;
+    /**
+     * loginName: 昵称
+     */
+    private String loginName;
+    /**
+     * loginPassword: 登录密码
+     */
+    private String loginPassword;
+
+    /*===================================   扩展字段   end   ==================================*/
+
     public static final class Builder {
         private Integer customerIndividualId;
         private Integer loginId;

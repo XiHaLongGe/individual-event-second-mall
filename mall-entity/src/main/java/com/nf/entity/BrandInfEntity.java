@@ -14,7 +14,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BrandInfEntity {
-
     @Override
     public String toString() {
         return "BrandInfEntity{" +

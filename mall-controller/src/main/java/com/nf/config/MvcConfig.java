@@ -1,12 +1,14 @@
 package com.nf.config;
 
 import com.nf.interceptor.CustomerLoginInterceptor;
+import com.nf.interceptor.EncodingInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.format.datetime.DateFormatter;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.config.annotation.*;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
@@ -42,6 +44,7 @@ public class MvcConfig implements WebMvcConfigurer {
                                                                                     "/mall/foreground/**",
                                                                                     "/mall/background/**"
                                                                             );
+        registry.addInterceptor(new EncodingInterceptor()).addPathPatterns("/**");
     }
 
     /**
