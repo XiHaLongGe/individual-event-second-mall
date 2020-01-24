@@ -39,6 +39,20 @@
         and
             login_password = #{customerLoginEntity.loginPassword}
     </select>
+    <!--验证用户更改密码时原密码是否输入正确-->
+    <select id="equalsPassword" resultType="boolean">
+        select count(*) from customer_login
+        where
+            login_password = #{frontPassword}
+        and
+            login_id = #{loginId}
+    </select>
+    <!--更新用户密码-->
+    <update id="updatePassword">
+        update customer_login
+        set login_password = #{password}
+        where login_id = #{loginId}
+    </update>
     <!--
         useGenerateKeys这个属性，意思就是使用自增。我们需要将这个字段设置为 true 。
         使用 keyProperty=""来指定bean中的哪一个属性是这个自增字段。
@@ -62,10 +76,11 @@
         set account_stats = #{customerLoginEntity.accountStats}
         where activate_code = #{customerLoginEntity.activateCode}
     </update>
-    <!--修改用户头像路径-->
-    <update id="updateHeadIconUrl">
+    <!--修改用户头像路径和昵称-->
+    <update id="updatePersonal">
         update customer_login
-        set head_icon_url = #{customerLoginEntity.headIconUrl}
+        set head_icon_url = #{customerLoginEntity.headIconUrl},
+            login_name = #{customerLoginEntity.loginName}
         where login_id = #{customerLoginEntity.loginId}
     </update>
 </mapper>

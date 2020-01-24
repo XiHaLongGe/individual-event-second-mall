@@ -43,9 +43,9 @@
 
                         <div class="info-m">
                             <div>
-                                <b>昵称：<i>${customerLoginEntity.loginName}</i></b>
-                                <i>&nbsp;</i>
-                                <a style="color: #E60012;" href="javascript:;">修改</a>
+                                    昵称：
+                                    <input id='loginName' type='text' value='${customerLoginEntity.loginName}'/>
+                                </b>
                             </div>
                             <div>
                                 <b>帐号：<i>${customerLoginEntity.loginAccount}</i></b>
@@ -53,16 +53,16 @@
                             <div>
                                 <b>密码：<i>************</i></b>
                                 <i>&nbsp;</i>
-                                <a style="color: #E60012;" href="javascript:;">修改</a>
+                                <a onclick="x_admin_show('修改密码','/mall/background/personal/edit/password')" style="color: #E60012;" href="javascript:;">修改</a>
                             </div>
                             <div>
                                 <b>
                                     用户身份：
                                     <c:choose>
-                                        <c:when test="${customerLoginEntity.webmaster == 0}">
+                                        <c:when test="${webmaster == 0}">
                                             <i>普通用户</i>
                                         </c:when>
-                                        <c:when test="${customerLoginEntity.webmaster == 1}">
+                                        <c:when test="${webmaster == 1}">
                                             <i>管理员</i>
                                         </c:when>
                                     </c:choose>
@@ -142,6 +142,7 @@
         //保存点击按钮
         $("#saveDIV").click(function(){
             var formData = new FormData();
+            formData.append("loginName",$("#loginName").val());
             formData.append("customerIndividualName",$("#customerIndividualName").val());
             formData.append("customerIndividualGender",$("input[name = 'customerIndividualGender']:checked").val());
             formData.append("customerIndividualCard",$("#customerIndividualCard").val());
@@ -162,6 +163,7 @@
                 }
             })
         })
+        //下面是头像修改操作 立即将更换头像显示到界面上
         $("#multipartFile").change(function() {
             $("#headIconIMG").attr("src", getObjectURL(this.files[0]));
         });

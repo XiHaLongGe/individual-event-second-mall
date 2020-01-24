@@ -96,10 +96,6 @@ public class CustomerIndividualEntity {
      * loginName: 昵称
      */
     private String loginName;
-    /**
-     * loginPassword: 登录密码
-     */
-    private String loginPassword;
 
     /*===================================   扩展字段   end   ==================================*/
 

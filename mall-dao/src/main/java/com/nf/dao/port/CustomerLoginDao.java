@@ -32,6 +32,22 @@ public interface CustomerLoginDao {
     boolean verifyLogin(@Param("customerLoginEntity")CustomerLoginEntity customerLoginEntity);
 
     /**
+     * 验证用户更改密码时原密码是否输入正确
+     * @param loginId 用户登录ID
+     * @param frontPassword 用户输入密码
+     * @return 验证结果
+     */
+    boolean equalsPassword(@Param("loginId")Integer loginId, @Param("frontPassword")String frontPassword);
+
+    /**
+     * 更新用户密码
+     * @param loginId 用户登录ID
+     * @param password 用户新密码
+     * @return 返回对数据库的影响行数
+     */
+    Integer updatePassword(@Param("loginId")Integer loginId, @Param("password")String password);
+
+    /**
      * 新用户注册
      * @param customerLoginEntity 使用实体类保存用户输入的注册信息
      * @return 返回对数据库的影响行数，在mapper文件中已将添加数据的自增id赋值给
@@ -40,11 +56,11 @@ public interface CustomerLoginDao {
     Integer registerCustomer(@Param("customerLoginEntity")CustomerLoginEntity customerLoginEntity);
 
     /**
-     * 更新用户的头像信息
-     * @param customerLoginEntity 使用实体类保存用户输入的更新信息
+     * 更新用户的登录信息
+     * @param customerLoginEntity 使用实体类保存用户输入的更新信息  如：头像路径、用户昵称
      * @return 返回对数据库的影响行数
      */
-    Integer updateHeadIconUrl(@Param("customerLoginEntity")CustomerLoginEntity customerLoginEntity);
+    Integer updatePersonal(@Param("customerLoginEntity")CustomerLoginEntity customerLoginEntity);
 
     /**
      * 修改用户的帐号状态

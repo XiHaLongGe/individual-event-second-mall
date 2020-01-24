@@ -48,6 +48,20 @@ public class CustomerLoginServiceImpl implements CustomerLoginService {
     }
 
     @Override
+    public boolean equalsPassword(Integer loginId, String frontPassword) {
+        /*对明文密码进行加密操作*/
+        frontPassword = Md5Util.encodeByMd5(frontPassword);
+        return customerLoginDao.equalsPassword(loginId, frontPassword);
+    }
+
+    @Override
+    public boolean updatePassword(Integer loginId, String password) {
+        /*对明文密码进行加密操作*/
+        password = Md5Util.encodeByMd5(password);
+        return customerLoginDao.updatePassword(loginId, password) > 0;
+    }
+
+    @Override
     @Transactional(rollbackFor = Throwable.class)
     public boolean registerCustomer(CustomerLoginEntity customerLoginEntity) {
         //获取到用户填入邮箱
@@ -83,8 +97,8 @@ public class CustomerLoginServiceImpl implements CustomerLoginService {
     }
 
     @Override
-    public boolean updateHeadIconUrl(CustomerLoginEntity customerLoginEntity) {
-        return customerLoginDao.updateHeadIconUrl(customerLoginEntity) > 0;
+    public boolean updatePersonal(CustomerLoginEntity customerLoginEntity) {
+        return customerLoginDao.updatePersonal(customerLoginEntity) > 0;
     }
 
     @Override

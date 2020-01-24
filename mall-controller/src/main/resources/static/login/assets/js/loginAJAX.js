@@ -75,8 +75,8 @@ $(document).ready(function(){
             contentType: "application/json",
             success:function (data) {
                 //获取到用户身份信息  是否为管理员
-                if(data.code == 200){
-                    if(ajaxType == "登录"){
+                if(ajaxType == "登录"){
+                    if(data.code == 200){
                         //data.data == 1 , 为1的时候表示该用户是管理员
                         if(data.data == 1){
                             //管理员登录，打开前后台选择界面
@@ -85,12 +85,12 @@ $(document).ready(function(){
                             //为普通用户的时候直接进入前台界面
                             window.location.href = "/foreground/home/";
                         }
-                    }else if(ajaxType == "注册"){
-                        //data.data 是用户注册成功后系统生成的帐号
-                        window.location.href = "/mall/success/register?account=" + data.data;
+                    }else{
+                        alert("账号不存在或账号密码错误")
                     }
-                }else{
-                    console.log("发生错误")
+                }else if(ajaxType == "注册"){
+                    //data.data 是用户注册成功后系统生成的帐号
+                    window.location.href = "/mall/success/register?account=" + data.data;
                 }
             }
         })

@@ -58,11 +58,9 @@ public class CustomerLoginController {
         request.getSession(false);
         boolean result = customerLoginService.verifyLogin(customerLoginEntity);
         if(result) {setSessionData(customerLoginEntity.getLoginAccount(), request);}
-        Integer code = result ? 200 : 500;
-        String message = result ? "账号密码正确，验证通过" : "账号或密码输入错误，验证未通过";
         return ResponseVo.newBuilder()
-                                    .code(code)
-                                    .message(message)
+                                    .code(result ? 200 : 500)
+                                    .message(result ? "账号密码正确，验证通过" : "账号或密码输入错误，验证未通过")
                                     //获取到当前用户写入会话的身份信息
                                     .data(request.getSession().getAttribute("webmaster"))
                                 .build();
@@ -77,11 +75,9 @@ public class CustomerLoginController {
     @ResponseBody
     public ResponseVo register(@RequestBody CustomerLoginEntity customerLoginEntity){
         boolean result = customerLoginService.registerCustomer(customerLoginEntity);
-        Integer code = result ? 200 : 500;
-        String message = result ? "注册信息填写正确，注册成功" : "注册信息填写错误，注册失败";
         return ResponseVo.newBuilder()
-                                    .code(code)
-                                    .message(message)
+                                    .code(result ? 200 : 500)
+                                    .message(result ? "注册信息填写正确，注册成功" : "注册信息填写错误，注册失败")
                                     //这里将系统为用户生成的帐号响应回去
                                     .data(customerLoginEntity.getLoginAccount())
                                 .build();
@@ -113,20 +109,18 @@ public class CustomerLoginController {
     @PostMapping("/clear/session")
     @ResponseBody
     public ResponseVo clearSession(HttpServletRequest request){
-        Integer code = 200;
-        String message = "会话信息成功清除！";
+        boolean result = true;
         try{
             //获取到当前会话
             HttpSession session = request.getSession(false);
             //清楚当前会话所有信息
             session.invalidate();
         }catch (Exception e){
-            code = 500;
-            message = "会话信息清除失败！";
+            result = false;
         }
         return ResponseVo.newBuilder()
-                .code(code)
-                .message(message)
+                .code(result ? 200 : 500)
+                .message(result ? "会话信息成功清除！" : "会话信息清除失败！")
                 //这里返回登录视图的访问地址
                 .data("/mall/login")
                 .build();

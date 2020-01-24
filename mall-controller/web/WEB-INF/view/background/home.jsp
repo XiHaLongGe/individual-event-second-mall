@@ -42,9 +42,9 @@
     <ul class="layui-nav right" lay-filter="">
         <li class="layui-nav-item">
             <%--这里获取到登录用户的昵称显示于系统左上侧--%>
-            <a href="javascript:;">${sessionScope.loginName}</a>
+            <a href="javascript:;">${loginName}</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
-                <dd><a onclick="x_admin_show('个人信息','/mall/background/personal/data')">个人信息</a></dd>
+                <dd><a onclick="x_admin_show('个人资料','/mall/background/personal/data')">个人资料</a></dd>
                 <dd><a id="logoutA" href="javascript:;">注销帐号</a></dd>
             </dl>
         </li>

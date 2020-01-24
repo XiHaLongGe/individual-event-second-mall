@@ -60,6 +60,64 @@ public class PersonalDataController {
     }
 
     /**
+     * 修改密码视图
+     * @return
+     */
+    @GetMapping("/edit/password")
+    public String editPassword(){
+        return "background/editPassword";
+    }
+
+    /**
+     * 用来验证用户输入的原密码是否正确
+     * @param request 根据请求对象获取到当前会话中用户的登录id
+     * @param frontPassword 用来接收用户输入的原密码
+     * @return
+     */
+    @PostMapping("/equals/password")
+    @ResponseBody
+    public ResponseVo equalsPassword(HttpServletRequest request, String frontPassword){
+        boolean result;
+        Integer loginId = getSessionLoginId(request);
+        //拿到数据库中与当前用户密码对比，得到验证结果
+        result = customerLoginService.equalsPassword(loginId, frontPassword);
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "原密码通过验证" : "原密码验证失败")
+                .data(result)
+                .build();
+    }
+
+    /**
+     * 更新用户密码
+     * @param request 根据请求对象获取到当前会话中用户的登录id
+     * @param password 用来接收用户输入的新密码
+     * @return
+     */
+    @PostMapping("/update/password")
+    @ResponseBody
+    public ResponseVo updatePassword(HttpServletRequest request, String password){
+        boolean result;
+        Integer loginId = getSessionLoginId(request);
+        result = customerLoginService.updatePassword(loginId, password);
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "密码更新成功" : "密码更新失败")
+                .data(result)
+                .build();
+    }
+
+    /**
+     * 用于获取当前会话中用户的登录id
+     * @param request 根据请求对象获取到当前会话中用户的登录id
+     * @return
+     */
+    private Integer getSessionLoginId(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        return (Integer) session.getAttribute("loginId");
+    }
+
+    /**
      * 更新用户的个人资料
      * @param multipartFile 包含上传过来的对象的数据，这里也就是用户更改头像的数据
      * @param customerIndividualEntity 通过该实体类来接收前台传输过来的数据
@@ -135,6 +193,6 @@ public class PersonalDataController {
         CustomerLoginEntity customerLoginEntity = CustomerLoginEntity.newBuilder().build();
         //将customerIndividualEntity中属于用户登录实体类对象的数据copy到customerLoginEntity
         BeanUtils.copyProperties(customerIndividualEntity, customerLoginEntity);
-        return (customerLoginService.updateHeadIconUrl(customerLoginEntity) && customerIndividualService.updateCustomer(customerIndividualEntity)) ? true : false;
+        return (customerLoginService.updatePersonal(customerLoginEntity) && customerIndividualService.updateCustomer(customerIndividualEntity)) ? true : false;
     }
 }
