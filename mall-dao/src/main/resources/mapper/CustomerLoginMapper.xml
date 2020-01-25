@@ -19,6 +19,12 @@
         login_password,
         activate_code
     </sql>
+    <!--获取到所有用户登录信息列表,并以分页的格式呈现-->
+    <select id="getPageAll" resultType="com.nf.entity.CustomerLoginEntity">
+        select <include refid="selectParams"/>
+        from customer_login
+        order by login_id
+    </select>
     <!--根据用户登录ID来获取用户登录表的相关信息-->
     <select id="getByLoginId" resultType="com.nf.entity.CustomerLoginEntity">
         select <include refid="selectParams"/>

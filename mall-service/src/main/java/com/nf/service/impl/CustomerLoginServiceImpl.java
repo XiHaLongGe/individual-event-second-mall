@@ -15,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @Author: LJP
  * @Classname CustomerLoginServiceImpl
@@ -27,6 +29,11 @@ public class CustomerLoginServiceImpl implements CustomerLoginService {
     private CustomerLoginDao customerLoginDao;
     @Autowired
     private CustomerIndividualService customerIndividualService;
+
+    @Override
+    public List<CustomerLoginEntity> getPageAll(Integer pageNum, Integer pageSize) {
+        return customerLoginDao.getPageAll(pageNum, pageSize);
+    }
 
     @Override
     public CustomerLoginEntity getByLoginId(Integer loginId) {

@@ -3,6 +3,8 @@ package com.nf.service.port;
 import com.nf.entity.CustomerLoginEntity;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * @Author: LJP
  * @Classname CustomerLoginService
@@ -10,6 +12,11 @@ import org.apache.ibatis.annotations.Param;
  * @Description: 用户登录表service层接口
  */
 public interface CustomerLoginService {
+    /**
+     * 获取到所有用户登录信息列表,并以分页的格式呈现
+     * @return 用户登录信息列表(分页后的)
+     */
+    List<CustomerLoginEntity> getPageAll(Integer pageNum, Integer pageSize);
     /**
      * 根据用户登录ID来获取用户登录表的相关信息
      * @param loginId 用户登录ID

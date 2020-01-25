@@ -44,7 +44,7 @@
             <%--这里获取到登录用户的昵称显示于系统左上侧--%>
             <a href="javascript:;">${loginName}</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
-                <dd><a onclick="x_admin_show('个人资料','/mall/background/personal/data')">个人资料</a></dd>
+                <dd><a onclick="x_admin_show('个人资料','/mall/background/personal/home')">个人资料</a></dd>
                 <dd><a id="logoutA" href="javascript:;">注销帐号</a></dd>
             </dl>
         </li>
@@ -53,7 +53,7 @@
     <script>
         $("#logoutA").click(function(){
             $.ajax({
-                url:"/mall/clear/session",
+                url:"/mall/login/clear/session",
                 type:"POST",
                 success:function(data){
                     if(data.code == 200){
@@ -182,19 +182,19 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="/background/backend/home/customer/login/list">
+                        <a _href="/mall/background/customer/login/home">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>会员列表</cite>
+                            <cite>登录信息</cite>
                         </a>
                     </li >
                     <li>
                         <a _href="/background/backend/home/member/add">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>会员删除</cite>
+                            <cite>个人信息</cite>
                         </a>
                     </li>
                     <%--下面是子集块--%>
-                    <li>
+                    <%--<li>
                         <a href="javascript:;">
                             <i class="iconfont">&#xe70b;</i>
                             <cite>会员管理</cite>
@@ -215,7 +215,7 @@
                             </li>
 
                         </ul>
-                    </li>
+                    </li>--%>
                 </ul>
             </li>
 

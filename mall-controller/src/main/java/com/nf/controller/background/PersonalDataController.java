@@ -19,7 +19,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.UUID;
 
 /**
@@ -47,8 +46,8 @@ public class PersonalDataController {
      * @param request 通过当前请求对象来获得会话对象，用来获取当前登录用户信息
      * @return
      */
-    @GetMapping("/data")
-    public String personalData(Model model, HttpServletRequest request){
+    @GetMapping("/home")
+    public String home(Model model, HttpServletRequest request){
         HttpSession session = request.getSession();
         //获取用户登录id
         Integer loginId = (Integer) session.getAttribute("loginId");
@@ -56,7 +55,7 @@ public class PersonalDataController {
         model.addAttribute("customerLoginEntity", customerLoginService.getByLoginId(loginId));
         //根据用户登录id查出用户信息表数据，并存放至请求域
         model.addAttribute("customerIndividualEntity", customerIndividualService.getByLoginId(loginId));
-        return "background/personalData";
+        return "background/personal/list";
     }
 
     /**
@@ -65,7 +64,7 @@ public class PersonalDataController {
      */
     @GetMapping("/edit/password")
     public String editPassword(){
-        return "background/editPassword";
+        return "background/personal/editPassword";
     }
 
     /**

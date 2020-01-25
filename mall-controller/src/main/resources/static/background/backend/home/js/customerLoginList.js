@@ -2,11 +2,11 @@
 function customerCount(data){
     $("#countSPAN").empty().text("共有数据：" + data.total + " 条");
 }
+
 /*根据传入的页数，获取到用户的登录信息*/
-customerList(1);
 function customerList(pageNum){
     $.ajax({
-        url:"/backend/customer/login/page/list?pageNum=" + pageNum,
+        url:"/mall/background/customer/login/page/data?pageNum=" + pageNum,
         type:"GET",
         async: false,//设置为同步
         contentType: "application/json",
@@ -24,25 +24,31 @@ function customerPageList(data){
     $.each(data.data.list,function(index, element){
         resultValue += "<tr>";
         resultValue += "<td>";
-        resultValue += "<div class=\"layui-unselect layui-form-checkbox\" lay-skin=\"primary\" data-id='" + element.customerId + "'><i class=\"layui-icon\">&#xe605;</i></div>";
+        resultValue += "<div class=\"layui-unselect layui-form-checkbox\" lay-skin=\"primary\" data-id='" + element.loginId + "'><i class=\"layui-icon\">&#xe605;</i></div>";
         resultValue += "</td>";
-        resultValue += "<td>" + element.customerId + "</td>";
-        resultValue += "<td>" + element.loginAccount + "</td>";
+        resultValue += "<td>" + parseInt(index + 1) + "</td>";
+        resultValue += "<td><img style='width: 38px; height: 38px;' class=\"am-circle am-img-thumbnail\" src=\"" + element.headIconUrl + "\"></td>";
         resultValue += "<td>" + element.loginName + "</td>";
-        resultValue += "<td>" + element.activateCode + "</td>";
-        resultValue += "<td>" + element.creationTime + "</td>";
+        resultValue += "<td>" + element.loginAccount + "</td>";
+        resultValue += "<td>";
+            if(element.webmaster == 0){
+                resultValue += "普通用户";
+            }else{
+                resultValue += "管理员";
+            }
+        resultValue += "</td>";
         resultValue += "<td class=\"td-status\">";
-        var userStats = "";
-        var layuiIco = "";
-        if(element.userStats != 0){
-            resultValue += "<span class=\"layui-btn layui-btn-normal layui-btn-sm\">已激活</span></td>";
-            userStats = "注销激活";
-            layuiIco = "&#xe601;";
-        }else{
-            resultValue += "<span class=\"layui-btn layui-btn-normal layui-btn-sm layui-btn-disabled\">未激活</span>";
-            userStats = "激活";
-            layuiIco = "&#xe62f;";
-        }
+            var userStats = "";
+            var layuiIco = "";
+            if(element.accountStats == 1){
+                resultValue += "<span class=\"layui-btn layui-btn-normal layui-btn-sm\">已激活</span></td>";
+                userStats = "注销激活";
+                layuiIco = "&#xe601;";
+            }else{
+                resultValue += "<span class=\"layui-btn layui-btn-normal layui-btn-sm layui-btn-disabled\">未激活</span>";
+                userStats = "激活";
+                layuiIco = "&#xe62f;";
+            }
         resultValue += "<td class=\"td-manage\">";
         resultValue += "<a onclick=\"member_stop(this," + element.customerId + ")\" href=\"javascript:;\"  title=\"" + userStats + "\">";
         resultValue += "<i class=\"layui-icon\">" + layuiIco + "</i>";
@@ -78,6 +84,9 @@ function pageData(data, pageNum){
     $("#pageDIV").empty().append(resultVal);
     clickLoader();
 }
+$(function(){
+    customerList(1);
+})
 /*下面是处理对用户登录信息进行条件查询的操作*/
 function pageSearch(pageNum){
     $.ajax({
@@ -95,18 +104,18 @@ function pageSearch(pageNum){
 /*界面上分页页码相关按钮的点击事件*/
 function clickLoader(){
     $("a[name='pageA'],a[name='prevNextA']").click(function(){
-        var pageNum = "";
+        var pageNum;
         pageNum = $("#pageSPAN").attr("num");
         $("#pageSPAN").replaceWith("<a name='pageA' class=\"num\" href=\"javascript:;\" num='" + pageNum + "'>" + pageNum + "</a>");
         pageNum = $(this).attr("num");
         $(this).replaceWith("<span id='pageSPAN' class=\"current\" href=\"javascript:;\" num='" + pageNum + "'>" + pageNum + "</span>");
-        searchCondition() ? pageSearch(pageNum) : customerList(pageNum);
+        searchCondition() ? customerList(pageNum) : pageSearch(pageNum);
         clickLoader();
     })
 }
 /*验证是否填写查询条件*/
 function searchCondition(){
-    return $("#searchFORM").children("input").eq(2).val() != "" || ($("#searchFORM").children("input").eq(1).val() != "" && $("#searchFORM").children("input").eq(0).val() != "");
+    return $("#loginNameINPUT").text() == "";
 }
 //将表单数据转换成json数据
 function transformJSON(formId){

@@ -92,7 +92,7 @@
                                                 if (data.data){
                                                     var i = 4;
                                                     //4秒后返回登录界面
-                                                    setTimeout(function (){window.location.href='/mall/login';},4000);
+                                                    setTimeout(function (){window.location.href='/mall/login/home';},4000);
                                                 }else{
                                                     alert(data.message);
                                                 }

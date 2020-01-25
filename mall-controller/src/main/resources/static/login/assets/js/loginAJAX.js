@@ -2,7 +2,7 @@ $(document).ready(function(){
     //登录按钮点击事件
     $("#loginBtn").click(function(){
         if(formTextIsEmpty("#loginForm input")){
-            ajaxIntoBackstage("/mall/verify","#loginForm", "登录");
+            ajaxIntoBackstage("/mall/login/verify","#loginForm", "登录");
         }else{
             alert("账号密码不可为空！");
         }
@@ -10,7 +10,7 @@ $(document).ready(function(){
     //注册按钮点击事件
     $("#registerBtn").click(function(){
         if(registerVerify("#registerForm input")){
-            ajaxIntoBackstage("/mall/register","#registerForm", "注册");
+            ajaxIntoBackstage("/mall/login/register","#registerForm", "注册");
         }else{
             alert("你输入的信息有误！");
         }
@@ -80,7 +80,7 @@ $(document).ready(function(){
                         //data.data == 1 , 为1的时候表示该用户是管理员
                         if(data.data == 1){
                             //管理员登录，打开前后台选择界面
-                            window.location.href = "/mall/master/option";
+                            window.location.href = "/mall/login/master/option";
                         }else{
                             //为普通用户的时候直接进入前台界面
                             window.location.href = "/foreground/home/";
@@ -90,7 +90,7 @@ $(document).ready(function(){
                     }
                 }else if(ajaxType == "注册"){
                     //data.data 是用户注册成功后系统生成的帐号
-                    window.location.href = "/mall/success/register?account=" + data.data;
+                    window.location.href = "/mall/login/success/register?account=" + data.data;
                 }
             }
         })

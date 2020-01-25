@@ -19,20 +19,24 @@ import javax.servlet.http.HttpSession;
  * @Description: 用户登录的控制器
  */
 @Controller
-@RequestMapping("/mall")
-public class CustomerLoginController {
+@RequestMapping("/mall/login")
+public class LoginController {
     @Autowired
     private CustomerLoginService customerLoginService;
 
     /**
-     * 打开登录视图
+     * 登录视图
      * @return 登录视图名
      */
-    @GetMapping("/login")
-    public String login(){
+    @GetMapping("/home")
+    public String home(){
         return "login/index";
     }
 
+    /**
+     * 注册成功视图
+     * @return
+     */
     @GetMapping("/success/register")
     public String successRegister(){
         return "login/successRegister";
