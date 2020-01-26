@@ -77,6 +77,13 @@ public interface CustomerLoginDao {
     Integer registerCustomer(@Param("customerLoginEntity")CustomerLoginEntity customerLoginEntity);
 
     /**
+     * 重置用户密码
+     * @param customerLoginEntity 用来接收需要被重置的用户id
+     * @return 返回对数据库的影响行数
+     */
+    Integer resetPassword(@Param("customerLoginEntity")CustomerLoginEntity customerLoginEntity);
+
+    /**
      * 更新用户的登录信息
      * @param customerLoginEntity 使用实体类保存用户输入的更新信息  如：头像路径、用户昵称
      * @return 返回对数据库的影响行数
@@ -89,4 +96,11 @@ public interface CustomerLoginDao {
      * @return 返回对数据库的影响行数
      */
     Integer updateAccountStats(@Param("customerLoginEntity")CustomerLoginEntity customerLoginEntity);
+
+    /**
+     * 删除用户
+     * @param customerLoginEntity 接收需要删除的用户id
+     * @return 返回对数据库的影响行数
+     */
+    Integer deleteCustomer(@Param("customerLoginEntity")CustomerLoginEntity customerLoginEntity);
 }

@@ -100,11 +100,25 @@
             #{customerLoginEntity.activateCode}
         );
     </insert>
+    <!--重置用户密码  六个一 -->
+    <update id="resetPassword">
+        update customer_login
+        set login_password = #{customerLoginEntity.loginPassword}
+        where login_id = #{customerLoginEntity.loginId}
+    </update>
     <!--修改用户帐号状态-->
     <update id="updateAccountStats">
         update customer_login
         set account_stats = #{customerLoginEntity.accountStats}
-        where activate_code = #{customerLoginEntity.activateCode}
+        where
+        <choose>
+            <when test="customerLoginEntity.loginId != null">
+                login_id = #{customerLoginEntity.loginId}
+            </when>
+            <otherwise>
+                activate_code = #{customerLoginEntity.activateCode}
+            </otherwise>
+        </choose>
     </update>
     <!--修改用户头像路径和昵称-->
     <update id="updatePersonal">
@@ -113,4 +127,8 @@
             login_name = #{customerLoginEntity.loginName}
         where login_id = #{customerLoginEntity.loginId}
     </update>
+    <!--删除用户-->
+    <delete id="deleteCustomer">
+        delete from customer_login where login_id = #{customerLoginEntity.loginId}
+    </delete>
 </mapper>

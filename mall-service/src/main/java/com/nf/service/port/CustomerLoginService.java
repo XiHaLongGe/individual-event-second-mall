@@ -76,6 +76,13 @@ public interface CustomerLoginService {
     boolean registerCustomer(CustomerLoginEntity customerLoginEntity);
 
     /**
+     * 重置用户密码
+     * @param customerLoginEntity 用来接收需要被重置的用户id
+     * @return 重置结果
+     */
+    boolean resetPassword(CustomerLoginEntity customerLoginEntity);
+
+    /**
      * 更新用户的登录信息
      * @param customerLoginEntity 使用实体类保存用户输入的更新信息  如：头像路径、用户昵称
      * @return 返回更新结果
@@ -88,4 +95,11 @@ public interface CustomerLoginService {
      * @return 返回修改的结果
      */
     boolean updateAccountStats(CustomerLoginEntity customerLoginEntity);
+
+    /**
+     * 删除用户
+     * @param customerLoginEntity 接收需要删除的用户id
+     * @return 删除结果
+     */
+    boolean deleteCustomer(CustomerLoginEntity customerLoginEntity);
 }

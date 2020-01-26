@@ -85,10 +85,7 @@ function customerPageList(data){
         resultValue += "<a onclick=\"member_stop(this," + element.loginId + ")\" href=\"javascript:;\"  title=\"" + userStats + "\">";
         resultValue += "<i class=\"layui-icon\">" + layuiIco + "</i>";
         resultValue += "</a>";
-        resultValue += "<a title=\"编辑\" onclick=\"x_admin_show('编辑','/backend/customer/login/edit?id=" + element.loginId + "',600,400)\" href=\"javascript:;\">";
-        resultValue += "<i class=\"layui-icon\">&#xe642;</i>";
-        resultValue += "</a>";
-        resultValue += "<a onclick=\"x_admin_show('重置密码','/backend/customer/login/edit/password?id=" + element.loginId + "',600,400)\" title=\"重置密码\" href=\"javascript:;\">";
+        resultValue += "<a onclick=\"resetPassword(" + element.loginId + " , '/mall/background/customer/login/reset/password')\" title='重置密码' href=\"javascript:;\">";
         resultValue += "<i class=\"layui-icon\">&#xe631;</i>";
         resultValue += "</a>";
         resultValue += "<a title=\"删除\" onclick=\"member_del(this," + element.loginId + ")\" href=\"javascript:;\">";
@@ -187,12 +184,13 @@ function member_stop(obj,id){
         }
     });
 }
+//更新账号状态
 function updateState(id, state){
     var yn = false;
     $.ajax({
-        url:"/backend/customer/login/update/state",
+        url:"/mall/background/customer/login/update/state",
         type:"POST",
-        data:JSON.stringify({"id" : id, "state" : state}),
+        data:JSON.stringify({"loginId" : id, "accountStats" : state}),
         dataType:"json",
         async: false,//设置为同步
         contentType: "application/json",
@@ -202,29 +200,46 @@ function updateState(id, state){
     })
     return yn;
 }
+//重置密码
+function resetPassword(loginId, url) {
+    $.ajax({
+        url:url,
+        type:"POST",
+        data:JSON.stringify({"loginId" : loginId}),
+        dataType:"json",
+        async: false,//设置为同步
+        contentType: "application/json",
+        success:function (data) {
+            if(data.code == 200){
+                alert("密码以重置为：111111")
+            }else{
+                alert("密码重置失败")
+            }
+        }
+    })
+}
 
 
 
 /*用户登录信息的删除*/
 /*用户-删除*/
-function member_del(obj,id){
+function member_del(obj,loginId){
     layer.confirm('确认要删除吗？',function(index){
         //发异步删除数据
-        if(singleDelete(id)){
+        if(singleDelete(loginId)){
             $(obj).parents("tr").remove();
             layer.msg('已删除!',{icon:1,time:1000});
-            customerList(1);
         }else{
             layer.msg('删除失败!',{icon:2,time:1000});
         }
     });
 }
-function singleDelete(id){
+function singleDelete(loginId){
     var yn = false;
     $.ajax({
-        url:"/backend/customer/login/delete",
+        url:"/mall/background/customer/login/delete/customer",
         type:"POST",
-        data:JSON.stringify({"id" : id}),
+        data:JSON.stringify({"loginId" : loginId}),
         dataType:"json",
         async: false,//设置为同步
         contentType: "application/json",

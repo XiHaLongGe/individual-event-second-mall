@@ -124,4 +124,51 @@ public class CustomerLoginController {
                 .build();
     }
 
+    /**
+     * 更新用户账号状态
+     * @param customerLoginEntity
+     * @return
+     */
+    @PostMapping("/update/state")
+    @ResponseBody
+    public ResponseVo updateState(@RequestBody CustomerLoginEntity customerLoginEntity){
+        boolean result = customerLoginService.updateAccountStats(customerLoginEntity);
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "账号状态更新成功" : "账号状态更新失败")
+                .data(result)
+                .build();
+    }
+
+    /**
+     * 重置用户密码
+     * @param customerLoginEntity 接收需要重置密码的用户id
+     * @return
+     */
+    @PostMapping("/reset/password")
+    @ResponseBody
+    public ResponseVo resetPassword(@RequestBody CustomerLoginEntity customerLoginEntity){
+        boolean result = customerLoginService.resetPassword(customerLoginEntity);
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "密码重置成功" : "密码重置失败")
+                .data(result)
+                .build();
+    }
+
+    /**
+     * 删除用户
+     * @param customerLoginEntity 接收需要删除的用户id
+     * @return
+     */
+    @PostMapping("/delete/customer")
+    @ResponseBody
+    public ResponseVo deleteCustomer(@RequestBody CustomerLoginEntity customerLoginEntity){
+        boolean result = customerLoginService.deleteCustomer(customerLoginEntity);
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "删除用户成功" : "删除用户失败")
+                .data(result)
+                .build();
+    }
 }

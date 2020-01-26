@@ -109,6 +109,12 @@ public class CustomerLoginServiceImpl implements CustomerLoginService {
     }
 
     @Override
+    public boolean resetPassword(CustomerLoginEntity customerLoginEntity) {
+        customerLoginEntity.setLoginPassword(Md5Util.encodeByMd5("111111"));
+        return customerLoginDao.resetPassword(customerLoginEntity) > 0;
+    }
+
+    @Override
     public boolean updatePersonal(CustomerLoginEntity customerLoginEntity) {
         return customerLoginDao.updatePersonal(customerLoginEntity) > 0;
     }
@@ -116,5 +122,10 @@ public class CustomerLoginServiceImpl implements CustomerLoginService {
     @Override
     public boolean updateAccountStats(CustomerLoginEntity customerLoginEntity) {
         return customerLoginDao.updateAccountStats(customerLoginEntity) > 0;
+    }
+
+    @Override
+    public boolean deleteCustomer(CustomerLoginEntity customerLoginEntity) {
+        return customerLoginDao.deleteCustomer(customerLoginEntity) > 0;
     }
 }
