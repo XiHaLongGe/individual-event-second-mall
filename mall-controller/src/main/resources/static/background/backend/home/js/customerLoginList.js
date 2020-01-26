@@ -2,28 +2,32 @@ $(function(){
     customerList(1);
     /*以下是查询条件多选框的相关处理*/
     $("#activateDIV").click(function () {
-        $(this).toggleClass("layui-form-checked");
         $(this).next().removeClass("layui-form-checked");
     })
     $("#notActivateDIV").click(function () {
-        $(this).toggleClass("layui-form-checked");
         $(this).prev().removeClass("layui-form-checked");
     })
     $("#adminDIV").click(function () {
-        $(this).toggleClass("layui-form-checked");
         $("#ordinaryDIV").removeClass("layui-form-checked");
     })
     $("#ordinaryDIV").click(function () {
-        $(this).toggleClass("layui-form-checked");
         $("#adminDIV").removeClass("layui-form-checked");
     })
 
     /*以下是条件查询的点击事件*/
     $("#searchBTN").click(function(){
         (searchCondition()) ? pageSearch(1) : customerList(1);
+        $("#parentDIV").removeClass("layui-form-checked");
     })
+    /*刷新点击事件*/
     $("#refreshA").click(function(){
-        refresh(1);
+        $("#loginNameINPUT").val("");
+        $("#activateDIV").removeClass("layui-form-checked");
+        $("#notActivateDIV").removeClass("layui-form-checked");
+        $("#adminDIV").removeClass("layui-form-checked");
+        $("#ordinaryDIV").removeClass("layui-form-checked");
+        customerList(1);
+        $("#parentDIV").removeClass("layui-form-checked");
     })
     clickLoader();
 })
@@ -43,8 +47,6 @@ function customerList(pageNum){
         success:function(data){
             customerPageList(data);
             pageData(data, pageNum);
-            //开启表格多选
-            tableCheck.init();
         }
     })
 }
@@ -80,16 +82,16 @@ function customerPageList(data){
                 layuiIco = "&#xe62f;";
             }
         resultValue += "<td class=\"td-manage\">";
-        resultValue += "<a onclick=\"member_stop(this," + element.customerId + ")\" href=\"javascript:;\"  title=\"" + userStats + "\">";
+        resultValue += "<a onclick=\"member_stop(this," + element.loginId + ")\" href=\"javascript:;\"  title=\"" + userStats + "\">";
         resultValue += "<i class=\"layui-icon\">" + layuiIco + "</i>";
         resultValue += "</a>";
-        resultValue += "<a title=\"编辑\" onclick=\"x_admin_show('编辑','/backend/customer/login/edit?id=" + element.customerId + "',600,400)\" href=\"javascript:;\">";
+        resultValue += "<a title=\"编辑\" onclick=\"x_admin_show('编辑','/backend/customer/login/edit?id=" + element.loginId + "',600,400)\" href=\"javascript:;\">";
         resultValue += "<i class=\"layui-icon\">&#xe642;</i>";
         resultValue += "</a>";
-        resultValue += "<a onclick=\"x_admin_show('修改密码','/backend/customer/login/edit/password?id=" + element.customerId + "',600,400)\" title=\"修改密码\" href=\"javascript:;\">";
+        resultValue += "<a onclick=\"x_admin_show('重置密码','/backend/customer/login/edit/password?id=" + element.loginId + "',600,400)\" title=\"重置密码\" href=\"javascript:;\">";
         resultValue += "<i class=\"layui-icon\">&#xe631;</i>";
         resultValue += "</a>";
-        resultValue += "<a title=\"删除\" onclick=\"member_del(this," + element.customerId + ")\" href=\"javascript:;\">";
+        resultValue += "<a title=\"删除\" onclick=\"member_del(this," + element.loginId + ")\" href=\"javascript:;\">";
         resultValue += "<i class=\"layui-icon\">&#xe640;</i>";
         resultValue += "</a>";
         resultValue += "</td>";
@@ -154,14 +156,6 @@ function transformJSON(formId){
     })
     return $jsonData;
 }
-/*============刷新操作=================*/
-function refresh(pageNum){
-    $("#loginNameINPUT").text("");
-    customerList(pageNum);
-}
-
-
-
 
 
 
