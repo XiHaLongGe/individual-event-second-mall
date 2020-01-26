@@ -1,3 +1,33 @@
+$(function(){
+    customerList(1);
+    /*以下是查询条件多选框的相关处理*/
+    $("#activateDIV").click(function () {
+        $(this).toggleClass("layui-form-checked");
+        $(this).next().removeClass("layui-form-checked");
+    })
+    $("#notActivateDIV").click(function () {
+        $(this).toggleClass("layui-form-checked");
+        $(this).prev().removeClass("layui-form-checked");
+    })
+    $("#adminDIV").click(function () {
+        $(this).toggleClass("layui-form-checked");
+        $("#ordinaryDIV").removeClass("layui-form-checked");
+    })
+    $("#ordinaryDIV").click(function () {
+        $(this).toggleClass("layui-form-checked");
+        $("#adminDIV").removeClass("layui-form-checked");
+    })
+
+    /*以下是条件查询的点击事件*/
+    $("#searchBTN").click(function(){
+        (searchCondition()) ? pageSearch(1) : customerList(1);
+    })
+    $("#refreshA").click(function(){
+        refresh(1);
+    })
+    clickLoader();
+})
+
 /*下面是查询用户登录信息以分页的形式展现*/
 function customerCount(data){
     $("#countSPAN").empty().text("共有数据：" + data.total + " 条");
@@ -84,16 +114,12 @@ function pageData(data, pageNum){
     $("#pageDIV").empty().append(resultVal);
     clickLoader();
 }
-$(function(){
-    customerList(1);
-})
 /*下面是处理对用户登录信息进行条件查询的操作*/
 function pageSearch(pageNum){
     $.ajax({
-        url:"/backend/customer/login/page/search?pageNum=" + pageNum,
-        type:"POST",
-        data:JSON.stringify(transformJSON("#searchFORM")),
-        dataType:"json",
+        url:"/mall/background/customer/login/condition/page/data?pageNum=" + pageNum,
+        type:"GET",
+        data:{"loginName" : $("#loginNameINPUT").val(), "accountStats" : $("div[name='activate'].layui-form-checked").attr("value"), "webmaster" : $("div[name='identity'].layui-form-checked").attr("value")},
         contentType: "application/json",
         success:function (data) {
             customerPageList(data);
@@ -101,6 +127,7 @@ function pageSearch(pageNum){
         }
     })
 }
+
 /*界面上分页页码相关按钮的点击事件*/
 function clickLoader(){
     $("a[name='pageA'],a[name='prevNextA']").click(function(){
@@ -109,14 +136,15 @@ function clickLoader(){
         $("#pageSPAN").replaceWith("<a name='pageA' class=\"num\" href=\"javascript:;\" num='" + pageNum + "'>" + pageNum + "</a>");
         pageNum = $(this).attr("num");
         $(this).replaceWith("<span id='pageSPAN' class=\"current\" href=\"javascript:;\" num='" + pageNum + "'>" + pageNum + "</span>");
-        searchCondition() ? customerList(pageNum) : pageSearch(pageNum);
+        searchCondition() ? pageSearch(pageNum) : customerList(pageNum);
         clickLoader();
     })
 }
 /*验证是否填写查询条件*/
 function searchCondition(){
-    return $("#loginNameINPUT").text() == "";
+    return $("#loginNameINPUT").val() != "" || $("div[name='activate'].layui-form-checked").length > 0 || $("div[name='identity'].layui-form-checked").length > 0;
 }
+
 //将表单数据转换成json数据
 function transformJSON(formId){
     var $jsonData = {};
@@ -128,19 +156,9 @@ function transformJSON(formId){
 }
 /*============刷新操作=================*/
 function refresh(pageNum){
-    $("#searchFORM").children("input").val("");
+    $("#loginNameINPUT").text("");
     customerList(pageNum);
 }
-/*处理点击事件*/
-$(function(){
-    $("#searchBTN").click(function(){
-        (!searchCondition()) ? customerList(1) : pageSearch(1);
-    })
-    $("#refreshA").click(function(){
-        refresh(1);
-    })
-    clickLoader();
-})
 
 
 
@@ -239,6 +257,7 @@ function delAll (argument) {
         }
     });
 }
+
 function batchDelete(batchId){
     var yn = false;
     $.ajax({

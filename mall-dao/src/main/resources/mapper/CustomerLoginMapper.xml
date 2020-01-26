@@ -25,6 +25,28 @@
         from customer_login
         order by login_id
     </select>
+    <!--根据用户昵称、账号状态、用户身份进行条件查询-->
+    <select id="getPageByCondition" resultType="com.nf.entity.CustomerLoginEntity">
+        select <include refid="selectParams"/>
+        from customer_login
+        where 1 = 1
+            <choose>
+                <when test="customerLoginEntity.loginName != ''">
+                    and login_name like '%' #{customerLoginEntity.loginName} '%'
+                </when>
+            </choose>
+            <choose>
+                <when test="customerLoginEntity.accountStats != null">
+                    and account_stats = #{customerLoginEntity.accountStats}
+                </when>
+            </choose>
+            <choose>
+                <when test="customerLoginEntity.webmaster != null">
+                    and webmaster = #{customerLoginEntity.webmaster}
+                </when>
+            </choose>
+        order by login_id
+    </select>
     <!--根据用户登录ID来获取用户登录表的相关信息-->
     <select id="getByLoginId" resultType="com.nf.entity.CustomerLoginEntity">
         select <include refid="selectParams"/>

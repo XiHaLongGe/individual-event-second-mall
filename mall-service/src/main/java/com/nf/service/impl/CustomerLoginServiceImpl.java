@@ -36,6 +36,11 @@ public class CustomerLoginServiceImpl implements CustomerLoginService {
     }
 
     @Override
+    public List<CustomerLoginEntity> getPageByCondition(Integer pageNum, Integer pageSize, CustomerLoginEntity customerLoginEntity) {
+        return customerLoginDao.getPageByCondition(pageNum, pageSize, customerLoginEntity);
+    }
+
+    @Override
     public CustomerLoginEntity getByLoginId(Integer loginId) {
         return customerLoginDao.getByLoginId(loginId);
     }

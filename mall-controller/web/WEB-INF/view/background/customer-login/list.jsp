@@ -44,6 +44,10 @@
             <input class="layui-input" placeholder="截止日" name="endTime" id="end">--%>
             <input type="text" id="loginNameINPUT"  placeholder="请输入用户昵称" autocomplete="off" class="layui-input">
             <button id="searchBTN" type="button" class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+            激活：<div id="activateDIV" name="activate" value="1" class="layui-unselect layui-form-checkbox" lay-skin=""><i class="layui-icon"></i></div>
+            未激活：<div id="notActivateDIV" name="activate" value="0" class="layui-unselect layui-form-checkbox" lay-skin=""><i class="layui-icon"></i></div>
+            管理员：<div id="adminDIV" name="identity" value="1" class="layui-unselect layui-form-checkbox" lay-skin=""><i class="layui-icon"></i></div>
+            普通用户：<div id="ordinaryDIV" name="identity" value="0" class="layui-unselect layui-form-checkbox" lay-skin=""><i class="layui-icon"></i></div>
         </form>
     </div>
     <xblock>

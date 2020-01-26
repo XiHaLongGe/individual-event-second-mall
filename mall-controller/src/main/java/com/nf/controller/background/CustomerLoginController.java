@@ -56,6 +56,7 @@ public class CustomerLoginController {
             result = true;
         }catch (Exception e){
             result = false;
+            e.printStackTrace();
         }
         return ResponseVo.newBuilder()
                     .code(result ? 200 : 500)
@@ -63,4 +64,34 @@ public class CustomerLoginController {
                     .data(pageInfo)
                 .build();
     }
+
+    @GetMapping("/condition/page/data")
+    @ResponseBody
+    public ResponseVo conditionPageData(
+            @RequestParam(value = "pageNum", required = false, defaultValue = "1")Integer pageNum,
+            @RequestParam(value = "pageSize", required = false, defaultValue = "2") Integer pageSize,
+            CustomerLoginEntity customerLoginEntity
+    ){
+        boolean result;
+        //用户登录类型的列表对象
+        List<CustomerLoginEntity> customerLoginEntityList;
+        //分页工具类对象
+        PageInfo pageInfo = null;
+        try{
+            //获取分页后的用户登录信息的相关数据
+            customerLoginEntityList = customerLoginService.getPageByCondition(pageNum, pageSize, customerLoginEntity);
+            //使用分页工具类对象来处理数据的分页效果
+            pageInfo = new PageInfo(customerLoginEntityList, 5);
+            result = true;
+        }catch (Exception e){
+            result = false;
+            e.printStackTrace();
+        }
+        return ResponseVo.newBuilder()
+                    .code(result ? 200 : 500)
+                    .message(result ? "数据获取成功" : "数据获取失败")
+                    .data(pageInfo)
+                .build();
+    }
+
 }

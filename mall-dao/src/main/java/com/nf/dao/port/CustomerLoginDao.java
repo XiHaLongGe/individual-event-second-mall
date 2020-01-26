@@ -14,9 +14,23 @@ import java.util.List;
 public interface CustomerLoginDao {
     /**
      * 获取到所有用户登录信息列表,并以分页的格式呈现
+     * @param pageNum 接收当前页码
+     * @param pageSize 每页显示数据条目
      * @return 用户登录信息列表(分页后的)
      */
     List<CustomerLoginEntity> getPageAll(@Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
+
+    /**
+     * 根据用户昵称、账号状态、用户身份进行条件查询
+     * @param pageNum 接收当前页码
+     * @param pageSize 每页显示数据条目
+     * @param customerLoginEntity 通过登录信息实体类来接收用户进行查询的条件
+     * @return 根据用户昵称查询结果的列表(分页后的)
+     */
+    List<CustomerLoginEntity> getPageByCondition(@Param("pageNum") Integer pageNum,
+                                            @Param("pageSize") Integer pageSize,
+                                            @Param("customerLoginEntity")CustomerLoginEntity customerLoginEntity);
+
     /**
      * 根据用户登录ID来获取用户登录表的相关信息
      * @param loginId 用户登录ID

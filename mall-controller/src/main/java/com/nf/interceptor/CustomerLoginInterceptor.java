@@ -26,7 +26,7 @@ public class CustomerLoginInterceptor implements HandlerInterceptor {
             return true;
         }
         //未登录则转发到登录界面让未登录用户进行登录
-        request.getRequestDispatcher("/mall/login").forward(request, response);
+        request.getRequestDispatcher("/mall/login/home").forward(request, response);
         return false;
     }
 }

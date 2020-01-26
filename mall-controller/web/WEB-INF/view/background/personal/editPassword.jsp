@@ -85,7 +85,7 @@
                                         alert(data.message + "即将跳到登录界面重新登录")
                                         //清除会话信息
                                         $.ajax({
-                                            url:"/mall/clear/session",
+                                            url:"/mall/login/clear/session",
                                             type:"POST",
                                             async:false,
                                             success:function(data){
