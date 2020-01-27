@@ -1,6 +1,26 @@
 $(function(){
-    customerList(1);
-    /*以下是查询条件多选框的相关处理*/
+    pageSearch(1);
+    checkboxChecked();
+    /*以下是条件查询的点击事件*/
+    $("#searchBTN").click(function(){
+        pageSearch(1);
+        $("#parentDIV").removeClass("layui-form-checked");
+    })
+    /*刷新点击事件*/
+    $("#refreshA").click(function(){
+        $("#loginNameINPUT").val("");
+        $("#activateDIV").removeClass("layui-form-checked");
+        $("#notActivateDIV").removeClass("layui-form-checked");
+        $("#adminDIV").removeClass("layui-form-checked");
+        $("#ordinaryDIV").removeClass("layui-form-checked");
+        pageSearch(1);
+        $("#parentDIV").removeClass("layui-form-checked");
+    })
+    clickLoader();
+})
+
+/*以下是查询条件多选框的相关处理*/
+function checkboxChecked(){
     $("#activateDIV").click(function () {
         $(this).next().removeClass("layui-form-checked");
     })
@@ -13,40 +33,33 @@ $(function(){
     $("#ordinaryDIV").click(function () {
         $("#adminDIV").removeClass("layui-form-checked");
     })
-
-    /*以下是条件查询的点击事件*/
-    $("#searchBTN").click(function(){
-        (searchCondition()) ? pageSearch(1) : customerList(1);
-        $("#parentDIV").removeClass("layui-form-checked");
-    })
-    /*刷新点击事件*/
-    $("#refreshA").click(function(){
-        $("#loginNameINPUT").val("");
-        $("#activateDIV").removeClass("layui-form-checked");
-        $("#notActivateDIV").removeClass("layui-form-checked");
-        $("#adminDIV").removeClass("layui-form-checked");
-        $("#ordinaryDIV").removeClass("layui-form-checked");
-        customerList(1);
-        $("#parentDIV").removeClass("layui-form-checked");
-    })
-    clickLoader();
-})
+}
 
 /*下面是查询用户登录信息以分页的形式展现*/
 function customerCount(data){
     $("#countSPAN").empty().text("共有数据：" + data.total + " 条");
 }
-
-/*根据传入的页数，获取到用户的登录信息*/
-function customerList(pageNum){
+/*下面是处理对用户登录信息进行条件查询的操作*/
+function pageSearch(pageNum){
     $.ajax({
-        url:"/mall/background/customer/login/page/data?pageNum=" + pageNum,
+        url:"/mall/background/customer/login/condition/page/data?pageNum=" + pageNum,
         type:"GET",
-        async: false,//设置为同步
+        async: false,
+        data:{"loginName" : $("#loginNameINPUT").val(), "accountStats" : $("div[name='activate'].layui-form-checked").attr("value"), "webmaster" : $("div[name='identity'].layui-form-checked").attr("value")},
         contentType: "application/json",
-        success:function(data){
+        success:function (data) {
             customerPageList(data);
             pageData(data, pageNum);
+            /*
+                下面这一步是解绑事件操作，没有解绑会造成事件叠加的后果
+                比如：
+                    第一次执行 只执行一次
+                    第二次执行 执行完本次还会会执行前一次
+                    第三次执行 执行完本次还会会执行前两次
+            */
+            $(".layui-form-checkbox").unbind('click');
+            tableCheck.init();
+            checkboxChecked();
         }
     })
 }
@@ -92,6 +105,7 @@ function customerPageList(data){
         resultValue += "<i class=\"layui-icon\">&#xe640;</i>";
         resultValue += "</a>";
         resultValue += "</td>";
+        resultValue += "</tr>";
     })
     $("#customerTBODY").empty().append(resultValue);
 }
@@ -113,37 +127,19 @@ function pageData(data, pageNum){
     $("#pageDIV").empty().append(resultVal);
     clickLoader();
 }
-/*下面是处理对用户登录信息进行条件查询的操作*/
-function pageSearch(pageNum){
-    $.ajax({
-        url:"/mall/background/customer/login/condition/page/data?pageNum=" + pageNum,
-        type:"GET",
-        data:{"loginName" : $("#loginNameINPUT").val(), "accountStats" : $("div[name='activate'].layui-form-checked").attr("value"), "webmaster" : $("div[name='identity'].layui-form-checked").attr("value")},
-        contentType: "application/json",
-        success:function (data) {
-            customerPageList(data);
-            pageData(data, pageNum);
-        }
-    })
-}
-
 /*界面上分页页码相关按钮的点击事件*/
 function clickLoader(){
     $("a[name='pageA'],a[name='prevNextA']").click(function(){
+        $("#parentDIV").removeClass("layui-form-checked");
         var pageNum;
         pageNum = $("#pageSPAN").attr("num");
         $("#pageSPAN").replaceWith("<a name='pageA' class=\"num\" href=\"javascript:;\" num='" + pageNum + "'>" + pageNum + "</a>");
         pageNum = $(this).attr("num");
         $(this).replaceWith("<span id='pageSPAN' class=\"current\" href=\"javascript:;\" num='" + pageNum + "'>" + pageNum + "</span>");
-        searchCondition() ? pageSearch(pageNum) : customerList(pageNum);
+        pageSearch(pageNum);
         clickLoader();
     })
 }
-/*验证是否填写查询条件*/
-function searchCondition(){
-    return $("#loginNameINPUT").val() != "" || $("div[name='activate'].layui-form-checked").length > 0 || $("div[name='identity'].layui-form-checked").length > 0;
-}
-
 //将表单数据转换成json数据
 function transformJSON(formId){
     var $jsonData = {};
@@ -254,32 +250,34 @@ function singleDelete(loginId){
 /*批量删除*/
 function delAll (argument) {
     /*获取到所有被选中的id*/
-    var batchId = tableCheck.getData();
+    var loginIdArray = tableCheck.getData();
     layer.confirm('确认要删除吗？',function(index){
         //捉到所有被选中的，发异步进行删除
-        if(batchDelete(batchId)){
+        if(batchDelete(loginIdArray)){
             layer.msg('删除成功', {icon: 1});
             $(".layui-form-checked").not('.header').parents('tr').remove();
-            customerList(1);
+            $("#parentDIV").removeClass("layui-form-checked");
+            var pageNum = $("#pageSPAN").attr("num");
+            pageSearch(pageNum);
         }else{
             layer.msg('删除失败!',{icon:2,time:1000});
         }
     });
 }
 
-function batchDelete(batchId){
-    var yn = false;
+function batchDelete(loginIdArray){
+    var result = false;
     $.ajax({
-        url:"/backend/customer/login/batch/delete",
+        url:"/mall/background/customer/login/batch/delete/customer",
         type:"POST",
-        data:JSON.stringify(batchId),
+        data:JSON.stringify(loginIdArray),
         dataType:"json",
         async: false,//设置为同步
         contentType: "application/json",
         success:function(data){
-            yn = data.data;
+            result = data.code == 200;
         }
     })
-    return yn;
+    return result;
 }
 

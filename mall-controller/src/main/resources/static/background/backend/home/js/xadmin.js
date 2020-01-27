@@ -32,23 +32,23 @@ $(function () {
 
     tableCheck = {
         init:function  () {
-            $(".layui-form-checkbox").on("click",function(event){
+            $(".layui-form-checkbox").on("click", function(event){
                 if($(this).hasClass('layui-form-checked')){
                     $(this).removeClass('layui-form-checked');
                     if($(this).hasClass('header')){
-                        $(".layui-form-checkbox").removeClass('layui-form-checked');
+                        $("div [lay-skin='primary']").removeClass('layui-form-checked');
                     }
                 }else{
                     $(this).addClass('layui-form-checked');
                     if($(this).hasClass('header')){
-                        $(".layui-form-checkbox").addClass('layui-form-checked');
+                        //$(".layui-form-checkbox").addClass('layui-form-checked');
+                        $("div [lay-skin='primary']").addClass('layui-form-checked');
                     }
                 }
-                
             });
         },
         getData:function  () {
-            var obj = $(".layui-form-checked").not('.header');
+            var obj = $("div [lay-skin='primary']").not('.header');
             var arr=[];
             obj.each(function(index, el) {
                 arr.push(obj.eq(index).attr('data-id'));

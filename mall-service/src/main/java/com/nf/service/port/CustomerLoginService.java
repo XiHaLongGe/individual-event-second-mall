@@ -102,4 +102,11 @@ public interface CustomerLoginService {
      * @return 删除结果
      */
     boolean deleteCustomer(CustomerLoginEntity customerLoginEntity);
+
+    /**
+     * 批量删除用户
+     * @param loginIdArray 接收需要删除的用户id
+     * @return 删除结果
+     */
+    boolean batchDeleteCustomer(String [] loginIdArray);
 }

@@ -103,4 +103,11 @@ public interface CustomerLoginDao {
      * @return 返回对数据库的影响行数
      */
     Integer deleteCustomer(@Param("customerLoginEntity")CustomerLoginEntity customerLoginEntity);
+
+    /**
+     * 批量删除用户
+     * @param loginIdArray 接收需要删除的用户id
+     * @return 返回对数据库的影响行数
+     */
+    Integer batchDeleteCustomer(@Param("loginIdArray")Integer [] loginIdArray);
 }

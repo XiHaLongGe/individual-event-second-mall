@@ -171,4 +171,20 @@ public class CustomerLoginController {
                 .data(result)
                 .build();
     }
+
+    /**
+     * 批量删除用户
+     * @param loginIdArray 接收需要删除的用户id
+     * @return
+     */
+    @PostMapping("/batch/delete/customer")
+    @ResponseBody
+    public ResponseVo batchDeleteCustomer(@RequestBody String [] loginIdArray){
+        boolean result = customerLoginService.batchDeleteCustomer(loginIdArray);
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "批量删除用户成功" : "批量删除用户失败")
+                .data(result)
+                .build();
+    }
 }

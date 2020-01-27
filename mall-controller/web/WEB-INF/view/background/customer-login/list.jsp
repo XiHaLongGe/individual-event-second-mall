@@ -17,8 +17,9 @@
     <link rel="stylesheet" href="/static/background/backend/home/css/font.css">
     <link rel="stylesheet" href="/static/background/backend/home/css/xadmin.css">
     <script src="/static/js/jquery/jquery-3.3.1.min.js"></script>
+    <script src="/static/background/backend/home/js/customerLoginList.js?v=<%= System.currentTimeMillis()%>"></script>
     <script type="text/javascript" src="/static/background/backend/home/lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="/static/background/backend/home/js/xadmin.js"></script>
+    <script type="text/javascript" src="/static/background/backend/home/js/xadmin.js?v=<%= System.currentTimeMillis()%>"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -57,18 +58,18 @@
     </xblock>
     <table class="layui-table">
         <thead>
-        <tr>
-            <th>
-                <div id="parentDIV" class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
-            </th>
-            <th>序号</th>
-            <th>头像</th>
-            <th>用户昵称</th>
-            <th>登录账号</th>
-            <th>账号状态</th>
-            <th>用户身份</th>
-            <th>操作</th>
-        </tr>
+            <tr>
+                <th>
+                    <div id="parentDIV" class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
+                </th>
+                <th>序号</th>
+                <th>头像</th>
+                <th>用户昵称</th>
+                <th>登录账号</th>
+                <th>账号状态</th>
+                <th>用户身份</th>
+                <th>操作</th>
+            </tr>
         </thead>
         <tbody id="customerTBODY">
         <tr>
@@ -111,7 +112,6 @@
         </div>
     </div>
 </div>
-<script src="/static/background/backend/home/js/customerLoginList.js?v=<%= System.currentTimeMillis()%>"></script>
 <script>
     layui.use('laydate', function(){
         var laydate = layui.laydate;

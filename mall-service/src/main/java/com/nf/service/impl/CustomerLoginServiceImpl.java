@@ -128,4 +128,13 @@ public class CustomerLoginServiceImpl implements CustomerLoginService {
     public boolean deleteCustomer(CustomerLoginEntity customerLoginEntity) {
         return customerLoginDao.deleteCustomer(customerLoginEntity) > 0;
     }
+
+    @Override
+    public boolean batchDeleteCustomer(String [] loginIdArray) {
+        Integer [] loginIdArrays = new Integer[loginIdArray.length];
+        for (int i = 0; i < loginIdArray.length; i++) {
+            loginIdArrays[i] = Integer.valueOf(loginIdArray[i]);
+        }
+        return customerLoginDao.batchDeleteCustomer(loginIdArrays) == loginIdArray.length;
+    }
 }
