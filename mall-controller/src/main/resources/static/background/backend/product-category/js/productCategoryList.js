@@ -94,6 +94,9 @@ function customerPageList(data){
         }
         resultValue += "</td>";
         resultValue += "<td class=\"td-manage\">";
+        resultValue += "<a title=\"修改\" onclick=\"member_edit(this," + element.productCategoryId + ")\" href=\"javascript:;\">";
+        resultValue += "<i class=\"layui-icon\">&#xe69e;</i>";
+        resultValue += "</a>";
         resultValue += "<a title=\"删除\" onclick=\"member_del(this," + element.productCategoryId + ")\" href=\"javascript:;\">";
         resultValue += "<i class=\"layui-icon\">&#xe640;</i>";
         resultValue += "</a>";

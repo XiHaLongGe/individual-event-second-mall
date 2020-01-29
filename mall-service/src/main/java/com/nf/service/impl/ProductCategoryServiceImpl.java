@@ -23,4 +23,14 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     public List<ProductCategoryEntity> getPageByCondition(Integer pageNum, Integer pageSize, ProductCategoryEntity productCategoryEntity) {
         return productCategoryDao.getPageByCondition(pageNum, pageSize, productCategoryEntity);
     }
+
+    @Override
+    public List<ProductCategoryEntity> getByProductCategoryLevel(Integer productCategoryLevel) {
+        return productCategoryDao.getByProductCategoryLevel(productCategoryLevel);
+    }
+
+    @Override
+    public boolean insertProductCategory(ProductCategoryEntity productCategoryEntity) {
+        return productCategoryDao.insertProductCategory(productCategoryEntity) > 0;
+    }
 }

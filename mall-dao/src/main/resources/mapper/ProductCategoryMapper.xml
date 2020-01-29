@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nf.dao.port.ProductCategoryDao">
-    <sql id="AllParams">
+    <sql id="allParams">
         product_category_id,
         product_category_name,
         sidebar_category_describe,
@@ -21,7 +21,7 @@
     <resultMap id="productCategoryResultMap" type="com.nf.entity.ProductCategoryEntity">
         <result property="parentCategoryName" column="parentCategoryName"/>
     </resultMap>
-    <!--根据商品类型层级来获取到商品类型信息-->
+    <!--根据查询条件来获取到商品类型信息-->
     <select id="getPageByCondition" resultMap="productCategoryResultMap">
         select <include refid="selfJoinParams"/>
         from product_category p1 left join product_category p2
@@ -39,4 +39,24 @@
         </choose>
         order by p1.product_category_id
     </select>
+
+    <!--根据商品类型层级来获取到商品类型信息-->
+    <select id="getByProductCategoryLevel" resultType="com.nf.entity.ProductCategoryEntity">
+        select <include refid="allParams"/>
+        from product_category
+        where 1 = 1
+        and product_category_level = #{productCategoryLevel}
+    </select>
+
+    <!--添加商品类型数据-->
+    <insert id="insertProductCategory">
+        insert into product_category(<include refid="allParams"/>) values
+        (
+            #{productCategoryEntity.productCategoryId},
+            #{productCategoryEntity.productCategoryName},
+            #{productCategoryEntity.sidebarCategoryDescribe},
+            #{productCategoryEntity.productCategoryLevel},
+            #{productCategoryEntity.parentId}
+        )
+    </insert>
 </mapper>
