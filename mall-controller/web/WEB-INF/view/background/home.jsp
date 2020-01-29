@@ -143,33 +143,21 @@
             </li>
             <li>
                 <a href="javascript:;">
-                    <i class="iconfont">&#xe726;</i>
-                    <cite>管理员管理</cite>
+                    <i class="iconfont">&#xe83b;</i>
+                    <cite>商品管理</cite>
                     <i class="iconfont nav_right">&#xe6a7;</i>
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="/static/background/backend/home/html/admin-list.html">
+                        <a _href="/mall/background/product/category/home">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>管理员列表</cite>
+                            <cite>商品类型</cite>
                         </a>
-                    </li >
+                    </li>
                     <li>
                         <a _href="/static/background/backend/home/html/admin-role.html">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>角色管理</cite>
-                        </a>
-                    </li >
-                    <li>
-                        <a _href="/static/background/backend/home/html/admin-cate.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>权限分类</cite>
-                        </a>
-                    </li >
-                    <li>
-                        <a _href="/static/background/backend/home/html/admin-rule.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>权限管理</cite>
+                            <cite>商品信息</cite>
                         </a>
                     </li >
                 </ul>

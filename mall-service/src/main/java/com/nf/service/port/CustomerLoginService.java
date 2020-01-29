@@ -1,7 +1,6 @@
 package com.nf.service.port;
 
 import com.nf.entity.CustomerLoginEntity;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 

@@ -1,5 +1,5 @@
 $(function(){
-    checkboxChecked();
+    columnCheckBox();
     pageSearch(1);
     /*以下是条件查询的点击事件*/
     $("#searchBTN").click(function(){
@@ -8,26 +8,31 @@ $(function(){
     })
     /*刷新点击事件*/
     $("#refreshA").click(function(){
-        $("#start").val("");
-        $("#end").val("");
-        $("#IndividualNameINPUT").val("");
-        $("div[name='sex'].layui-form-checked").removeClass("layui-form-checked");
+        $("#categoryNameINPUT").val("");
+        $("div[name='column'].layui-form-checked").removeClass("layui-form-checked");
         pageSearch(1);
         $("#parentDIV").removeClass("layui-form-checked");
     })
 })
 
+/*这是关于条件复选框的相关处理*/
+function columnCheckBox() {
+    $("div[name='column']").click(function(){
+        $("div[name='column']").removeClass("layui-form-checked");
+        $(this).addClass("layui-form-checked");
+    })
+}
+
+
 /*以下是用户信息的查询*/
 function pageSearch(pageNum){
     $.ajax({
-        url:"/mall/background/customer/individual/condition/page/data?pageNum=" + pageNum,
+        url:"/mall/background/product/category/condition/page/data?pageNum=" + pageNum,
         type:"GET",
         async: false,
         data:{
-            "startBirth" : $("#start").val(),
-            "endBirth" : $("#end").val(),
-            "customerIndividualName" : $("#IndividualNameINPUT").val(),
-            "customerIndividualGender" : $("div[name='sex'].layui-form-checked").attr("value")
+            "productCategoryName" : $("#categoryNameINPUT").val(),
+            "productCategoryLevel" : $("div[name='column'].layui-form-checked").attr("value")
         },
         contentType: "application/json",
         success:function (data) {
@@ -42,11 +47,10 @@ function pageSearch(pageNum){
             */
             $(".layui-form-checkbox").unbind('click');
             tableCheck.init();
-            checkboxChecked();
+            columnCheckBox();
         }
     })
 }
-
 
 /*返回列表条目数*/
 function customerCount(data){
@@ -63,19 +67,34 @@ function customerPageList(data){
         resultValue += "<div class=\"layui-unselect layui-form-checkbox\" lay-skin=\"primary\" data-id='" + element.loginId + "'><i class=\"layui-icon\">&#xe605;</i></div>";
         resultValue += "</td>";
         resultValue += "<td>" + parseInt(index + 1) + "</td>";
-        resultValue += "<td>" + element.customerIndividualName + "</td>";
+        resultValue += "<td>" + element.productCategoryName + "</td>";
         resultValue += "<td>";
-        if(element.customerIndividualGender == 0){
-            resultValue += "男";
+        if(element.sidebarCategoryDescribe == ""){
+            resultValue += "暂无描述"
         }else{
-            resultValue += "女";
+            resultValue += element.sidebarCategoryDescribe
         }
         resultValue += "</td>";
-        resultValue += "<td>" + element.customerIndividualCard + "</td>";
-        resultValue += "<td>" + element.customerIndividualPhone + "</td>";
-        resultValue += "<td>" + element.customerIndividualEmail + "</td>";
+        resultValue += "<td>";
+        if(element.productCategoryLevel == 1){
+            resultValue += "商品父栏目";
+        }else if(element.productCategoryLevel == 2){
+            resultValue += "商品子栏目";
+        }else if(element.productCategoryLevel == 3){
+            resultValue += "主页父栏目";
+        }else if(element.productCategoryLevel == 4){
+            resultValue += "主页子栏目";
+        }
+        resultValue += "</td>";
+        resultValue += "<td>";
+        if(element.parentCategoryName == null){
+            resultValue += "顶级类型";
+        }else{
+            resultValue += element.parentCategoryName;
+        }
+        resultValue += "</td>";
         resultValue += "<td class=\"td-manage\">";
-        resultValue += "<a title=\"删除\" onclick=\"member_del(this," + element.customerIndividualId + ")\" href=\"javascript:;\">";
+        resultValue += "<a title=\"删除\" onclick=\"member_del(this," + element.productCategoryId + ")\" href=\"javascript:;\">";
         resultValue += "<i class=\"layui-icon\">&#xe640;</i>";
         resultValue += "</a>";
         resultValue += "</td>";
@@ -116,67 +135,4 @@ function clickLoader(){
         pageSearch(pageNum);
         clickLoader();
     })
-}
-
-/*以下是查询条件多选框的相关处理*/
-function checkboxChecked(){
-    $("#manDIV").click(function () {
-        $(this).next().removeClass("layui-form-checked");
-    })
-    $("#womanDIV").click(function () {
-        $(this).prev().removeClass("layui-form-checked");
-    })
-}
-
-/*以下是单条数据的删除*/
-function member_del(obj,loginId){
-    layer.confirm('确认要删除吗？',function(index){
-        var arr = [];
-        arr.push(loginId)
-        //发异步删除数据
-        if(dataDelete(arr)){
-            $(obj).parents("tr").remove();
-            layer.msg('已删除!',{icon:1,time:1000});
-            var pageNum = $("#pageSPAN").attr("num");
-            pageSearch(pageNum);
-        }else{
-            layer.msg('删除失败!',{icon:2,time:1000});
-        }
-    });
-}
-
-/*以下是批量删除*/
-function delAll () {
-    /*获取到所有被选中的id*/
-    var loginIdArray = tableCheck.getData();
-    layer.confirm('确认要删除吗？',function(index){
-        //捉到所有被选中的，发异步进行删除
-        if(dataDelete(loginIdArray)){
-            layer.msg('删除成功', {icon: 1});
-            $(".layui-form-checked").not('.header').parents('tr').remove();
-            $("#parentDIV").removeClass("layui-form-checked");
-            var pageNum = $("#pageSPAN").attr("num");
-            pageSearch(pageNum);
-        }else{
-            layer.msg('删除失败!',{icon:2,time:1000});
-        }
-    });
-}
-
-
-//异步对数据删除
-function dataDelete(loginIdArray){
-    var yn = false;
-    $.ajax({
-        url:"/mall/background/customer/individual/batch/delete/customer",
-        type:"POST",
-        data:JSON.stringify(loginIdArray),
-        dataType:"json",
-        async: false,//设置为同步
-        contentType: "application/json",
-        success:function(data){
-            yn = data.code == 200;
-        }
-    })
-    return yn;
 }

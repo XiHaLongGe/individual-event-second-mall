@@ -21,7 +21,6 @@ public class ProductCategoryEntity {
                 "productCategoryId='" + productCategoryId + '\'' +
                 ", productCategoryName='" + productCategoryName + '\'' +
                 ", sidebarCategoryDescribe='" + sidebarCategoryDescribe + '\'' +
-                ", productCategoryColumn=" + productCategoryColumn +
                 ", productCategoryLevel=" + productCategoryLevel +
                 ", parentId='" + parentId + '\'' +
                 '}';
@@ -40,12 +39,6 @@ public class ProductCategoryEntity {
      */
     private String sidebarCategoryDescribe;
     /**
-     * product_category_column: 是否属于栏目类型
-     *                          0 : "否"
-     *                          1 : "是"
-     */
-    private Byte productCategoryColumn;
-    /**
      * product_category_level: 类型层级
      */
     private Integer productCategoryLevel;
@@ -53,4 +46,14 @@ public class ProductCategoryEntity {
      * parent_id: 父类型ID
      */
     private String parentId;
+
+
+    /*===================================   扩展字段   begin   ==================================*/
+
+    /**
+     * parentCategoryName: 父类型名称
+     */
+    private String parentCategoryName;
+
+    /*===================================   扩展字段   end   ==================================*/
 }
