@@ -164,7 +164,7 @@ public class CustomerLoginController {
     @PostMapping("/delete/customer")
     @ResponseBody
     public ResponseVo deleteCustomer(@RequestBody CustomerLoginEntity customerLoginEntity){
-        boolean result = customerLoginService.deleteCustomer(customerLoginEntity);
+        boolean result = customerLoginService.deleteCustomer(customerLoginEntity.getLoginId(), true);
         return ResponseVo.newBuilder()
                 .code(result ? 200 : 500)
                 .message(result ? "删除用户成功" : "删除用户失败")
@@ -180,7 +180,7 @@ public class CustomerLoginController {
     @PostMapping("/batch/delete/customer")
     @ResponseBody
     public ResponseVo batchDeleteCustomer(@RequestBody String [] loginIdArray){
-        boolean result = customerLoginService.batchDeleteCustomer(loginIdArray);
+        boolean result = customerLoginService.batchDeleteCustomer(loginIdArray, true);
         return ResponseVo.newBuilder()
                 .code(result ? 200 : 500)
                 .message(result ? "批量删除用户成功" : "批量删除用户失败")

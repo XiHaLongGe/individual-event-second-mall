@@ -48,7 +48,7 @@ $(function () {
             });
         },
         getData:function  () {
-            var obj = $("div [lay-skin='primary']").not('.header');
+            var obj = $("div [lay-skin='primary'].layui-form-checked").not('.header');
             var arr=[];
             obj.each(function(index, el) {
                 arr.push(obj.eq(index).attr('data-id'));

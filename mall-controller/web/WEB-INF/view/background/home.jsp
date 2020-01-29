@@ -188,7 +188,7 @@
                         </a>
                     </li >
                     <li>
-                        <a _href="/background/backend/home/member/add">
+                        <a _href="/mall/background/customer/individual/home">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>个人信息</cite>
                         </a>

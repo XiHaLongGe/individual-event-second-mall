@@ -124,17 +124,30 @@ public class CustomerLoginServiceImpl implements CustomerLoginService {
         return customerLoginDao.updateAccountStats(customerLoginEntity) > 0;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
-    public boolean deleteCustomer(CustomerLoginEntity customerLoginEntity) {
-        return customerLoginDao.deleteCustomer(customerLoginEntity) > 0;
+    public boolean deleteCustomer(Integer loginId, boolean yn) {
+        Integer number = customerLoginDao.deleteCustomer(loginId);
+        if (yn){
+            customerIndividualService.deleteCustomer(loginId, false);
+        }
+        return  number > 0;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
-    public boolean batchDeleteCustomer(String [] loginIdArray) {
+    public boolean batchDeleteCustomer(String [] loginIdArray, boolean yn) {
+        /*将字符串数组类型转换成Integer整数类型数组*/
         Integer [] loginIdArrays = new Integer[loginIdArray.length];
         for (int i = 0; i < loginIdArray.length; i++) {
             loginIdArrays[i] = Integer.valueOf(loginIdArray[i]);
         }
-        return customerLoginDao.batchDeleteCustomer(loginIdArrays) == loginIdArray.length;
+        /*获得批量删除对数据库的影响行数*/
+        Integer number = customerLoginDao.batchDeleteCustomer(loginIdArrays);
+        if(yn){
+            /*将用户信息表中该登录id的数据也删除*/
+            customerIndividualService.batchDeleteCustomer(loginIdArray, false);
+        }
+        return number == loginIdArray.length;
     }
 }

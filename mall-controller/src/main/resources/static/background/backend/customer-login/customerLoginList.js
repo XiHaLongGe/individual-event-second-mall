@@ -90,7 +90,7 @@ function customerPageList(data){
                 userStats = "注销激活";
                 layuiIco = "&#xe601;";
             }else{
-                resultValue += "<span class=\"layui-btn layui-btn-normal layui-btn-sm layui-btn-disabled\">未激活</span>";
+                resultValue += "<span class=\"layui-btn layui-btn-normal layui-btn-sm layui-btn-disabled\">未激活</span></td>";
                 userStats = "激活";
                 layuiIco = "&#xe62f;";
             }
@@ -225,6 +225,8 @@ function member_del(obj,loginId){
         if(singleDelete(loginId)){
             $(obj).parents("tr").remove();
             layer.msg('已删除!',{icon:1,time:1000});
+            var pageNum = $("#pageSPAN").attr("num");
+            pageSearch(pageNum);
         }else{
             layer.msg('删除失败!',{icon:2,time:1000});
         }

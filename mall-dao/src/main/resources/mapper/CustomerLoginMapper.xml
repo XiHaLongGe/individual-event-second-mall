@@ -129,7 +129,7 @@
     </update>
     <!--删除用户-->
     <delete id="deleteCustomer">
-        delete from customer_login where login_id = #{customerLoginEntity.loginId}
+        delete from customer_login where login_id = #{loginId}
     </delete>
     <!--批量删除用户-->
     <delete id="batchDeleteCustomer">

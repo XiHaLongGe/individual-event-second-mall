@@ -17,6 +17,34 @@
         customer_individual_phone,
         customer_individual_email
     </sql>
+    <!--获取到所有用户信息列表,并以分页的格式呈现-->
+    <select id="getPageAll" resultType="com.nf.entity.CustomerIndividualEntity">
+        select <include refid="selectParams"/>
+        from customer_individual
+        order by customer_individual_id
+    </select>
+    <!--根据用户出生年月日、姓名、性别进行条件查询-->
+    <select id="getPageByCondition" resultType="com.nf.entity.CustomerIndividualEntity">
+        select <include refid="selectParams"/>
+        from customer_individual
+        where 1 = 1
+        <choose>
+            <when test="customerIndividualEntity.startBirth != null and customerIndividualEntity.endBirth != null and customerIndividualEntity.startBirth != '' and customerIndividualEntity.endBirth != ''">
+                and cast(substring(customer_individual_card,7,8) as date) BETWEEN #{customerIndividualEntity.startBirth} AND #{customerIndividualEntity.endBirth}
+            </when>
+        </choose>
+        <choose>
+            <when test="customerIndividualEntity.customerIndividualName != null and customerIndividualEntity.customerIndividualName != ''">
+                and customer_individual_name like '%' #{customerIndividualEntity.customerIndividualName} '%'
+            </when>
+        </choose>
+        <choose>
+            <when test="customerIndividualEntity.customerIndividualGender != null">
+                and customer_individual_gender = #{customerIndividualEntity.customerIndividualGender}
+            </when>
+        </choose>
+        order by customer_individual_id
+    </select>
     <!--根据用户登录ID来获取用户信息表的数据-->
     <select id="getByLoginId" resultType="com.nf.entity.CustomerIndividualEntity">
         select <include refid="selectParams"/>
@@ -42,4 +70,17 @@
                 customer_individual_email = #{customerIndividualEntity.customerIndividualEmail}
         where login_id = #{customerIndividualEntity.loginId}
     </update>
+    <!--删除用户-->
+    <delete id="deleteCustomer">
+        delete from customer_individual where login_id = #{loginId}
+    </delete>
+    <!--批量删除用户-->
+    <delete id="batchDeleteCustomer">
+        delete from customer_individual
+        where 1 = 1
+        and login_id in
+        <foreach collection="loginIdArray" item="loginIdArray" open="(" separator="," close=")">
+            #{loginIdArray}
+        </foreach>
+    </delete>
 </mapper>

@@ -14,32 +14,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CustomerIndividualEntity {
-    private CustomerIndividualEntity(Builder builder) {
-        customerIndividualId = builder.customerIndividualId;
-        loginId = builder.loginId;
-        customerIndividualName = builder.customerIndividualName;
-        customerIndividualGender = builder.customerIndividualGender;
-        customerIndividualCard = builder.customerIndividualCard;
-        customerIndividualPhone = builder.customerIndividualPhone;
-        customerIndividualEmail = builder.customerIndividualEmail;
-    }
-
-    public static Builder newBuilder() {
-        return new Builder();
-    }
-
-    public static Builder newBuilder(CustomerIndividualEntity copy) {
-        Builder builder = new Builder();
-        builder.customerIndividualId = copy.getCustomerIndividualId();
-        builder.loginId = copy.getLoginId();
-        builder.customerIndividualName = copy.getCustomerIndividualName();
-        builder.customerIndividualGender = copy.getCustomerIndividualGender();
-        builder.customerIndividualCard = copy.getCustomerIndividualCard();
-        builder.customerIndividualPhone = copy.getCustomerIndividualPhone();
-        builder.customerIndividualEmail = copy.getCustomerIndividualEmail();
-        return builder;
-    }
-
     @Override
     public String toString() {
         return "CustomerIndividualEntity{" +
@@ -52,7 +26,6 @@ public class CustomerIndividualEntity {
                 ", customerIndividualEmail='" + customerIndividualEmail + '\'' +
                 '}';
     }
-
     /**
      * customerIndividualId: 用户信息表ID
      */
@@ -96,8 +69,51 @@ public class CustomerIndividualEntity {
      * loginName: 昵称
      */
     private String loginName;
+    //以下扩展字段是用来接收后台 用户信息界面中出生年月日的查询条件，根据该条件来获取时间段中用户的信息
+    /**
+     * startBirth: 出生年月日开始
+     */
+    private String startBirth;
+    /**
+     * endBirth: 出生年月日结束
+     */
+    private String endBirth;
 
     /*===================================   扩展字段   end   ==================================*/
+
+    private CustomerIndividualEntity(Builder builder) {
+        customerIndividualId = builder.customerIndividualId;
+        loginId = builder.loginId;
+        customerIndividualName = builder.customerIndividualName;
+        customerIndividualGender = builder.customerIndividualGender;
+        customerIndividualCard = builder.customerIndividualCard;
+        customerIndividualPhone = builder.customerIndividualPhone;
+        customerIndividualEmail = builder.customerIndividualEmail;
+        headIconUrl = builder.headIconUrl;
+        loginName = builder.loginName;
+        startBirth = builder.startBirth;
+        endBirth = builder.endBirth;
+    }
+
+    public static Builder newBuilder() {
+        return new Builder();
+    }
+
+    public static Builder newBuilder(CustomerIndividualEntity copy) {
+        Builder builder = new Builder();
+        builder.customerIndividualId = copy.getCustomerIndividualId();
+        builder.loginId = copy.getLoginId();
+        builder.customerIndividualName = copy.getCustomerIndividualName();
+        builder.customerIndividualGender = copy.getCustomerIndividualGender();
+        builder.customerIndividualCard = copy.getCustomerIndividualCard();
+        builder.customerIndividualPhone = copy.getCustomerIndividualPhone();
+        builder.customerIndividualEmail = copy.getCustomerIndividualEmail();
+        builder.headIconUrl = copy.getHeadIconUrl();
+        builder.loginName = copy.getLoginName();
+        builder.startBirth = copy.getStartBirth();
+        builder.endBirth = copy.getEndBirth();
+        return builder;
+    }
 
     public static final class Builder {
         private Integer customerIndividualId;
@@ -107,6 +123,10 @@ public class CustomerIndividualEntity {
         private String customerIndividualCard;
         private String customerIndividualPhone;
         private String customerIndividualEmail;
+        private String headIconUrl;
+        private String loginName;
+        private String startBirth;
+        private String endBirth;
 
         private Builder() {
         }
@@ -143,6 +163,26 @@ public class CustomerIndividualEntity {
 
         public Builder customerIndividualEmail(String val) {
             customerIndividualEmail = val;
+            return this;
+        }
+
+        public Builder headIconUrl(String val) {
+            headIconUrl = val;
+            return this;
+        }
+
+        public Builder loginName(String val) {
+            loginName = val;
+            return this;
+        }
+
+        public Builder startBirth(String val) {
+            startBirth = val;
+            return this;
+        }
+
+        public Builder endBirth(String val) {
+            endBirth = val;
             return this;
         }
 

@@ -25,7 +25,7 @@ public interface CustomerLoginDao {
      * @param pageNum 接收当前页码
      * @param pageSize 每页显示数据条目
      * @param customerLoginEntity 通过登录信息实体类来接收用户进行查询的条件
-     * @return 根据用户昵称查询结果的列表(分页后的)
+     * @return 根据用户所选条件查询结果的列表(分页后的)
      */
     List<CustomerLoginEntity> getPageByCondition(@Param("pageNum") Integer pageNum,
                                             @Param("pageSize") Integer pageSize,
@@ -99,10 +99,10 @@ public interface CustomerLoginDao {
 
     /**
      * 删除用户
-     * @param customerLoginEntity 接收需要删除的用户id
+     * @param loginId 接收需要删除的用户id
      * @return 返回对数据库的影响行数
      */
-    Integer deleteCustomer(@Param("customerLoginEntity")CustomerLoginEntity customerLoginEntity);
+    Integer deleteCustomer(@Param("loginId")Integer loginId);
 
     /**
      * 批量删除用户

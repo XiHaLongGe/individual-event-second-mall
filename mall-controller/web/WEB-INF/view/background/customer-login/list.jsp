@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="/static/background/backend/home/css/font.css">
     <link rel="stylesheet" href="/static/background/backend/home/css/xadmin.css">
     <script src="/static/js/jquery/jquery-3.3.1.min.js"></script>
-    <script src="/static/background/backend/home/js/customerLoginList.js?v=<%= System.currentTimeMillis()%>"></script>
+    <script src="/static/background/backend/customer-login/customerLoginList.js?v=<%= System.currentTimeMillis()%>"></script>
     <script type="text/javascript" src="/static/background/backend/home/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="/static/background/backend/home/js/xadmin.js?v=<%= System.currentTimeMillis()%>"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
@@ -29,12 +29,12 @@
 
 <body class="layui-anim layui-anim-up">
 <div class="x-nav">
-      <span class="layui-breadcrumb">
+      <%--<span class="layui-breadcrumb">
         <a href="">首页</a>
         <a href="">演示</a>
         <a>
           <cite>导航元素</cite></a>
-      </span>
+      </span>--%>
     <a id="refreshA" class="layui-btn layui-btn-primary layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:;" title="刷新">
         <i class="layui-icon" style="line-height:38px">ဂ</i></a>
 </div>
