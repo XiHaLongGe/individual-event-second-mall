@@ -6,6 +6,7 @@ import com.nf.service.port.ProductCategoryService;
 import com.nf.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,8 +32,24 @@ public class ProductCategoryController {
         return "background/product-category/homeCategoryList";
     }
 
-    @RequestMapping("/add/product/category")
-    public String addProductCategory(){return "background/product-category/add";}
+    /**
+     * 添加和修改的视图
+     * @param model 通过model对象将id写入请求域
+     * @param productCategoryId 修改的时候会通过该参数来接收修改的id
+     * @return
+     */
+    @RequestMapping("/add/edit/product/category")
+    public String addEditProductCategory(Model model, String productCategoryId){
+        //判断productCategoryId是否有值，有值表示修改 否则添加
+        if(productCategoryId == null || productCategoryId.isEmpty()){
+            model.addAttribute("addOrEditType", "添加");
+        }else{
+            model.addAttribute("addOrEditType", "修改");
+            model.addAttribute("productCategoryEntity", productCategoryService.getByProductCategoryId(productCategoryId));
+            model.addAttribute("productCategoryId", productCategoryId);
+        }
+        return "background/product-category/addAndEdit";
+    }
 
     /**
      * 根据条件查询商品类型数据
@@ -99,11 +116,44 @@ public class ProductCategoryController {
      */
     @PostMapping("/insert/product/category")
     @ResponseBody
-    public ResponseVo insertProductCategory(ProductCategoryEntity productCategoryEntity){
+    public ResponseVo insertProductCategory(@RequestBody ProductCategoryEntity productCategoryEntity){
         boolean result = productCategoryService.insertProductCategory(productCategoryEntity);
         return ResponseVo.newBuilder()
                 .code(result ? 200 : 500)
                 .message(result ? "商品类型数据添加成功" : "商品类型数据添加失败")
+                .data(result)
+                .build();
+    }
+
+    /**
+     * 修改商品类型数据
+     * @param productCategoryEntity 用来接收商品类型数据
+     * @return
+     */
+    @PostMapping("/update/product/category")
+    @ResponseBody
+    public ResponseVo updateProductCategory(@RequestBody ProductCategoryEntity productCategoryEntity){
+        boolean result = productCategoryService.updateProductCategory(productCategoryEntity);
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "商品类型数据修改成功" : "商品类型数据修改失败")
+                .data(result)
+                .build();
+    }
+
+
+    /**
+     * 批量删除商品类型
+     * @param productCategoryIdArray 接收需要删除的商品类型id
+     * @return
+     */
+    @PostMapping("/batch/delete/product/category")
+    @ResponseBody
+    public ResponseVo batchDeleteProductCategory(@RequestBody String [] productCategoryIdArray){
+        boolean result = productCategoryService.batchDeleteProductCategory(productCategoryIdArray, true);
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "删除用户成功" : "删除用户失败")
                 .data(result)
                 .build();
     }

@@ -56,4 +56,70 @@ public class ProductCategoryEntity {
     private String parentCategoryName;
 
     /*===================================   扩展字段   end   ==================================*/
+
+
+
+    private ProductCategoryEntity(Builder builder) {
+        productCategoryId = builder.productCategoryId;
+        productCategoryName = builder.productCategoryName;
+        sidebarCategoryDescribe = builder.sidebarCategoryDescribe;
+        productCategoryLevel = builder.productCategoryLevel;
+        parentId = builder.parentId;
+    }
+
+    public static Builder newBuilder() {
+        return new Builder();
+    }
+
+    public static Builder newBuilder(ProductCategoryEntity copy) {
+        Builder builder = new Builder();
+        builder.productCategoryId = copy.getProductCategoryId();
+        builder.productCategoryName = copy.getProductCategoryName();
+        builder.sidebarCategoryDescribe = copy.getSidebarCategoryDescribe();
+        builder.productCategoryLevel = copy.getProductCategoryLevel();
+        builder.parentId = copy.getParentId();
+        return builder;
+    }
+
+    public static final class Builder {
+        private String productCategoryId;
+        private String productCategoryName;
+        private String sidebarCategoryDescribe;
+        private Integer productCategoryLevel;
+        private String parentId;
+
+        private Builder() {
+        }
+
+        public Builder productCategoryId(String val) {
+            productCategoryId = val;
+            return this;
+        }
+
+        public Builder productCategoryName(String val) {
+            productCategoryName = val;
+            return this;
+        }
+
+        public Builder sidebarCategoryDescribe(String val) {
+            sidebarCategoryDescribe = val;
+            return this;
+        }
+
+        public Builder productCategoryLevel(Integer val) {
+            productCategoryLevel = val;
+            return this;
+        }
+
+        public Builder parentId(String val) {
+            parentId = val;
+            return this;
+        }
+
+        public ProductCategoryEntity build() {
+            return new ProductCategoryEntity(this);
+        }
+    }
+
+
 }

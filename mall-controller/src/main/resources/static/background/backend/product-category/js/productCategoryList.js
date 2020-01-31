@@ -64,12 +64,12 @@ function customerPageList(data){
     $.each(data.data.list,function(index, element){
         resultValue += "<tr>";
         resultValue += "<td>";
-        resultValue += "<div class=\"layui-unselect layui-form-checkbox\" lay-skin=\"primary\" data-id='" + element.loginId + "'><i class=\"layui-icon\">&#xe605;</i></div>";
+        resultValue += "<div class=\"layui-unselect layui-form-checkbox\" lay-skin=\"primary\" data-id='" + element.productCategoryId + "'><i class=\"layui-icon\">&#xe605;</i></div>";
         resultValue += "</td>";
         resultValue += "<td>" + parseInt(index + 1) + "</td>";
         resultValue += "<td>" + element.productCategoryName + "</td>";
         resultValue += "<td>";
-        if(element.sidebarCategoryDescribe == ""){
+        if(element.sidebarCategoryDescribe == null || element.sidebarCategoryDescribe == ""){
             resultValue += "暂无描述"
         }else{
             resultValue += element.sidebarCategoryDescribe
@@ -87,17 +87,17 @@ function customerPageList(data){
         }
         resultValue += "</td>";
         resultValue += "<td>";
-        if(element.parentCategoryName == null){
+        if(element.parentCategoryName == null || element.parentCategoryName == ""){
             resultValue += "顶级类型";
         }else{
             resultValue += element.parentCategoryName;
         }
         resultValue += "</td>";
         resultValue += "<td class=\"td-manage\">";
-        resultValue += "<a title=\"修改\" onclick=\"member_edit(this," + element.productCategoryId + ")\" href=\"javascript:;\">";
-        resultValue += "<i class=\"layui-icon\">&#xe69e;</i>";
+        resultValue += "<a title=\"修改\" onclick=\"x_admin_show('修改栏目', '/mall/background/product/category/add/edit/product/category?productCategoryId=" + element.productCategoryId + "',300,300)\" href=\"javascript:;\">";
+        resultValue += "<i class=\"iconfont\">&#xe69e;</i>";
         resultValue += "</a>";
-        resultValue += "<a title=\"删除\" onclick=\"member_del(this," + element.productCategoryId + ")\" href=\"javascript:;\">";
+        resultValue += "<a title=\"删除\" onclick=\"member_del(this,'" + element.productCategoryId + "')\" href=\"javascript:;\">";
         resultValue += "<i class=\"layui-icon\">&#xe640;</i>";
         resultValue += "</a>";
         resultValue += "</td>";
@@ -138,4 +138,58 @@ function clickLoader(){
         pageSearch(pageNum);
         clickLoader();
     })
+}
+
+
+/*以下是单条数据的删除*/
+function member_del(obj,productCategoryId){
+    layer.confirm('确认要删除吗？',function(index){
+        var arr = [];
+        arr.push(productCategoryId)
+        //发异步删除数据
+        if(dataDelete(arr)){
+            $(obj).parents("tr").remove();
+            layer.msg('已删除!',{icon:1,time:1000});
+            var pageNum = $("#pageSPAN").attr("num");
+            pageSearch(pageNum);
+        }else{
+            layer.msg('删除失败!',{icon:2,time:1000});
+        }
+    });
+}
+
+/*以下是批量删除*/
+function delAll () {
+    /*获取到所有被选中的id*/
+    var productCategoryIdArray = tableCheck.getData();
+    layer.confirm('确认要删除吗？',function(index){
+        //捉到所有被选中的，发异步进行删除
+        if(dataDelete(productCategoryIdArray)){
+            layer.msg('删除成功', {icon: 1});
+            $(".layui-form-checked").not('.header').parents('tr').remove();
+            $("#parentDIV").removeClass("layui-form-checked");
+            var pageNum = $("#pageSPAN").attr("num");
+            pageSearch(pageNum);
+        }else{
+            layer.msg('删除失败!',{icon:2,time:1000});
+        }
+    });
+}
+
+
+//异步对数据删除
+function dataDelete(productCategoryIdArray){
+    var yn = false;
+    $.ajax({
+        url:"/mall/background/product/category/batch/delete/product/category",
+        type:"POST",
+        data:JSON.stringify(productCategoryIdArray),
+        dataType:"json",
+        async: false,//设置为同步
+        contentType: "application/json",
+        success:function(data){
+            yn = data.code == 200;
+        }
+    })
+    return yn;
 }

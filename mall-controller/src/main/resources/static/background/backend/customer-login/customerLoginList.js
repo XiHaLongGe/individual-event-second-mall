@@ -140,19 +140,6 @@ function clickLoader(){
         clickLoader();
     })
 }
-//将表单数据转换成json数据
-function transformJSON(formId){
-    var $jsonData = {};
-    /*下面是将form表单的数据转换成一个json的数据格式*/
-    $.each($(formId).serializeArray(), function(i,e){
-        $jsonData[e.name] = e.value;
-    })
-    return $jsonData;
-}
-
-
-
-
 
 /*用户账号状态的修改*/
 function member_stop(obj,id){

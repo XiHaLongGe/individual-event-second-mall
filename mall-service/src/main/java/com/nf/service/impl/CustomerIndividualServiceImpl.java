@@ -68,12 +68,12 @@ public class CustomerIndividualServiceImpl implements CustomerIndividualService 
         for (int i = 0; i < loginIdArray.length; i++) {
             loginIdArrays[i] = Integer.valueOf(loginIdArray[i]);
         }
-        /*获得批量删除对数据库的影响行数*/
-        Integer number = customerIndividualDao.batchDeleteCustomer(loginIdArrays);
+        /*获得批量删除结果*/
+        boolean deleteResult = customerIndividualDao.batchDeleteCustomer(loginIdArrays) == loginIdArrays.length;
         if(yn){
             /*将用户登录表中该登录id的数据也删除*/
-            customerLoginService.batchDeleteCustomer(loginIdArray, false);
+            deleteResult = customerLoginService.batchDeleteCustomer(loginIdArray, false);
         }
-        return number == loginIdArray.length;
+        return deleteResult;
     }
 }

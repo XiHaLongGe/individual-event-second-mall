@@ -29,6 +29,26 @@ public interface ProductCategoryService {
      */
     List<ProductCategoryEntity> getByProductCategoryLevel(Integer productCategoryLevel);
 
+    /**
+     * 通过商品类型id来获得商品类型信息
+     * @param productCategoryId
+     * @return
+     */
+    ProductCategoryEntity getByProductCategoryId(String productCategoryId);
+
+    /**
+     * 通过添加数据的类型层级和父类id来获得该层级最大id
+     * @param productCategoryEntity 用来接收栏目层级或父类id
+     * @return 返回最大id的实体类
+     */
+    ProductCategoryEntity getBigId(ProductCategoryEntity productCategoryEntity);
+
+    /**
+     * 通过父类型id来获得商品类型条目
+     * @param parentIdArray 用来接收父类型id
+     * @return 接收父类型共有多少子类型条目
+     */
+    Integer getByParentIdCount(String[] parentIdArray);
 
     /**
      * 添加商品类型数据
@@ -36,4 +56,29 @@ public interface ProductCategoryService {
      * @return 添加结果
      */
     boolean insertProductCategory(ProductCategoryEntity productCategoryEntity);
+
+
+    /**
+     * 修改商品类型数据
+     * @param productCategoryEntity 用来接收添加的商品类型数据
+     * @return 修改结果
+     */
+    boolean updateProductCategory(ProductCategoryEntity productCategoryEntity);
+
+
+    /**
+     * 根据父id对商品类型进行删除
+     * @param parentIdArray 用来接收父id
+     * @return 删除结果
+     */
+    boolean deleteByParentId(String[] parentIdArray);
+
+
+    /**
+     * 批量删除商品类型
+     * @param productCategoryIdArray 接收需要删除的商品类型id
+     * @param cascadeDelete 用来确定是否需要对关联表的相关数据进行删除操作
+     * @return 返回批量删除的结果
+     */
+    boolean batchDeleteProductCategory(String [] productCategoryIdArray, boolean cascadeDelete);
 }

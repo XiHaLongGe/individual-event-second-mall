@@ -63,8 +63,8 @@ public interface CustomerIndividualService {
     /**
      * 批量删除用户
      * @param loginIdArray 接收需要删除的用户id
-     * @param yn 用来确定是否需要对关联表的相关数据进行删除操作
+     * @param cascadeDelete 用来确定是否需要对关联表的相关数据进行删除操作
      * @return 返回批量删除的结果
      */
-    boolean batchDeleteCustomer(String [] loginIdArray, boolean yn);
+    boolean batchDeleteCustomer(String [] loginIdArray, boolean cascadeDelete);
 }

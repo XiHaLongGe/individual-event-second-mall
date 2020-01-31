@@ -24,6 +24,13 @@ public interface ProductCategoryDao {
                                                    @Param("productCategoryEntity") ProductCategoryEntity productCategoryEntity);
 
     /**
+     * 通过商品类型id来获得商品类型信息
+     * @param productCategoryId
+     * @return
+     */
+    ProductCategoryEntity getByProductCategoryId(@Param("productCategoryId")String productCategoryId);
+
+    /**
      * 根据商品类型层级来获取到商品类型信息
      * @param productCategoryLevel 商品类型层级
      * @return
@@ -31,9 +38,45 @@ public interface ProductCategoryDao {
     List<ProductCategoryEntity> getByProductCategoryLevel(@Param("productCategoryLevel")Integer productCategoryLevel);
 
     /**
+     * 通过添加数据的类型层级和父类id来获得该层级最大id
+     * @param productCategoryEntity 用来接收栏目层级或父类id
+     * @return 返回最大id的实体类
+     */
+    ProductCategoryEntity getBigId(@Param("productCategoryEntity") ProductCategoryEntity productCategoryEntity);
+
+
+    /**
+     * 通过父类型id来获得商品类型条目
+     * @param parentIdArray 用来接收父类型id
+     * @return 接收父类型共有多少子类型条目
+     */
+    Integer getByParentIdCount(@Param("parentIdArray")String[] parentIdArray);
+
+    /**
      * 添加商品类型数据
      * @param productCategoryEntity 用来接收添加的商品类型数据
      * @return 对数据库的影响行数
      */
     Integer insertProductCategory(@Param("productCategoryEntity") ProductCategoryEntity productCategoryEntity);
+
+    /**
+     * 修改商品类型数据
+     * @param productCategoryEntity 用来接收添加的商品类型数据
+     * @return 对数据库的影响行数
+     */
+    Integer updateProductCategory(@Param("productCategoryEntity") ProductCategoryEntity productCategoryEntity);
+
+    /**
+     * 根据父id对商品类型进行删除
+     * @param parentIdArray 用来接收父id
+     * @return 对数据库的影响行数
+     */
+    Integer deleteByParentId(@Param("parentIdArray")String[] parentIdArray);
+
+    /**
+     * 批量删除商品类型
+     * @param productCategoryIdArray 接收需要删除的商品类型id
+     * @return 返回对数据库的影响行数
+     */
+    Integer batchDeleteProductCategory(@Param("productCategoryIdArray")String [] productCategoryIdArray);
 }

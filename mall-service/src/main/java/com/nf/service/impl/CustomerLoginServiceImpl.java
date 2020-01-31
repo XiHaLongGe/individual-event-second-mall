@@ -143,11 +143,11 @@ public class CustomerLoginServiceImpl implements CustomerLoginService {
             loginIdArrays[i] = Integer.valueOf(loginIdArray[i]);
         }
         /*获得批量删除对数据库的影响行数*/
-        Integer number = customerLoginDao.batchDeleteCustomer(loginIdArrays);
+        boolean deleteResult = customerLoginDao.batchDeleteCustomer(loginIdArrays) == loginIdArray.length;
         if(yn){
             /*将用户信息表中该登录id的数据也删除*/
-            customerIndividualService.batchDeleteCustomer(loginIdArray, false);
+            deleteResult = customerIndividualService.batchDeleteCustomer(loginIdArray, false);
         }
-        return number == loginIdArray.length;
+        return deleteResult;
     }
 }

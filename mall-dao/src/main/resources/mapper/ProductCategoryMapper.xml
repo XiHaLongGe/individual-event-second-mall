@@ -40,12 +40,44 @@
         order by p1.product_category_id
     </select>
 
+    <select id="getByProductCategoryId" resultType="com.nf.entity.ProductCategoryEntity">
+        select <include refid="allParams"/>
+        from product_category
+        where 1 = 1
+        and product_category_id = #{productCategoryId}
+    </select>
+
     <!--根据商品类型层级来获取到商品类型信息-->
     <select id="getByProductCategoryLevel" resultType="com.nf.entity.ProductCategoryEntity">
         select <include refid="allParams"/>
         from product_category
         where 1 = 1
         and product_category_level = #{productCategoryLevel}
+    </select>
+
+    <!--通过添加数据的类型层级和父类id来获得该层级最大id-->
+    <select id="getBigId" resultType="com.nf.entity.ProductCategoryEntity">
+        select <include refid="allParams"/>
+        from product_category
+        where product_category_level = #{productCategoryEntity.productCategoryLevel}
+        <choose>
+            <when test="productCategoryEntity.parentId != null and productCategoryEntity.parentId != ''">
+                and parent_id = #{productCategoryEntity.parentId}
+            </when>
+        </choose>
+        ORDER BY product_category_id desc
+        LIMIT 1
+    </select>
+
+    <!---->
+    <select id="getByParentIdCount" resultType="integer">
+        select count(*)
+        from product_category
+        where  1 = 1
+        and parent_id in
+        <foreach collection="parentIdArray" item="parentId" open="(" separator="," close=")">
+            #{parentId}
+        </foreach>
     </select>
 
     <!--添加商品类型数据-->
@@ -59,4 +91,35 @@
             #{productCategoryEntity.parentId}
         )
     </insert>
+
+    <!--修改商品类型数据-->
+    <update id="updateProductCategory">
+        update product_category
+        set
+            product_category_name = #{productCategoryEntity.productCategoryName},
+            sidebar_category_describe = #{productCategoryEntity.sidebarCategoryDescribe},
+            product_category_level = #{productCategoryEntity.productCategoryLevel},
+            parent_id = #{productCategoryEntity.parentId}
+        where product_category_id = #{productCategoryEntity.productCategoryId}
+    </update>
+
+    <!--根据父id对商品类型进行删除-->
+    <delete id="deleteByParentId">
+        delete from product_category
+        where 1 = 1
+        and parent_id in
+        <foreach collection="parentIdArray" item="parentId" open="(" separator="," close=")">
+            #{parentId}
+        </foreach>
+    </delete>
+
+    <!--批量删除商品类型-->
+    <delete id="batchDeleteProductCategory">
+        delete from product_category
+        where 1 = 1
+        and product_category_id in
+        <foreach collection="productCategoryIdArray" item="productCategoryId" open="(" separator="," close=")">
+            #{productCategoryId}
+        </foreach>
+    </delete>
 </mapper>
