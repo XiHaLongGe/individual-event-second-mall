@@ -13,12 +13,12 @@
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
-    <link rel="shortcut icon" href="/static/background/backend/home/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="/static/background/backend/home/css/font.css">
-    <link rel="stylesheet" href="/static/background/backend/home/css/xadmin.css">
+    <link rel="shortcut icon" href="/static/background/home/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/static/background/home/css/font.css">
+    <link rel="stylesheet" href="/static/background/home/css/xadmin.css">
     <script src="/static/js/jquery/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="/static/background/backend/home/lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="/static/background/backend/home/js/xadmin.js?v=<%= System.currentTimeMillis()%>"></script>
+    <script type="text/javascript" src="/static/background/home/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/static/background/home/js/xadmin.js?v=<%= System.currentTimeMillis()%>"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -36,7 +36,7 @@
         <form id="searchFORM" class="layui-form layui-col-md12 x-so">
             <input type="text" id="categoryNameINPUT"  placeholder="请输入类型名称" autocomplete="off" class="layui-input">
             <button id="searchBTN" type="button" class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
-            全部：<div id="allDIV" name="column" value="" class="layui-unselect layui-form-checkbox" lay-skin=""><i class="layui-icon"></i></div>
+            全部：<div id="allDIV" name="column" value="" class="layui-unselect layui-form-checkbox layui-form-checked" lay-skin=""><i class="layui-icon"></i></div>
             商品父栏目：<div id="proParentDIV" name="column" value="1" class="layui-unselect layui-form-checkbox" lay-skin=""><i class="layui-icon"></i></div>
             商品子栏目：<div id="proChildDIV" name="column" value="2" class="layui-unselect layui-form-checkbox" lay-skin=""><i class="layui-icon"></i></div>
             主页父栏目：<div id="homeParentDIV" name="column" value="3" class="layui-unselect layui-form-checkbox" lay-skin=""><i class="layui-icon"></i></div>
@@ -116,7 +116,7 @@
         });
     });
 </script>
-<script src="/static/background/backend/product-category/js/productCategoryList.js?v=<%= System.currentTimeMillis()%>"></script>
+<script src="/static/background/product-category/js/productCategoryList.js?v=<%= System.currentTimeMillis()%>"></script>
 </body>
 
 </html>

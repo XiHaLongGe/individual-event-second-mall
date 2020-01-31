@@ -23,8 +23,8 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/static/login/assets/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/static/login/assets/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="/static/login/assets/ico/apple-touch-icon-57-precomposed.png">
-    <script src="/static/background/backend/home/lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="/static/background/backend/home/js/xadmin.js?v=<%= System.currentTimeMillis()%>"></script>
+    <script src="/static/background/home/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/static/background/home/js/xadmin.js?v=<%= System.currentTimeMillis()%>"></script>
 </head>
 <body>
 <!-- Top content -->
@@ -57,7 +57,7 @@
 <script src="/static/js/jquery/jquery-3.3.1.min.js"></script>
 <script src="/static/login/assets/js/verifyCode.js"></script>
 <script src="/static/login/assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="/static/background/backend/customer-login/insert-customer.js"></script>
+<script src="/static/background/customer-login/js/insert-customer.js"></script>
 <script src="/static/login/assets/js/jquery.backstretch.min.js"></script>
 <script src="/static/login/assets/js/scripts.js"></script>
 </body>

@@ -1,15 +1,15 @@
 <%--
   Created by IntelliJ IDEA.
   User: LJP
-  Date: 2020-01-25
-  Time: 20:52
+  Date: 2020-01-31
+  Time: 16:34
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>登录信息</title>
+    <title>品牌信息</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -19,7 +19,6 @@
     <script src="/static/js/jquery/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="/static/background/home/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="/static/background/home/js/xadmin.js?v=<%= System.currentTimeMillis()%>"></script>
-    <script src="/static/background/customer-login/js/customerLoginList.js?v=<%= System.currentTimeMillis()%>"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -29,47 +28,59 @@
 
 <body class="layui-anim layui-anim-up">
 <div class="x-nav">
-      <%--<span class="layui-breadcrumb">
-        <a href="">首页</a>
-        <a href="">演示</a>
-        <a>
-          <cite>导航元素</cite></a>
-      </span>--%>
     <a id="refreshA" class="layui-btn layui-btn-primary layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:;" title="刷新">
         <i class="layui-icon" style="line-height:38px">ဂ</i></a>
 </div>
 <div class="x-body">
     <div class="layui-row">
         <form id="searchFORM" class="layui-form layui-col-md12 x-so">
-            <%--<input class="layui-input" placeholder="开始日" name="startTime" id="start">
-            <input class="layui-input" placeholder="截止日" name="endTime" id="end">--%>
-            <input type="text" id="loginNameINPUT"  placeholder="请输入用户昵称" autocomplete="off" class="layui-input">
+            <div class="layui-input-inline">
+                <input type="text" id="brandInfNameINPUT"  placeholder="请输入品牌名称" autocomplete="off" class="layui-input">
+            </div>
+            <div class="layui-input-inline">
+                <select id="proCategorySELECT" name="modules" lay-verify="required" lay-search="">
+                    <option value="">直接选择或输入搜索</option>
+                    <option value="1">layer</option>
+                    <option value="2">form</option>
+                    <option value="3">layim</option>
+                    <option value="4">element</option>
+                    <option value="5">laytpl</option>
+                    <option value="6">upload</option>
+                    <option value="7">laydate</option>
+                    <option value="8">laypage</option>
+                    <option value="9">flow</option>
+                    <option value="10">util</option>
+                    <option value="11">code</option>
+                    <option value="12">tree</option>
+                    <option value="13">layedit</option>
+                    <option value="14">nav</option>
+                    <option value="15">tab</option>
+                    <option value="16">table</option>
+                    <option value="17">select</option>
+                    <option value="18">checkbox</option>
+                    <option value="19">switch</option>
+                    <option value="20">radio</option>
+                </select><div class="layui-form-select"><div class="layui-select-title"><input type="text" placeholder="直接选择或搜索选择" value="" class="layui-input"><i class="layui-edge"></i></div><dl class="layui-anim layui-anim-upbit"><dd lay-value="" class="layui-select-tips">直接选择或搜索选择</dd><dd lay-value="1" class="">layer</dd><dd lay-value="2" class="">form</dd><dd lay-value="3" class="">layim</dd><dd lay-value="4" class="">element</dd><dd lay-value="5" class="">laytpl</dd><dd lay-value="6" class="">upload</dd><dd lay-value="7" class="">laydate</dd><dd lay-value="8" class="">laypage</dd><dd lay-value="9" class="">flow</dd><dd lay-value="10" class="">util</dd><dd lay-value="11" class="">code</dd><dd lay-value="12" class="">tree</dd><dd lay-value="13" class="">layedit</dd><dd lay-value="14" class="">nav</dd><dd lay-value="15" class="">tab</dd><dd lay-value="16" class="">table</dd><dd lay-value="17" class="">select</dd><dd lay-value="18" class="">checkbox</dd><dd lay-value="19" class="">switch</dd><dd lay-value="20" class="">radio</dd></dl></div>
+            </div>
             <button id="searchBTN" type="button" class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
-            激活：<div id="activateDIV" name="activate" value="1" class="layui-unselect layui-form-checkbox" lay-skin=""><i class="layui-icon"></i></div>
-            未激活：<div id="notActivateDIV" name="activate" value="0" class="layui-unselect layui-form-checkbox" lay-skin=""><i class="layui-icon"></i></div>
-            管理员：<div id="adminDIV" name="identity" value="1" class="layui-unselect layui-form-checkbox" lay-skin=""><i class="layui-icon"></i></div>
-            普通用户：<div id="ordinaryDIV" name="identity" value="0" class="layui-unselect layui-form-checkbox" lay-skin=""><i class="layui-icon"></i></div>
         </form>
     </div>
     <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加用户','/mall/background/customer/login/add/customer',800,525)"><i class="layui-icon"></i>添加用户</button>
+        <button class="layui-btn" onclick="x_admin_show('添加品牌','/mall/background/product/category/add/edit/product/category',300,300)"><i class="layui-icon"></i>添加栏目</button>
         <span id="countSPAN" class="x-right" style="line-height:40px">共有数据：88 条</span>
     </xblock>
     <table class="layui-table">
         <thead>
-            <tr>
-                <th>
-                    <div id="parentDIV" class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
-                </th>
-                <th>序号</th>
-                <th>头像</th>
-                <th>用户昵称</th>
-                <th>登录账号</th>
-                <th>账号状态</th>
-                <th>用户身份</th>
-                <th>操作</th>
-            </tr>
+        <tr>
+            <th>
+                <div id="parentDIV" class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
+            </th>
+            <th>序号</th>
+            <th>品牌名称</th>
+            <th>类型名称</th>
+            <th>操作</th>
+        </tr>
         </thead>
         <tbody id="customerTBODY">
         <tr>
@@ -125,6 +136,6 @@
         });
     });
 </script>
+<script src="/static/background/brand-inf/js/brandInf.js?v=<%= System.currentTimeMillis()%>"></script>
 </body>
-
 </html>

@@ -16,8 +16,8 @@
     <link href="/static/background/personal-data/css/personal.css" rel="stylesheet" type="text/css">
     <link href="/static/background/personal-data/css/infstyle.css" rel="stylesheet" type="text/css">
     <script src="/static/js/jquery/jquery-3.3.1.min.js"></script>
-    <script src="/static/background/backend/home/lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="/static/background/backend/home/js/xadmin.js?v=<%= System.currentTimeMillis()%>"></script>
+    <script src="/static/background/home/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/static/background/home/js/xadmin.js?v=<%= System.currentTimeMillis()%>"></script>
 </head>
 <body>
     <div class="center">
@@ -34,8 +34,8 @@
                     <div class="user-infoPic">
 
                         <div class="filePic">
-                            <input id="multipartFile" type="file" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp">
                             <input id="headIconUrl" type="hidden" value="${customerLoginEntity.headIconUrl}" >
+                            <input id="multipartFile" type="file" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp">
                             <img id="headIconIMG" class="am-circle am-img-thumbnail" src="${customerLoginEntity.headIconUrl}" alt="" />
                         </div>
 
@@ -170,16 +170,14 @@
         function getObjectURL(file){
             var url = null ;
             if (window.createObjectURL!=undefined)
-            { // basic
+            {
                 url = window.createObjectURL(file) ;
             }
             else if (window.URL!=undefined)
             {
-                // mozilla(firefox)
                 url = window.URL.createObjectURL(file) ;
             }
             else if (window.webkitURL!=undefined) {
-                // webkit or chrome
                 url = window.webkitURL.createObjectURL(file) ;
             }
             return url ;

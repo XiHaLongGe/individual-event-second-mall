@@ -10,6 +10,7 @@ $(function(){
     $("#refreshA").click(function(){
         $("#categoryNameINPUT").val("");
         $("div[name='column'].layui-form-checked").removeClass("layui-form-checked");
+        $("#allDIV").addClass("layui-form-checked");
         pageSearch(1);
         $("#parentDIV").removeClass("layui-form-checked");
     })

@@ -15,17 +15,17 @@
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
     <meta http-equiv="Cache-Control" content="no-siteapp" />
 
-    <link rel="shortcut icon" href="/static/background/backend/home/favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="/static/background/backend/home/css/font.css">
-    <link rel="stylesheet" href="/static/background/backend/home/css/xadmin.css">
+    <link rel="shortcut icon" href="/static/background/home/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="/static/background/home/css/font.css">
+    <link rel="stylesheet" href="/static/background/home/css/xadmin.css">
     <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
-    <script src="/static/background/backend/home/lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="/static/background/backend/home/js/xadmin.js?v=<%= System.currentTimeMillis()%>"></script>
+    <script src="/static/background/home/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/static/background/home/js/xadmin.js?v=<%= System.currentTimeMillis()%>"></script>
 </head>
 <body>
 <!-- 顶部开始 -->
 <div class="container">
-    <div class="logo"><a href="/static/background/backend/home/html/index.html">L-admin v2.0</a></div>
+    <div class="logo"><a href="/static/background/home/html/index.html">L-admin v2.0</a></div>
     <div class="left_open">
         <i title="展开左侧栏" class="iconfont">&#xe699;</i>
     </div>
@@ -48,7 +48,7 @@
                 <dd><a id="logoutA" href="javascript:;">注销帐号</a></dd>
             </dl>
         </li>
-        <li class="layui-nav-item to-index"><a href="/static/background/backend/home/html/#">前台首页</a></li>
+        <li class="layui-nav-item to-index"><a href="/static/background/home/html/#">前台首页</a></li>
     </ul>
     <script>
         $("#logoutA").click(function(){
@@ -81,7 +81,7 @@
                     <i class="iconfont nav_right">&#xe6a7;</i>
                 </a>
                 <ul class="sub-menu">
-                    <li><a _href="/static/background/backend/home/html/welcome.html"><i class="iconfont">&#xe6a7;</i><cite>控制台</cite></a></li >
+                    <li><a _href="/static/background/home/html/welcome.html"><i class="iconfont">&#xe6a7;</i><cite>控制台</cite></a></li >
                 </ul>
             </li>
             <li >
@@ -91,39 +91,43 @@
                     <i class="iconfont nav_right">&#xe6a7;</i>
                 </a>
                 <ul class="sub-menu">
-                    <li><a _href="/static/background/backend/home/html/unicode.html"><i class="iconfont">&#xe6a7;</i><cite>图标字体</cite></a></li>
-                    <li><a _href="/static/background/backend/home/html/form1.html"><i class="iconfont">&#xe6a7;</i><cite>表单元素</cite></a></li>
-                    <li> <a _href="/static/background/backend/home/html/form2.html"><i class="iconfont">&#xe6a7;</i><cite>表单组合</cite></a></li>
-                    <li><a _href="/static/background/backend/home/html/buttons.html"><i class="iconfont">&#xe6a7;</i><cite>按钮</cite></a></li>
-                    <li><a _href="/static/background/backend/home/html/nav.html"><i class="iconfont">&#xe6a7;</i><cite>导航/面包屑</cite></a></li>
-                    <li><a _href="/static/background/backend/home/html/tab.html"><i class="iconfont">&#xe6a7;</i><cite>选项卡</cite></a></li>
-                    <li><a _href="/static/background/backend/home/html/progress-bar.html"><i class="iconfont">&#xe6a7;</i><cite>进度条</cite></a></li>
-                    <li><a _href="/static/background/backend/home/html/panel.html"><i class="iconfont">&#xe6a7;</i><cite>面板</cite></a></li>
-                    <li><a _href="/static/background/backend/home/html/badge.html"><i class="iconfont">&#xe6a7;</i><cite>微章</cite></a></li>
-                    <li><a _href="/static/background/backend/home/html/timeline.html"><i class="iconfont">&#xe6a7;</i><cite>时间线</cite></a></li>
-                    <li><a _href="/static/background/backend/home/html/table-element.html"><i class="iconfont">&#xe6a7;</i><cite>静态表格</cite></a></li>
-                    <li><a _href="/static/background/backend/home/html/anim.html"><i class="iconfont">&#xe6a7;</i><cite>动画</cite></a></li>
+                    <li><a _href="/static/background/home/html/unicode.html"><i class="iconfont">&#xe6a7;</i><cite>图标字体</cite></a></li>
+                    <li><a _href="/static/background/home/html/form1.html"><i class="iconfont">&#xe6a7;</i><cite>表单元素</cite></a></li>
+                    <li> <a _href="/static/background/home/html/form2.html"><i class="iconfont">&#xe6a7;</i><cite>表单组合</cite></a></li>
+                    <li><a _href="/static/background/home/html/buttons.html"><i class="iconfont">&#xe6a7;</i><cite>按钮</cite></a></li>
+                    <li><a _href="/static/background/home/html/nav.html"><i class="iconfont">&#xe6a7;</i><cite>导航/面包屑</cite></a></li>
+                    <li><a _href="/static/background/home/html/tab.html"><i class="iconfont">&#xe6a7;</i><cite>选项卡</cite></a></li>
+                    <li><a _href="/static/background/home/html/progress-bar.html"><i class="iconfont">&#xe6a7;</i><cite>进度条</cite></a></li>
+                    <li><a _href="/static/background/home/html/panel.html"><i class="iconfont">&#xe6a7;</i><cite>面板</cite></a></li>
+                    <li><a _href="/static/background/home/html/badge.html"><i class="iconfont">&#xe6a7;</i><cite>微章</cite></a></li>
+                    <li><a _href="/static/background/home/html/timeline.html"><i class="iconfont">&#xe6a7;</i><cite>时间线</cite></a></li>
+                    <li><a _href="/static/background/home/html/table-element.html"><i class="iconfont">&#xe6a7;</i><cite>静态表格</cite></a></li>
+                    <li><a _href="/static/background/home/html/anim.html"><i class="iconfont">&#xe6a7;</i><cite>动画</cite></a></li>
                 </ul>
             </li>
             <li>
                 <a href="javascript:;"><i class="iconfont">&#xe6f6;</i><cite>组件页面</cite><i class="iconfont nav_right">&#xe6a7;</i></a>
                 <ul class="sub-menu">
-                    <li><a _href="/static/background/backend/home/html/upload.html"><i class="iconfont">&#xe6a7;</i><cite>文件上传</cite></a></li>
-                    <li><a _href="/static/background/backend/home/html/page.html"><i class="iconfont">&#xe6a7;</i><cite>分页</cite></a></li>
-                    <li><a _href="/static/background/backend/home/html/cate.html"><i class="iconfont">&#xe6a7;</i><cite>多级分类</cite></a></li>
-                    <li><a _href="/static/background/backend/home/html/carousel.html"><i class="iconfont">&#xe6a7;</i><cite>轮播图</cite></a></li>
-                    <li><a _href="/static/background/backend/home/html/city.html"><i class="iconfont">&#xe6a7;</i><cite>城市三级联动</cite></a></li>
+                    <li><a _href="/static/background/home/html/upload.html"><i class="iconfont">&#xe6a7;</i><cite>文件上传</cite></a></li>
+                    <li><a _href="/static/background/home/html/page.html"><i class="iconfont">&#xe6a7;</i><cite>分页</cite></a></li>
+                    <li><a _href="/static/background/home/html/cate.html"><i class="iconfont">&#xe6a7;</i><cite>多级分类</cite></a></li>
+                    <li><a _href="/static/background/home/html/carousel.html"><i class="iconfont">&#xe6a7;</i><cite>轮播图</cite></a></li>
+                    <li><a _href="/static/background/home/html/city.html"><i class="iconfont">&#xe6a7;</i><cite>城市三级联动</cite></a></li>
                 </ul>
             </li>
             <li >
                 <a href="javascript:;">
-                    <i class="iconfont">&#xe6b4;</i>
-                    <cite>排版布局</cite>
+                    <i class="iconfont">&#xe6c5;</i>
+                    <cite>品牌管理</cite>
                     <i class="iconfont nav_right">&#xe6a7;</i>
                 </a>
                 <ul class="sub-menu">
-                    <li><a _href="/static/background/backend/home/html/grid.html"><i class="iconfont">&#xe6a7;</i><cite>栅格</cite></a></li>
-                    <li><a _href="/static/background/backend/home/html/welcome2.html"><i class="iconfont">&#xe6a7;</i><cite>排版</cite></a></li>
+                    <li>
+                        <a _href="/mall/background/brand/inf/home">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>品牌信息</cite>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li>
@@ -134,7 +138,7 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="/static/background/backend/home/html/order-list.html">
+                        <a _href="/static/background/home/html/order-list.html">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>订单列表</cite>
                         </a>
@@ -155,7 +159,7 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="/static/background/backend/home/html/admin-role.html">
+                        <a _href="/static/background/home/html/admin-role.html">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>商品信息</cite>
                         </a>
@@ -190,13 +194,13 @@
                         </a>
                         <ul class="sub-menu">
                             <li>
-                                <a _href="/static/background/backend/home/html/member-del.html">
+                                <a _href="/static/background/home/html/member-del.html">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>会员列表</cite>
                                 </a>
                             </li >
                             <li>
-                                <a _href="/static/background/backend/home/html/member-del.html">
+                                <a _href="/static/background/home/html/member-del.html">
                                     <i class="iconfont">&#xe6a7;</i>
                                     <cite>会员删除</cite>
                                 </a>
@@ -216,49 +220,49 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="/static/background/backend/home/html/echarts1.html">
+                        <a _href="/static/background/home/html/echarts1.html">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>拆线图</cite>
                         </a>
                     </li >
                     <li>
-                        <a _href="/static/background/backend/home/html/echarts2.html">
+                        <a _href="/static/background/home/html/echarts2.html">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>柱状图</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="/static/background/backend/home/html/echarts3.html">
+                        <a _href="/static/background/home/html/echarts3.html">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>地图</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="/static/background/backend/home/html/echarts4.html">
+                        <a _href="/static/background/home/html/echarts4.html">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>饼图</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="/static/background/backend/home/html/echarts5.html">
+                        <a _href="/static/background/home/html/echarts5.html">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>雷达图</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="/static/background/backend/home/html/echarts6.html">
+                        <a _href="/static/background/home/html/echarts6.html">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>k线图</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="/static/background/backend/home/html/echarts7.html">
+                        <a _href="/static/background/home/html/echarts7.html">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>热力图</cite>
                         </a>
                     </li>
                     <li>
-                        <a _href="/static/background/backend/home/html/echarts8.html">
+                        <a _href="/static/background/home/html/echarts8.html">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>仪表图</cite>
                         </a>
@@ -278,7 +282,7 @@
         </ul>
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
-                <iframe src='/static/background/backend/home/html/welcome.html' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+                <iframe src='/static/background/home/html/welcome.html' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
             </div>
         </div>
     </div>

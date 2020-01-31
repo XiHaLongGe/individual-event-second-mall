@@ -12,8 +12,8 @@
 <head>
     <title>商品类型添加修改界面</title>
     <script src="/static/js/jquery/jquery-3.3.1.min.js"></script>
-    <script src="/static/background/backend/home/lib/layui/layui.js" charset="utf-8"></script>
-    <script type="text/javascript" src="/static/background/backend/home/js/xadmin.js?v=<%= System.currentTimeMillis()%>"></script>
+    <script src="/static/background/home/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="/static/background/home/js/xadmin.js?v=<%= System.currentTimeMillis()%>"></script>
 </head>
 <body>
 <form id="addColumnForm">
@@ -71,6 +71,6 @@
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <input type="button" onclick="x_admin_close()" value="取消"/>
 </form>
-<script src="/static/background/backend/product-category/js/productCategoryAddAndEdit.js?v=<%= System.currentTimeMillis()%>"></script>
+<script src="/static/background/product-category/js/productCategoryAddAndEdit.js?v=<%= System.currentTimeMillis()%>"></script>
 </body>
 </html>

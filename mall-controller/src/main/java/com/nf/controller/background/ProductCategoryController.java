@@ -64,12 +64,12 @@ public class ProductCategoryController {
                                         @RequestParam(value = "pageSize", required = false, defaultValue = "2") Integer pageSize,
                                         ProductCategoryEntity productCategoryEntity){
         boolean result;
-        //品类型实体类型的列表对象
+        //商品类型实体类型的列表对象
         List<ProductCategoryEntity> productCategoryEntityList;
         //分页工具类对象
         PageInfo pageInfo = null;
         try{
-            //获取分页后的用户信息的相关数据
+            //获取分页后的商品类型信息的相关数据
             productCategoryEntityList = productCategoryService.getPageByCondition(pageNum, pageSize, productCategoryEntity);
             //使用分页工具类对象来处理数据的分页效果
             pageInfo = new PageInfo(productCategoryEntityList, 5);

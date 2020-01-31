@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.dao.port.BrandInfDao">
+    <sql id="allParams">
+        brand_inf_id,
+        product_category_id,
+        brand_inf_name
+    </sql>
+    <sql id="joinProCategoryParams">
+        b.brand_inf_id,
+        b.product_category_id,
+        b.brand_inf_name,
+        p.product_category_name as productCategoryName
+    </sql>
+    <resultMap id="brandInfResultMap" type="com.nf.entity.BrandInfEntity">
+        <result column="productCategoryName" property="productCategoryName"/>
+    </resultMap>
+    <!---->
+    <select id="getPageByCondition" resultMap="brandInfResultMap">
+        select <include refid="joinProCategoryParams"/>
+        from brand_inf b join product_category p
+        on b.product_category_id = p.product_category_id
+        where 1=1
+        <choose>
+            <when test="brandInfEntity.productCategoryId != null and brandInfEntity.productCategoryId != ''">
+                and b.product_category_id = #{brandInfEntity.productCategoryId}
+            </when>
+            <when test="brandInfEntity.brandInfName != null and brandInfEntity.brandInfName != ''">
+                and b.brand_inf_name = #{brandInfEntity.brandInfName}
+            </when>
+        </choose>
+    </select>
+</mapper>
