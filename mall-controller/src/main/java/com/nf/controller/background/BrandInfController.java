@@ -2,7 +2,9 @@ package com.nf.controller.background;
 
 import com.github.pagehelper.PageInfo;
 import com.nf.entity.BrandInfEntity;
+import com.nf.entity.ProductCategoryEntity;
 import com.nf.service.port.BrandInfService;
+import com.nf.service.port.ProductCategoryService;
 import com.nf.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,6 +26,8 @@ import java.util.List;
 public class BrandInfController {
     @Autowired
     private BrandInfService brandInfService;
+    @Autowired
+    private ProductCategoryService productCategoryService;
     /**
      * 品牌信息的视图
      * @return
@@ -65,6 +69,28 @@ public class BrandInfController {
                 .code(result ? 200 : 500)
                 .message(result ? "数据获取成功" : "数据获取失败")
                 .data(pageInfo)
+                .build();
+    }
+
+    /**
+     * 根据类型层级来获取商品类型数据，因为品牌只需要2级层次所以这里写死
+     * @return
+     */
+    @GetMapping("/product/category/data")
+    @ResponseBody
+    public ResponseVo productCategoryData(){
+        boolean result = false;
+        List<ProductCategoryEntity> categoryEntityList = null;
+        try{
+            categoryEntityList = productCategoryService.getByProductCategoryLevel(2);
+            result = true;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "数据获取成功" : "数据获取失败")
+                .data(categoryEntityList)
                 .build();
     }
 }

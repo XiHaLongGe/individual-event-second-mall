@@ -28,7 +28,7 @@
                 and b.product_category_id = #{brandInfEntity.productCategoryId}
             </when>
             <when test="brandInfEntity.brandInfName != null and brandInfEntity.brandInfName != ''">
-                and b.brand_inf_name = #{brandInfEntity.brandInfName}
+                and b.brand_inf_name like '%' #{brandInfEntity.brandInfName} '%'
             </when>
         </choose>
     </select>

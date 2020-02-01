@@ -1,7 +1,19 @@
 $(function () {
     pageSearch(1);
+    downBoxData();
+    /*以下是条件查询的点击事件*/
+    $("#searchBTN").click(function () {
+        pageSearch(1);
+        $("#parentDIV").removeClass("layui-form-checked");
+    })
+    /*刷新点击事件*/
+    $("#refreshA").click(function(){
+        $("#brandInfNameINPUT").val("");
+        $("layui-input").text("");
+        pageSearch(1);
+        $("#parentDIV").removeClass("layui-form-checked");
+    })
 })
-
 
 
 /*以下是用户信息的查询*/
@@ -11,8 +23,8 @@ function pageSearch(pageNum){
         type:"GET",
         async: false,
         data:{
-            "productCategoryId" : $("#categoryNameINPUT").val(),
-            "brandInfName" : $("div[name='column'].layui-form-checked").attr("value")
+            "brandInfName" : $("#brandInfNameINPUT").val(),
+            "productCategoryId" : $("dd.layui-this").attr("lay-value")
         },
         contentType: "application/json",
         success:function (data) {
@@ -37,7 +49,27 @@ function customerCount(data){
 }
 
 
-/*根据传入的data数据对象，将数据呈现到显示界面*/
+
+/*将数据填充下拉框*/
+function downBoxData() {
+    var resultValue = "";
+    var resultValue2 = "";
+    $.ajax({
+        url:"/mall/background/brand/inf/product/category/data",
+        type:"GET",
+        async: false,
+        contentType: "application/json",
+        success:function (data) {
+            resultValue += "<option value=\"\">直接选择或输入搜索</option>";
+            $.each(data.data, function(index, element){
+                resultValue += "<option value=\"" + element.productCategoryId + "\">" + element.productCategoryName + "</option>";
+            })
+        }
+    })
+    $("#proCategorySELECT").empty().append(resultValue);
+}
+
+/*根据传入的data数据对象，将数据填充到table*/
 function customerPageList(data){
     var resultValue = "";
     $.each(data.data.list,function(index, element){

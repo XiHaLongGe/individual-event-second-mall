@@ -19,6 +19,8 @@
     <script src="/static/js/jquery/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="/static/background/home/lib/layui/layui.js" charset="utf-8"></script>
     <script type="text/javascript" src="/static/background/home/js/xadmin.js?v=<%= System.currentTimeMillis()%>"></script>
+    <script src="/static/background/home/lib/layui/lay/modules/initials.js"></script>
+    <script src="/static/background/home/lib/layui/lay/modules/pinyin.js"></script>
     <!-- 让IE8/9支持媒体查询，从而兼容栅格 -->
     <!--[if lt IE 9]>
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
@@ -38,7 +40,7 @@
                 <input type="text" id="brandInfNameINPUT"  placeholder="请输入品牌名称" autocomplete="off" class="layui-input">
             </div>
             <div class="layui-input-inline">
-                <select id="proCategorySELECT" name="modules" lay-verify="required" lay-search="">
+                <select id="proCategorySELECT" name="modules" lay-search="">
                     <option value="">直接选择或输入搜索</option>
                     <option value="1">layer</option>
                     <option value="2">form</option>
@@ -60,7 +62,7 @@
                     <option value="18">checkbox</option>
                     <option value="19">switch</option>
                     <option value="20">radio</option>
-                </select><div class="layui-form-select"><div class="layui-select-title"><input type="text" placeholder="直接选择或搜索选择" value="" class="layui-input"><i class="layui-edge"></i></div><dl class="layui-anim layui-anim-upbit"><dd lay-value="" class="layui-select-tips">直接选择或搜索选择</dd><dd lay-value="1" class="">layer</dd><dd lay-value="2" class="">form</dd><dd lay-value="3" class="">layim</dd><dd lay-value="4" class="">element</dd><dd lay-value="5" class="">laytpl</dd><dd lay-value="6" class="">upload</dd><dd lay-value="7" class="">laydate</dd><dd lay-value="8" class="">laypage</dd><dd lay-value="9" class="">flow</dd><dd lay-value="10" class="">util</dd><dd lay-value="11" class="">code</dd><dd lay-value="12" class="">tree</dd><dd lay-value="13" class="">layedit</dd><dd lay-value="14" class="">nav</dd><dd lay-value="15" class="">tab</dd><dd lay-value="16" class="">table</dd><dd lay-value="17" class="">select</dd><dd lay-value="18" class="">checkbox</dd><dd lay-value="19" class="">switch</dd><dd lay-value="20" class="">radio</dd></dl></div>
+                </select>
             </div>
             <button id="searchBTN" type="button" class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
         </form>

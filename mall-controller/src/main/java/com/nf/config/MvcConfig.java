@@ -57,8 +57,7 @@ public class MvcConfig implements WebMvcConfigurer {
                 .addResourceLocations(
                             "classpath:/static/login",
                             "classpath:/static/toolTip",
-                            "classpath:/static/background/backend",
-                            "classpath:/static/background/personal-data",
+                            "classpath:/static/background",
                             "classpath:/static/"
                 );
     }
