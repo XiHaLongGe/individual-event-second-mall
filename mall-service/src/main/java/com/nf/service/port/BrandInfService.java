@@ -21,4 +21,34 @@ public interface BrandInfService {
     List<BrandInfEntity> getPageByCondition(Integer pageNum,
                                             Integer pageSize,
                                             BrandInfEntity brandInfEntity);
+
+    /**
+     * 根据品牌信息id来获取品牌信息数据
+     * @param brandInfId 用来接收品牌信息id
+     * @return
+     */
+    BrandInfEntity getByBrandInfId(Integer brandInfId);
+
+    /**
+     * 添加品牌信息数据
+     * @param brandInfEntity 用来接收添加的品牌信息数据
+     * @return 添加结果
+     */
+    boolean insertBrandInf(BrandInfEntity brandInfEntity);
+
+    /**
+     * 修改品牌信息数据
+     * @param brandInfEntity 用来接收添加的品牌信息数据
+     * @return 修改结果
+     */
+    boolean updateBrandInf(BrandInfEntity brandInfEntity);
+
+
+    /**
+     * 批量删除品牌信息
+     * @param brandInfIdArray 接收需要删除的品牌信息id
+     * @param cascadeDelete 用来确定是否需要对关联表的相关数据进行删除操作
+     * @return 删除结果
+     */
+    boolean batchDeleteBrandInf(String [] brandInfIdArray, boolean cascadeDelete);
 }

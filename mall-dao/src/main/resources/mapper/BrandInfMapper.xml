@@ -3,6 +3,10 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nf.dao.port.BrandInfDao">
+    <sql id="insertParams">
+        product_category_id,
+        brand_inf_name
+    </sql>
     <sql id="allParams">
         brand_inf_id,
         product_category_id,
@@ -32,4 +36,39 @@
             </when>
         </choose>
     </select>
+
+    <!--根据品牌信息id来获取品牌信息数据-->
+    <select id="getByBrandInfId" resultType="com.nf.entity.BrandInfEntity">
+        select <include refid="allParams"/>
+        from brand_inf
+        where brand_inf_id = #{brandInfId}
+    </select>
+
+    <!--添加品牌信息数据-->
+    <insert id="insertBrandInf">
+        insert brand_inf(<include refid="insertParams"/>)
+        values
+        (
+            #{brandInfEntity.productCategoryId},
+            #{brandInfEntity.brandInfName}
+        )
+    </insert>
+
+    <!--修改品牌信息数据-->
+    <update id="updateBrandInf">
+        update brand_inf
+        set product_category_id = #{brandInfEntity.productCategoryId},
+            brand_inf_name = #{brandInfEntity.brandInfName}
+        where brand_inf_id = #{brandInfEntity.brandInfId}
+    </update>
+
+    <!--批量删除品牌信息-->
+    <delete id="batchDeleteBrandInf">
+        delete from brand_inf
+        where 1 = 1
+        and brand_inf_id in
+        <foreach collection="brandInfIdArray" item="brandInfIdArray" open="(" separator="," close=")">
+            #{brandInfIdArray}
+        </foreach>
+    </delete>
 </mapper>

@@ -8,8 +8,8 @@ $(function () {
     })
     /*刷新点击事件*/
     $("#refreshA").click(function(){
-        $("#brandInfNameINPUT").val("");
-        $("layui-input").text("");
+        $(".layui-input").val("");
+        $("dd.layui-this").removeClass("layui-this")
         pageSearch(1);
         $("#parentDIV").removeClass("layui-form-checked");
     })
@@ -53,7 +53,6 @@ function customerCount(data){
 /*将数据填充下拉框*/
 function downBoxData() {
     var resultValue = "";
-    var resultValue2 = "";
     $.ajax({
         url:"/mall/background/brand/inf/product/category/data",
         type:"GET",
@@ -75,16 +74,16 @@ function customerPageList(data){
     $.each(data.data.list,function(index, element){
         resultValue += "<tr>";
         resultValue += "<td>";
-        resultValue += "<div class=\"layui-unselect layui-form-checkbox\" lay-skin=\"primary\" data-id='" + element.productCategoryId + "'><i class=\"layui-icon\">&#xe605;</i></div>";
+        resultValue += "<div class=\"layui-unselect layui-form-checkbox\" lay-skin=\"primary\" data-id='" + element.brandInfId + "'><i class=\"layui-icon\">&#xe605;</i></div>";
         resultValue += "</td>";
         resultValue += "<td>" + parseInt(index + 1) + "</td>";
         resultValue += "<td>" + element.brandInfName + "</td>";
         resultValue += "<td>" + element.productCategoryName + "</td>";
         resultValue += "<td class=\"td-manage\">";
-        resultValue += "<a title=\"修改\" onclick=\"x_admin_show('修改栏目', '/mall/background/product/category/add/edit/product/category?productCategoryId=" + element.productCategoryId + "',300,300)\" href=\"javascript:;\">";
+        resultValue += "<a title=\"修改\" onclick=\"x_admin_show('修改品牌', '/mall/background/brand/inf/add/edit?brandInfId=" + element.brandInfId + "',300,300)\" href=\"javascript:;\">";
         resultValue += "<i class=\"iconfont\">&#xe69e;</i>";
         resultValue += "</a>";
-        resultValue += "<a title=\"删除\" onclick=\"member_del(this,'" + element.productCategoryId + "')\" href=\"javascript:;\">";
+        resultValue += "<a title=\"删除\" onclick=\"member_del(this,'" + element.brandInfId + "')\" href=\"javascript:;\">";
         resultValue += "<i class=\"layui-icon\">&#xe640;</i>";
         resultValue += "</a>";
         resultValue += "</td>";
@@ -168,7 +167,7 @@ function delAll () {
 function dataDelete(productCategoryIdArray){
     var yn = false;
     $.ajax({
-        url:"/mall/background/product/category/batch/delete/product/category",
+        url:"/mall/background/brand/inf/batch/delete",
         type:"POST",
         data:JSON.stringify(productCategoryIdArray),
         dataType:"json",

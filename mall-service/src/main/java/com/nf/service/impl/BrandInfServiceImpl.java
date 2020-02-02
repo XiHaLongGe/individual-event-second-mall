@@ -23,4 +23,29 @@ public class BrandInfServiceImpl implements BrandInfService {
     public List<BrandInfEntity> getPageByCondition(Integer pageNum, Integer pageSize, BrandInfEntity brandInfEntity) {
         return brandInfDao.getPageByCondition(pageNum, pageSize, brandInfEntity);
     }
+
+    @Override
+    public BrandInfEntity getByBrandInfId(Integer brandInfId) {
+        return brandInfDao.getByBrandInfId(brandInfId);
+    }
+
+    @Override
+    public boolean insertBrandInf(BrandInfEntity brandInfEntity) {
+        return brandInfDao.insertBrandInf(brandInfEntity) > 0;
+    }
+
+    @Override
+    public boolean updateBrandInf(BrandInfEntity brandInfEntity) {
+        return brandInfDao.updateBrandInf(brandInfEntity) > 0;
+    }
+
+    @Override
+    public boolean batchDeleteBrandInf(String[] brandInfIdArray, boolean cascadeDelete) {
+        /*将字符串数组类型转换成Integer整数类型数组*/
+        Integer [] brandInfIdArrays = new Integer[brandInfIdArray.length];
+        for (int i = 0; i < brandInfIdArray.length; i++) {
+            brandInfIdArrays[i] = Integer.valueOf(brandInfIdArray[i]);
+        }
+        return brandInfDao.batchDeleteBrandInf(brandInfIdArrays) == brandInfIdArray.length;
+    }
 }

@@ -153,7 +153,7 @@ public class ProductCategoryController {
         boolean result = productCategoryService.batchDeleteProductCategory(productCategoryIdArray, true);
         return ResponseVo.newBuilder()
                 .code(result ? 200 : 500)
-                .message(result ? "删除用户成功" : "删除用户失败")
+                .message(result ? "删除商品类型成功" : "删除商品类型失败")
                 .data(result)
                 .build();
     }

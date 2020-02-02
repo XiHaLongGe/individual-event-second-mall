@@ -69,7 +69,7 @@
     </div>
     <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加品牌','/mall/background/product/category/add/edit/product/category',300,300)"><i class="layui-icon"></i>添加栏目</button>
+        <button class="layui-btn" onclick="x_admin_show('添加品牌','/mall/background/brand/inf/add/edit',300,300)"><i class="layui-icon"></i>添加品牌</button>
         <span id="countSPAN" class="x-right" style="line-height:40px">共有数据：88 条</span>
     </xblock>
     <table class="layui-table">

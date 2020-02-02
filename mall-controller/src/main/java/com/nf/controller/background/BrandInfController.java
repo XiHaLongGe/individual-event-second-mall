@@ -8,10 +8,8 @@ import com.nf.service.port.ProductCategoryService;
 import com.nf.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,6 +33,23 @@ public class BrandInfController {
     @RequestMapping("/home")
     public String home(){
         return "background/brand-inf/list";
+    }
+
+    /**
+     * 品牌添加和修改的视图
+     * @param model 用来将数据写入请求域
+     * @param brandInfId 用来接收修改的品牌信息id
+     * @return
+     */
+    @RequestMapping("/add/edit")
+    public String add(Model model, Integer brandInfId){
+        String addOrEditType = "添加";
+        if(brandInfId != null && brandInfId != 0){
+            model.addAttribute("brandInfEntity", brandInfService.getByBrandInfId(brandInfId));
+            addOrEditType = "修改";
+        }
+        model.addAttribute("addOrEditType", addOrEditType);
+        return "background/brand-inf/addAndEdit";
     }
 
 
@@ -93,4 +108,54 @@ public class BrandInfController {
                 .data(categoryEntityList)
                 .build();
     }
+
+    /**
+     * 添加品牌信息的控制器方法
+     * @param brandInfEntity 用于接收添加信息
+     * @return
+     */
+    @PostMapping("/insert")
+    @ResponseBody
+    public ResponseVo insert(@RequestBody BrandInfEntity brandInfEntity){
+        boolean result = brandInfService.insertBrandInf(brandInfEntity);
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "数据添加成功" : "数据添加失败")
+                .data(result)
+                .build();
+    }
+
+    /**
+     * 修改品牌信息的控制器方法
+     * @param brandInfEntity 用于接收添加信息
+     * @return
+     */
+    @PostMapping("/update")
+    @ResponseBody
+    public ResponseVo update(@RequestBody BrandInfEntity brandInfEntity){
+        boolean result = brandInfService.updateBrandInf(brandInfEntity);
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "数据修改成功" : "数据修改失败")
+                .data(result)
+                .build();
+    }
+
+
+    /**
+     * 批量删除品牌信息
+     * @param brandInfIdArray 接收需要删除的品牌信息id
+     * @return
+     */
+    @PostMapping("/batch/delete")
+    @ResponseBody
+    public ResponseVo batchDeleteBrandInf(@RequestBody String [] brandInfIdArray){
+        boolean result = brandInfService.batchDeleteBrandInf(brandInfIdArray, true);
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "删除品牌信息成功" : "删除品牌信息失败")
+                .data(result)
+                .build();
+    }
+
 }
