@@ -40,6 +40,11 @@ public class BrandInfServiceImpl implements BrandInfService {
     }
 
     @Override
+    public boolean deleteByProductCategoryId(String[] productCategoryIdArray, boolean cascadeDelete) {
+        return brandInfDao.deleteByProductCategoryId(productCategoryIdArray).equals(productCategoryIdArray.length);
+    }
+
+    @Override
     public boolean batchDeleteBrandInf(String[] brandInfIdArray, boolean cascadeDelete) {
         /*将字符串数组类型转换成Integer整数类型数组*/
         Integer [] brandInfIdArrays = new Integer[brandInfIdArray.length];

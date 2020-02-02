@@ -38,6 +38,13 @@ public interface ProductCategoryDao {
     List<ProductCategoryEntity> getByProductCategoryLevel(@Param("productCategoryLevel")Integer productCategoryLevel);
 
     /**
+     * 获得父类型id的子类型id
+     * @param parentIdArray 用来接收父类型id
+     * @return
+     */
+    String [] getByParentId(@Param("parentIdArray")String[] parentIdArray);
+
+    /**
      * 通过添加数据的类型层级和父类id来获得该层级最大id
      * @param productCategoryEntity 用来接收栏目层级或父类id
      * @return 返回最大id的实体类

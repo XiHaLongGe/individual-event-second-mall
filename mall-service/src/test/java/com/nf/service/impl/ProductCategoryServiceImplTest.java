@@ -30,4 +30,11 @@ public class ProductCategoryServiceImplTest {
                                                                                 .parentId("1-1")
                                                                             .build());*/
     }
+
+    @Test
+    public void getByParentId() {
+        for (String s : productCategoryService.getByParentId(new String[]{"1-1", "1-2"})) {
+            System.out.println(s);
+        }
+    }
 }

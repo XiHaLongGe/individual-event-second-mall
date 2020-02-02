@@ -2,6 +2,7 @@ package com.nf.service.impl;
 
 import com.nf.dao.port.ProductCategoryDao;
 import com.nf.entity.ProductCategoryEntity;
+import com.nf.service.port.BrandInfService;
 import com.nf.service.port.ProductCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,8 @@ import java.util.Set;
 public class ProductCategoryServiceImpl implements ProductCategoryService {
     @Autowired
     private ProductCategoryDao productCategoryDao;
+    @Autowired
+    private BrandInfService brandInfService;
 
     @Override
     public List<ProductCategoryEntity> getPageByCondition(Integer pageNum, Integer pageSize, ProductCategoryEntity productCategoryEntity) {
@@ -35,6 +38,11 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     @Override
     public List<ProductCategoryEntity> getByProductCategoryLevel(Integer productCategoryLevel) {
         return productCategoryDao.getByProductCategoryLevel(productCategoryLevel);
+    }
+
+    @Override
+    public String[] getByParentId(String[] parentIdArray) {
+        return productCategoryDao.getByParentId(parentIdArray);
     }
 
     @Override
@@ -98,11 +106,21 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     }
 
     @Override
-    public boolean deleteByParentId(String[] parentIdArray) {
+    public boolean deleteByParentId(String[] parentIdArray, boolean cascadeDelete) {
+        boolean deleteResult = false;
         //获取到传过来的父类型id的子类型有多少条目
         Integer parentNum = getByParentIdCount(parentIdArray);
         //验证删除的条目是否  等于  传过来的父类型id的子类型的条目
-        return productCategoryDao.deleteByParentId(parentIdArray) == parentNum;
+        deleteResult = productCategoryDao.deleteByParentId(parentIdArray).equals(parentNum);
+        if(cascadeDelete){
+            //获得父类型id的子类型id
+            String [] parenIdArrays = getByParentId(parentIdArray);
+            if (parenIdArrays != null && parenIdArrays.length > 0) {
+                /*删除品牌信息表中的相关数据*/
+                deleteResult = brandInfService.deleteByProductCategoryId(parenIdArrays, true);
+            }
+        }
+        return deleteResult;
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -111,7 +129,7 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         boolean deleteResult = productCategoryDao.batchDeleteProductCategory(productCategoryIdArray) == productCategoryIdArray.length;
         if(cascadeDelete){
             //删除子类型
-            deleteResult = deleteByParentId(productCategoryIdArray);
+            deleteResult = deleteByParentId(productCategoryIdArray, true);
         }
         return deleteResult;
     }

@@ -45,6 +45,12 @@ public interface BrandInfDao {
      */
     Integer updateBrandInf(@Param("brandInfEntity") BrandInfEntity brandInfEntity);
 
+    /**
+     * 根据商品类型id对品牌信息进行删除
+     * @param productCategoryIdArray 用来接收商品类型id
+     * @return 对数据库的影响行数
+     */
+    Integer deleteByProductCategoryId(@Param("productCategoryIdArray")String[] productCategoryIdArray);
 
     /**
      * 批量删除品牌信息

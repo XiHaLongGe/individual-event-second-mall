@@ -1,8 +1,6 @@
 $(function () {
     downBoxData();
     setTimeout('isUpdate()',100);
-    /*当 DOM（文档对象模型） 已经加载，并且页面（包括图像）已经完全呈现时，会发生 ready 事件。*/
-    $(document).ready(isUpdate())
     /*以下是添加或修改的点击事件*/
     $("#confirmBTN").click(function () {
         //添加数据不为空

@@ -30,8 +30,15 @@ public interface ProductCategoryService {
     List<ProductCategoryEntity> getByProductCategoryLevel(Integer productCategoryLevel);
 
     /**
+     * 获得父类型id的子类型id
+     * @param parentIdArray 用来接收父类型id
+     * @return
+     */
+    String[] getByParentId(String[] parentIdArray);
+
+    /**
      * 通过商品类型id来获得商品类型信息
-     * @param productCategoryId
+     * @param productCategoryId 用来接收商品类型id
      * @return
      */
     ProductCategoryEntity getByProductCategoryId(String productCategoryId);
@@ -42,6 +49,7 @@ public interface ProductCategoryService {
      * @return 返回最大id的实体类
      */
     ProductCategoryEntity getBigId(ProductCategoryEntity productCategoryEntity);
+
 
     /**
      * 通过父类型id来获得商品类型条目
@@ -69,9 +77,10 @@ public interface ProductCategoryService {
     /**
      * 根据父id对商品类型进行删除
      * @param parentIdArray 用来接收父id
+     * @param cascadeDelete 用来确定是否需要对关联表的相关数据进行删除操作
      * @return 删除结果
      */
-    boolean deleteByParentId(String[] parentIdArray);
+    boolean deleteByParentId(String[] parentIdArray, boolean cascadeDelete);
 
 
     /**

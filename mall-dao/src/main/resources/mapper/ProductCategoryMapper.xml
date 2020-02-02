@@ -55,6 +55,16 @@
         and product_category_level = #{productCategoryLevel}
     </select>
 
+    <!--获得父类型id的子类型id-->
+    <select id="getByParentId" resultType="string">
+        select product_category_id
+        from product_category
+        where parent_id in
+        <foreach collection="parentIdArray" item="parentIdArray" open="(" separator="," close=")">
+            #{parentIdArray}
+        </foreach>
+    </select>
+
     <!--通过添加数据的类型层级和父类id来获得该层级最大id-->
     <select id="getBigId" resultType="com.nf.entity.ProductCategoryEntity">
         select <include refid="allParams"/>

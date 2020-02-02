@@ -62,6 +62,15 @@
         where brand_inf_id = #{brandInfEntity.brandInfId}
     </update>
 
+    <!--根据商品类型id对品牌信息进行删除-->
+    <delete id="deleteByProductCategoryId">
+        delete from brand_inf
+        where product_category_id in
+        <foreach collection="productCategoryIdArray" item="productCategoryIdArray" open="(" separator="," close=")">
+            #{productCategoryIdArray}
+        </foreach>
+    </delete>
+
     <!--批量删除品牌信息-->
     <delete id="batchDeleteBrandInf">
         delete from brand_inf
