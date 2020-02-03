@@ -28,6 +28,11 @@ public class BrandInfServiceImpl implements BrandInfService {
     private PbrService pbrService;
 
     @Override
+    public List<BrandInfEntity> getAllData() {
+        return brandInfDao.getAllData();
+    }
+
+    @Override
     public List<BrandInfEntity> getPageByCondition(Integer pageNum, Integer pageSize, BrandInfEntity brandInfEntity) {
         return brandInfDao.getPageByCondition(pageNum, pageSize, brandInfEntity);
     }

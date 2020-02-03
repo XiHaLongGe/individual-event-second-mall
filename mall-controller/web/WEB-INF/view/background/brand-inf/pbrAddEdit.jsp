@@ -28,7 +28,7 @@
     <![endif]-->
 
 
-    <script src="/static/background/brand-inf/js/addAndEdit.js?v=<%= System.currentTimeMillis()%>"></script>
+    <script src="/static/background/brand-inf/js/pbrAddEdit.js?v=<%= System.currentTimeMillis()%>"></script>
 </head>
 
 <body class="layui-anim layui-anim-up">
@@ -38,33 +38,11 @@
             <div class="layui-input-inline">
                 <input id="pbrIdIdINPUT" type="hidden" value="${pbrEntity.pbrId}" />
                 <input id="brandInfIdINPUT" type="hidden" value="${pbrEntity.brandInfId}" />
-                <input type="text" id="brandInfNameINPUT"  placeholder="请输入品牌名称" autocomplete="off" class="layui-input" value="${brandInfEntity.brandInfName}">
+                <select id="brandInfNameSELECT" name="modules" lay-verify="required" lay-search=""></select>
             </div>
             <div class="layui-input-inline">
                 <input id="productCategoryIdINPUT" type="hidden" value="${pbrEntity.productCategoryId}" />
-                <select id="proCategorySELECT" name="modules" lay-verify="required" lay-search="">
-                    <option value="">直接选择或输入搜索</option>
-                    <option value="1">layer</option>
-                    <option value="2">form</option>
-                    <option value="3">layim</option>
-                    <option value="4">element</option>
-                    <option value="5">laytpl</option>
-                    <option value="6">upload</option>
-                    <option value="7">laydate</option>
-                    <option value="8">laypage</option>
-                    <option value="9">flow</option>
-                    <option value="10">util</option>
-                    <option value="11">code</option>
-                    <option value="12">tree</option>
-                    <option value="13">layedit</option>
-                    <option value="14">nav</option>
-                    <option value="15">tab</option>
-                    <option value="16">table</option>
-                    <option value="17">select</option>
-                    <option value="18">checkbox</option>
-                    <option value="19">switch</option>
-                    <option value="20">radio</option>
-                </select>
+                <select id="proCategorySELECT" name="modules" lay-verify="required" lay-search=""></select>
             </div>
             <button id="confirmBTN" type="button" class="layui-btn" lay-submit="">${addOrEditType}</button>
             <button type="button" class="layui-btn" onclick="x_admin_close()" >取消</button>

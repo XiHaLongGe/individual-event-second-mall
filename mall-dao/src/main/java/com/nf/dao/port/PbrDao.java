@@ -64,16 +64,16 @@ public interface PbrDao {
     String[] getAllProCategoryId();
 
     /**
-     * 添加商品类型品牌信息关联表的数据
-     * @param proCategoryBrandInfRelevanceEntity 添加的商品信息
+     * 添加关联表数据
+     * @param proCategoryBrandInfRelevanceEntity 添加的关联表数据
      * @return 对数据库的影响行数
      */
     Integer insertPbr(@Param("proCategoryBrandInfRelevanceEntity") ProCategoryBrandInfRelevanceEntity proCategoryBrandInfRelevanceEntity);
 
     /**
-     * 修改商品类型品牌信息关联表的数据
-     * @param proCategoryBrandInfRelevanceEntity 修改的商品信息
-     * @return 对数据库的影响行数
+     * 修改关联表数据
+     * @param proCategoryBrandInfRelevanceEntity 关联表数据
+     * @return 修改结果
      */
     Integer updatePbr(@Param("proCategoryBrandInfRelevanceEntity") ProCategoryBrandInfRelevanceEntity proCategoryBrandInfRelevanceEntity);
 
@@ -89,5 +89,5 @@ public interface PbrDao {
      * @param pbrIdArray 接收需要删除的关联表id
      * @return 返回对数据库的影响行数
      */
-    Integer batchDeleteBrandInf(@Param("pbrIdArray")Integer [] pbrIdArray);
+    Integer batchDeletePbr(@Param("pbrIdArray")Integer [] pbrIdArray);
 }

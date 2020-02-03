@@ -98,7 +98,7 @@
         group by product_category_id
     </select>
 
-    <!--添加商品类型品牌信息关联表的数据-->
+    <!--添加关联表数据-->
     <insert id="insertPbr">
         insert procategory_brandinf_relevance(<include refid="insertParams"/>)
         values
@@ -108,10 +108,11 @@
         )
     </insert>
 
-    <!--修改商品类型品牌信息关联表的数据-->
+    <!--修改关联表数据-->
     <update id="updatePbr">
         update procategory_brandinf_relevance
-        set product_category_id = #{proCategoryBrandInfRelevanceEntity.productCategoryId}
+        set product_category_id = #{proCategoryBrandInfRelevanceEntity.productCategoryId},
+            brand_inf_id = #{proCategoryBrandInfRelevanceEntity.brandInfId}
         where pbr_id = #{proCategoryBrandInfRelevanceEntity.pbrId}
     </update>
 
@@ -125,7 +126,7 @@
     </delete>
 
     <!--批量删除关联表信息-->
-    <delete id="batchDeleteBrandInf">
+    <delete id="batchDeletePbr">
         delete from procategory_brandinf_relevance
         where pbr_id in
         <foreach collection="pbrIdArray" item="pbrIdArray" open="(" separator="," close=")">

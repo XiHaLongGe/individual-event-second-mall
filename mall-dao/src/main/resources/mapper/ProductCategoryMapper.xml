@@ -21,6 +21,12 @@
     <resultMap id="productCategoryResultMap" type="com.nf.entity.ProductCategoryEntity">
         <result property="parentCategoryName" column="parentCategoryName"/>
     </resultMap>
+    <!---->
+    <select id="getAllData" resultType="com.nf.entity.ProductCategoryEntity">
+        select <include refid="allParams"/>
+        from product_category
+    </select>
+
     <!--根据查询条件来获取到商品类型信息-->
     <select id="getPageByCondition" resultMap="productCategoryResultMap">
         select <include refid="selfJoinParams"/>

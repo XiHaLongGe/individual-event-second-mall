@@ -29,6 +29,11 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     private PbrService pbrService;
 
     @Override
+    public List<ProductCategoryEntity> getAllData() {
+        return productCategoryDao.getAllData();
+    }
+
+    @Override
     public List<ProductCategoryEntity> getPageByCondition(Integer pageNum, Integer pageSize, ProductCategoryEntity productCategoryEntity) {
         return productCategoryDao.getPageByCondition(pageNum, pageSize, productCategoryEntity);
     }

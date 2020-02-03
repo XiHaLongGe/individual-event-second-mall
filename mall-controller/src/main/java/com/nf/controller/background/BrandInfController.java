@@ -2,9 +2,7 @@ package com.nf.controller.background;
 
 import com.github.pagehelper.PageInfo;
 import com.nf.entity.BrandInfEntity;
-import com.nf.entity.ProCategoryBrandInfRelevanceEntity;
 import com.nf.service.port.BrandInfService;
-import com.nf.service.port.PbrService;
 import com.nf.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,8 +22,6 @@ import java.util.List;
 public class BrandInfController {
     @Autowired
     private BrandInfService brandInfService;
-    @Autowired
-    private PbrService pbrService;
     /**
      * 品牌信息的视图
      * @return
@@ -86,6 +82,30 @@ public class BrandInfController {
                 .data(pageInfo)
                 .build();
     }
+
+
+    /**
+     * 获取所有品牌信息
+     * @return
+     */
+    @GetMapping("/all/data")
+    @ResponseBody
+    public ResponseVo allData(){
+        List<BrandInfEntity> brandInfEntityList = null;
+        boolean result = true;
+        try{
+            brandInfEntityList = brandInfService.getAllData();
+        }catch (Exception e){
+            result = false;
+            e.printStackTrace();
+        }
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "数据获取成功" : "数据获取失败")
+                .data(brandInfEntityList)
+                .build();
+    }
+
 
     /**
      * 添加品牌信息

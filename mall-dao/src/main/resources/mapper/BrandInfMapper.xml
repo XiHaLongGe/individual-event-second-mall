@@ -19,6 +19,11 @@
     <resultMap id="brandInfResultMap" type="com.nf.entity.BrandInfEntity">
         <result column="productCategoryName" property="productCategoryName"/>
     </resultMap>
+    <!--获取所有品牌信息-->
+    <select id="getAllData" resultType="com.nf.entity.BrandInfEntity">
+        select <include refid="allParams"/>
+        from brand_inf
+    </select>
     <!--获取分页后的数据（可根据条件进行检索）-->
     <select id="getPageByCondition" resultMap="brandInfResultMap">
         select <include refid="allParams"/>

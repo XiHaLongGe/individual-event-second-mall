@@ -74,7 +74,7 @@ public class PbrServiceImpl implements PbrService {
     }
 
     @Override
-    public boolean batchDeleteBrandInf(Integer[] pbrIdArray) {
-        return pbrDao.batchDeleteBrandInf(pbrIdArray) == pbrIdArray.length;
+    public boolean batchDeletePbr(Integer[] pbrIdArray) {
+        return pbrDao.batchDeletePbr(pbrIdArray) == pbrIdArray.length;
     }
 }

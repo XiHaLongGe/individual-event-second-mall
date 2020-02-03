@@ -12,6 +12,12 @@ import java.util.List;
  */
 public interface ProductCategoryService {
     /**
+     * 获取所有品牌信息
+     * @return
+     */
+    List<ProductCategoryEntity> getAllData();
+
+    /**
      * 根据查询条件来获取到商品类型信息
      * @param pageNum 接收当前页码
      * @param pageSize 每页显示数据条目

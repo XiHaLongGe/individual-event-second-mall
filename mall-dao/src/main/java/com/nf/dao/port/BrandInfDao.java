@@ -12,6 +12,12 @@ import java.util.List;
  * @Description: 品牌信息表的dao层接口
  */
 public interface BrandInfDao {
+    /**
+     * 获取所有品牌信息
+     * @return
+     */
+    List<BrandInfEntity> getAllData();
+
 
     /**
      * 获取分页后的数据（可根据条件进行检索）

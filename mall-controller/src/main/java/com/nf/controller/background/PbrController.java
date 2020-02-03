@@ -10,10 +10,8 @@ import com.nf.service.port.ProductCategoryService;
 import com.nf.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -45,23 +43,21 @@ public class PbrController {
 
 
     /**
-     * 品牌添加和修改的视图
+     * 关联表添加和修改的视图
      * @param model 用来将数据写入请求域
-     * @param pbrId 用来接收修改的商品类型与品牌信息关联表id
+     * @param pbrId 用来接收关联表id
      * @return
      */
-    /*@RequestMapping("/add/edit")
-    public String add(Model model, Integer pbrId){
+    @RequestMapping("/add/edit")
+    public String addEdit(Model model, Integer pbrId){
         String addOrEditType = "添加";
         if(pbrId != null && pbrId != 0){
-            ProCategoryBrandInfRelevanceEntity pbrEntity = pbrService.getByPbrId(pbrId);
-            model.addAttribute("pbrEntity", pbrEntity);
-            model.addAttribute("brandInfEntity", brandInfService.getByBrandInfId(pbrEntity.getBrandInfId()));
+            model.addAttribute("pbrEntity", pbrService.getByPbrId(pbrId));
             addOrEditType = "修改";
         }
         model.addAttribute("addOrEditType", addOrEditType);
-        return "background/brand-inf/pbrList";
-    }*/
+        return "background/brand-inf/pbrAddEdit";
+    }
 
 
 
@@ -137,5 +133,56 @@ public class PbrController {
                 .data(proCategoryEntityList)
                 .build();
     }
+
+
+    /**
+     * 添加关联表数据
+     * @param pbrEntity 用于接收关联表数据
+     * @return
+     */
+    @PostMapping("/insert")
+    @ResponseBody
+    public ResponseVo insert(@RequestBody ProCategoryBrandInfRelevanceEntity pbrEntity){
+        boolean result = pbrService.insertPbr(pbrEntity);
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "数据添加成功" : "数据添加失败")
+                .data(result)
+                .build();
+    }
+
+    /**
+     * 修改品牌信息
+     * @param pbrEntity 用于接收修改信息
+     * @return
+     */
+    @PostMapping("/update")
+    @ResponseBody
+    public ResponseVo update(@RequestBody ProCategoryBrandInfRelevanceEntity pbrEntity){
+        boolean result = pbrService.updatePbr(pbrEntity);
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "数据修改成功" : "数据修改失败")
+                .data(result)
+                .build();
+    }
+
+
+    /**
+     * 批量删除关联表数据
+     * @param pbrIdArray 接收需要删除的关联表id
+     * @return
+     */
+    @PostMapping("/batch/delete")
+    @ResponseBody
+    public ResponseVo batchDeletePbr(@RequestBody Integer [] pbrIdArray){
+        boolean result = pbrService.batchDeletePbr(pbrIdArray);
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "删除关联表信息成功" : "删除关联表信息失败")
+                .data(result)
+                .build();
+    }
+
 
 }

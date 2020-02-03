@@ -102,7 +102,7 @@ function customerPageList(data){
         resultValue += "<td>" + element.brandInfName + "</td>";
         resultValue += "<td>" + element.productCategoryName + "</td>";
         resultValue += "<td class=\"td-manage\">";
-        resultValue += "<a title=\"修改\" onclick=\"x_admin_show('修改品牌', '/mall/background/brand/inf/add/edit?pbrId=" + element.pbrId + "',300,300)\" href=\"javascript:;\">";
+        resultValue += "<a title=\"修改\" onclick=\"x_admin_show('修改关联信息', '/mall/background/pbr/add/edit?pbrId=" + element.pbrId + "',300,300)\" href=\"javascript:;\">";
         resultValue += "<i class=\"iconfont\">&#xe69e;</i>";
         resultValue += "</a>";
         resultValue += "<a title=\"删除\" onclick=\"member_del(this,'" + element.pbrId + "')\" href=\"javascript:;\">";
@@ -150,10 +150,10 @@ function clickLoader(){
 
 
 /*以下是单条数据的删除*/
-function member_del(obj,productCategoryId){
+function member_del(obj,pbrId){
     layer.confirm('确认要删除吗？',function(index){
         var arr = [];
-        arr.push(productCategoryId)
+        arr.push(pbrId)
         //发异步删除数据
         if(dataDelete(arr)){
             $(obj).parents("tr").remove();
@@ -169,10 +169,10 @@ function member_del(obj,productCategoryId){
 /*以下是批量删除*/
 function delAll () {
     /*获取到所有被选中的id*/
-    var productCategoryIdArray = tableCheck.getData();
+    var pbrIdArray = tableCheck.getData();
     layer.confirm('确认要删除吗？',function(index){
         //捉到所有被选中的，发异步进行删除
-        if(dataDelete(productCategoryIdArray)){
+        if(dataDelete(pbrIdArray)){
             layer.msg('删除成功', {icon: 1});
             $(".layui-form-checked").not('.header').parents('tr').remove();
             $("#parentDIV").removeClass("layui-form-checked");
@@ -186,12 +186,12 @@ function delAll () {
 
 
 //异步对数据删除
-function dataDelete(productCategoryIdArray){
+function dataDelete(pbrIdArray){
     var yn = false;
     $.ajax({
-        url:"/mall/background/brand/inf/batch/delete",
+        url:"/mall/background/pbr/batch/delete",
         type:"POST",
-        data:JSON.stringify(productCategoryIdArray),
+        data:JSON.stringify(pbrIdArray),
         dataType:"json",
         async: false,//设置为同步
         contentType: "application/json",

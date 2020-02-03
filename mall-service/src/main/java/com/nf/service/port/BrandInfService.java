@@ -12,6 +12,12 @@ import java.util.List;
  */
 public interface BrandInfService {
     /**
+     * 获取所有品牌信息
+     * @return
+     */
+    List<BrandInfEntity> getAllData();
+
+    /**
      * 获取分页后的数据（可根据条件进行检索）
      * @param pageNum 当前页码
      * @param pageSize 每页显示条目

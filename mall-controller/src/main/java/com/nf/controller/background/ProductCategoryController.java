@@ -110,6 +110,28 @@ public class ProductCategoryController {
     }
 
     /**
+     * 获取所有商品类型
+     * @return
+     */
+    /*@GetMapping("/all/data")
+    @ResponseBody
+    public ResponseVo allData(){
+        List<ProductCategoryEntity> productCategoryEntityList = null;
+        boolean result = true;
+        try{
+            productCategoryEntityList = productCategoryService.getAllData();
+        }catch (Exception e){
+            result = false;
+            e.printStackTrace();
+        }
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "数据获取成功" : "数据获取失败")
+                .data(productCategoryEntityList)
+                .build();
+    }*/
+
+    /**
      * 添加商品类型数据
      * @param productCategoryEntity 用来接收商品类型数据
      * @return
