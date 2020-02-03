@@ -33,8 +33,10 @@ public class BrandInfServiceImpl implements BrandInfService {
     }
 
     @Override
-    public List<BrandInfEntity> getExistBrandInf() {
-        return brandInfDao.getExistBrandInf();
+    public List<BrandInfEntity> getExistPbrData() {
+        //获取到关联表中所有的品牌信息id
+        Integer[] brandInfIdArray = pbrService.getAllBrandInfId();
+        return brandInfDao.getExistPbrData(brandInfIdArray);
     }
 
     @Override

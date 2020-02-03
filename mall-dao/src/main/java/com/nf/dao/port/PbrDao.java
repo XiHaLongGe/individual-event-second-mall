@@ -20,6 +20,17 @@ public interface PbrDao {
     ProCategoryBrandInfRelevanceEntity getByPbrId(@Param("pbrId") Integer pbrId);
 
     /**
+     * 根据条件查询关联表信息
+     * @param pbrEntity 用来接收查询条件
+     * @param pageNum 当前页码
+     * @param pageSize 每页显示条目
+     * @return
+     */
+    List<ProCategoryBrandInfRelevanceEntity> getPageByCondition(@Param("pageNum") Integer pageNum,
+                                                                @Param("pageSize") Integer pageSize,
+                                                                @Param("pbrEntity") ProCategoryBrandInfRelevanceEntity pbrEntity);
+
+    /**
      * 根据关联表id获得商品类型品牌信息数据
      * @param pbrIdArray 关联表id
      * @return
@@ -39,6 +50,18 @@ public interface PbrDao {
      * @return 条目数量
      */
     Integer getByBrandInfIdCount(@Param("brandInfIdArray") Integer[] brandInfIdArray);
+
+    /**
+     * 获取到关联表中所有的品牌信息id
+     * @return
+     */
+    Integer[] getAllBrandInfId();
+
+    /**
+     * 获取到关联表中所有的商品类型id
+     * @return
+     */
+    String[] getAllProCategoryId();
 
     /**
      * 添加商品类型品牌信息关联表的数据

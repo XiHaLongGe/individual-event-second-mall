@@ -3,6 +3,7 @@ package com.nf.service.impl;
 import com.nf.dao.port.ProductCategoryDao;
 import com.nf.entity.ProductCategoryEntity;
 import com.nf.service.port.BrandInfService;
+import com.nf.service.port.PbrService;
 import com.nf.service.port.ProductCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +25,8 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     private ProductCategoryDao productCategoryDao;
     @Autowired
     private BrandInfService brandInfService;
+    @Autowired
+    private PbrService pbrService;
 
     @Override
     public List<ProductCategoryEntity> getPageByCondition(Integer pageNum, Integer pageSize, ProductCategoryEntity productCategoryEntity) {
@@ -38,6 +41,13 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     @Override
     public List<ProductCategoryEntity> getByProductCategoryLevel(Integer productCategoryLevel) {
         return productCategoryDao.getByProductCategoryLevel(productCategoryLevel);
+    }
+
+    @Override
+    public List<ProductCategoryEntity> getExistPbrData() {
+        //获取到关联表中所有的商品类型id
+        String[] proCategoryIdArray = pbrService.getAllProCategoryId();
+        return productCategoryDao.getExistPbrData(proCategoryIdArray);
     }
 
     @Override

@@ -1,7 +1,9 @@
 package com.nf.service.impl;
 
 import com.nf.dao.port.PbrDao;
+import com.nf.entity.BrandInfEntity;
 import com.nf.entity.ProCategoryBrandInfRelevanceEntity;
+import com.nf.service.port.BrandInfService;
 import com.nf.service.port.PbrService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,8 +28,25 @@ public class PbrServiceImpl implements PbrService {
     }
 
     @Override
+    public List<ProCategoryBrandInfRelevanceEntity> getPageByCondition(Integer pageNum,
+                                                                       Integer pageSize,
+                                                                       ProCategoryBrandInfRelevanceEntity pbrEntity) {
+        return pbrDao.getPageByCondition(pageNum, pageSize, pbrEntity);
+    }
+
+    @Override
     public List<ProCategoryBrandInfRelevanceEntity> getListByPbrId(Integer[] pbrIdArray) {
         return pbrDao.getListByPbrId(pbrIdArray);
+    }
+
+    @Override
+    public Integer[] getAllBrandInfId() {
+        return pbrDao.getAllBrandInfId();
+    }
+
+    @Override
+    public String[] getAllProCategoryId() {
+        return pbrDao.getAllProCategoryId();
     }
 
     @Override

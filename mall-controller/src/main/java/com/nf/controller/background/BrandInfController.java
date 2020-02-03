@@ -3,10 +3,8 @@ package com.nf.controller.background;
 import com.github.pagehelper.PageInfo;
 import com.nf.entity.BrandInfEntity;
 import com.nf.entity.ProCategoryBrandInfRelevanceEntity;
-import com.nf.entity.ProductCategoryEntity;
 import com.nf.service.port.BrandInfService;
 import com.nf.service.port.PbrService;
-import com.nf.service.port.ProductCategoryService;
 import com.nf.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,25 +33,6 @@ public class BrandInfController {
     @RequestMapping("/home")
     public String home(){
         return "background/brand-inf/brandInfList";
-    }
-
-    /**
-     * 品牌添加和修改的视图
-     * @param model 用来将数据写入请求域
-     * @param pbrId 用来接收修改的商品类型与品牌信息关联表id
-     * @return
-     */
-    @RequestMapping("/relevance/add/edit")
-    public String add(Model model, Integer pbrId){
-        String addOrEditType = "添加";
-        if(pbrId != null && pbrId != 0){
-            ProCategoryBrandInfRelevanceEntity pbrEntity = pbrService.getByPbrId(pbrId);
-            model.addAttribute("pbrEntity", pbrEntity);
-            model.addAttribute("brandInfEntity", brandInfService.getByBrandInfId(pbrEntity.getBrandInfId()));
-            addOrEditType = "修改";
-        }
-        model.addAttribute("addOrEditType", addOrEditType);
-        return "background/brand-inf/addAndEdit";
     }
 
     /**
@@ -107,30 +86,6 @@ public class BrandInfController {
                 .data(pageInfo)
                 .build();
     }
-
-    /**
-     * 获取到有商品的品牌信息(有的品牌没有为其添加商品)
-     * @return
-     */
-    @GetMapping("/exist/data")
-    @ResponseBody
-    public ResponseVo existData(){
-        boolean result = true;
-        //品牌信息实体类型的列表对象
-        List<BrandInfEntity> brandInfEntityList = null;
-        try{
-            brandInfEntityList = brandInfService.getExistBrandInf();
-        }catch (Exception e){
-            result = false;
-            e.printStackTrace();
-        }
-        return ResponseVo.newBuilder()
-                .code(result ? 200 : 500)
-                .message(result ? "数据获取成功" : "数据获取失败")
-                .data(brandInfEntityList)
-                .build();
-    }
-
 
     /**
      * 添加品牌信息

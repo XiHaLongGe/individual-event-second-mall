@@ -29,6 +29,14 @@ public interface ProductCategoryService {
      */
     List<ProductCategoryEntity> getByProductCategoryLevel(Integer productCategoryLevel);
 
+
+    /**
+     * 获取存在关联表中的商品类型
+     * @return
+     */
+    List<ProductCategoryEntity> getExistPbrData();
+
+
     /**
      * 获得父类型id的子类型id
      * @param parentIdArray 用来接收父类型id

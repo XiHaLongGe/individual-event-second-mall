@@ -40,7 +40,7 @@ public class BrandInfEntity {
      */
     private Integer pbrId;
     /**
-     * product_category_id: 商品类型表ID
+     * productCategoryId: 商品类型表ID
      */
     private String productCategoryId;
     /**

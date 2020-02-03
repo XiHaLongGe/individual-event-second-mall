@@ -30,33 +30,15 @@
             </when>
         </choose>
     </select>
-    <!--
 
-        select <include refid="pbrParams"/>
-        from brand_inf pbr join product_category pc
-        on pbr.product_category_id = pc.product_category_id
-        join brand_inf bi
-        on pbr.brand_inf_id = bi.brand_inf_id
-        where 1=1
-        <choose>
-            <when test="brandInfEntity.brandInfName != null and brandInfEntity.brandInfName != ''">
-                and bi.brand_inf_name like '%' #{brandInfEntity.brandInfName} '%'
-            </when>
-            <when test="brandInfEntity.productCategoryId != null and brandInfEntity.productCategoryId != ''">
-                and pbr.product_category_id = #{brandInfEntity.productCategoryId}
-            </when>
-        </choose>
-
-    -->
-
-    <!--获取到存在商品的品牌信息-->
-    <select id="getExistBrandInf" resultMap="brandInfResultMap">
-        select <include refid="pbrParams"/>
+    <!--获取存在关联表中的品牌信息-->
+    <select id="getExistPbrData" resultType="com.nf.entity.BrandInfEntity">
+        select <include refid="allParams"/>
         from brand_inf
-        where brand_inf_id
-        in (
-            select brand_inf_id from procategory_brandinf_relevance group by brand_inf_id
-        )
+        where brand_inf_id in
+            <foreach collection="brandInfIdArray" item="brandInfIdArray" open="(" separator="," close=")">
+                #{brandInfIdArray}
+            </foreach>
     </select>
 
     <!--根据品牌信息id来获取品牌信息数据-->

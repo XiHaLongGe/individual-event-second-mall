@@ -1,6 +1,7 @@
 $(function () {
     pageSearch(1);
     downBoxData();
+    setTimeout('downBoxClass()',250);
     /*以下是条件查询的点击事件*/
     $("#searchBTN").click(function () {
         pageSearch(1);
@@ -16,14 +17,20 @@ $(function () {
 })
 
 
-/*以下是用户信息的查询*/
+/*以下是处理下拉框的样式问题*/
+function downBoxClass() {
+    $("select[name='modules']").next().children().children('input').attr("style", "width:210px");
+}
+
+
+/*以下是关联信息的查询*/
 function pageSearch(pageNum){
     $.ajax({
-        url:"/mall/background/brand/inf/condition/page/data?pageNum=" + pageNum,
+        url:"/mall/background/pbr/condition/page/data?pageNum=" + pageNum,
         type:"GET",
         async: false,
         data:{
-            "brandInfName" : $("#brandInfNameINPUT").val(),
+            "brandInfId" : $("#brandInfNameSELECT").val(),
             "productCategoryId" : $("dd.layui-this").attr("lay-value")
         },
         contentType: "application/json",
@@ -53,19 +60,34 @@ function customerCount(data){
 /*将数据填充下拉框*/
 function downBoxData() {
     var resultValue = "";
+    /*品牌信息下拉框的数据填充*/
     $.ajax({
-        url:"/mall/background/product/category/level/data?productCategoryLevel=2",
+        url:"/mall/background/pbr/exist/brand/inf/data",
         type:"GET",
         async: false,
         contentType: "application/json",
         success:function (data) {
-            resultValue += "<option value=\"\">直接选择或输入搜索</option>";
+            resultValue = "<option value=\"\">品牌信息：选择或输入搜索</option>";
+            $.each(data.data, function(index, element){
+                resultValue += "<option value=\"" + element.brandInfId + "\">" + element.brandInfName + "</option>";
+            })
+            $("#brandInfNameSELECT").empty().append(resultValue);
+        }
+    })
+    /*商品类型下拉框的数据填充*/
+    $.ajax({
+        url:"/mall/background/pbr/exist/pro/category/data",
+        type:"GET",
+        async: false,
+        contentType: "application/json",
+        success:function (data) {
+            resultValue = "<option value=\"\">商品类型：选择或输入搜索</option>";
             $.each(data.data, function(index, element){
                 resultValue += "<option value=\"" + element.productCategoryId + "\">" + element.productCategoryName + "</option>";
             })
+            $("#proCategorySELECT").empty().append(resultValue);
         }
     })
-    $("#proCategorySELECT").empty().append(resultValue);
 }
 
 /*根据传入的data数据对象，将数据填充到table*/

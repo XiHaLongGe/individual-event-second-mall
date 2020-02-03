@@ -129,7 +129,7 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="/mall/background/brand/inf/home">
+                        <a _href="/mall/background/pbr/home">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>关联信息</cite>
                         </a>

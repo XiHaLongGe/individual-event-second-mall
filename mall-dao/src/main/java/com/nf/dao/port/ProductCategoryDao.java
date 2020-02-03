@@ -38,6 +38,13 @@ public interface ProductCategoryDao {
     List<ProductCategoryEntity> getByProductCategoryLevel(@Param("productCategoryLevel")Integer productCategoryLevel);
 
     /**
+     * 获取存在关联表中的商品类型
+     * @param proCategoryIdArray 用来接收存在关联表中的商品类型id
+     * @return
+     */
+    List<ProductCategoryEntity> getExistPbrData(@Param("proCategoryIdArray") String[] proCategoryIdArray);
+
+    /**
      * 获得父类型id的子类型id
      * @param parentIdArray 用来接收父类型id
      * @return

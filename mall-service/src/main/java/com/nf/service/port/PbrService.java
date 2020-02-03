@@ -1,5 +1,6 @@
 package com.nf.service.port;
 
+import com.nf.entity.BrandInfEntity;
 import com.nf.entity.ProCategoryBrandInfRelevanceEntity;
 
 import java.util.List;
@@ -18,6 +19,16 @@ public interface PbrService {
      */
     ProCategoryBrandInfRelevanceEntity getByPbrId(Integer pbrId);
 
+    /**
+     * 根据条件查询关联表信息
+     * @param pbrEntity 用来接收查询条件
+     * @param pageNum 当前页码
+     * @param pageSize 每页显示条目
+     * @return
+     */
+    List<ProCategoryBrandInfRelevanceEntity> getPageByCondition(Integer pageNum,
+                                                                Integer pageSize,
+                                                                ProCategoryBrandInfRelevanceEntity pbrEntity);
 
     /**
      * 根据关联表id获得商品类型品牌信息数据
@@ -25,6 +36,20 @@ public interface PbrService {
      * @return
      */
     List<ProCategoryBrandInfRelevanceEntity> getListByPbrId(Integer[] pbrIdArray);
+
+
+    /**
+     * 获取到关联表中所有的品牌信息id
+     * @return
+     */
+    Integer[] getAllBrandInfId();
+
+
+    /**
+     * 获取到关联表中所有的商品类型id
+     * @return
+     */
+    String[] getAllProCategoryId();
 
     /**
      * 通过商品类型id来获得在类型表中存在的条目数量

@@ -82,4 +82,18 @@ public class ProCategoryBrandInfRelevanceEntity {
             return new ProCategoryBrandInfRelevanceEntity(this);
         }
     }
+
+
+    /*===================================   扩展字段   begin   ==================================*/
+
+    /**
+     * brandInfName: 品牌名称
+     */
+    private String brandInfName;
+    /**
+     * productCategoryName: 类型名称
+     */
+    private String productCategoryName;
+
+    /*===================================   扩展字段   end   ==================================*/
 }

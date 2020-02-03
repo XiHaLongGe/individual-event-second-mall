@@ -8,16 +8,45 @@
         product_category_id,
         brand_inf_id
     </sql>
+    <sql id="joinParams">
+        pbr.pbr_id,
+        bi.brand_inf_name as brandInfName,
+        pc.product_category_name as productCategoryName
+    </sql>
     <sql id="insertParams">
         product_category_id,
         brand_inf_id
     </sql>
+    
+    <resultMap id="joinResultMap" type="com.nf.entity.ProCategoryBrandInfRelevanceEntity">
+        <result property="brandInfName" column="brandInfName"/>
+        <result property="productCategoryName" column="productCategoryName"/>
+    </resultMap>
 
     <!--根据商品类型品牌信息关联表id获得数据-->
     <select id="getByPbrId" resultType="com.nf.entity.ProCategoryBrandInfRelevanceEntity">
         select <include refid="allParams"/>
         from procategory_brandinf_relevance
         where pbr_id = #{pbrId}
+    </select>
+
+    <!--根据条件查询关联表信息-->
+    <select id="getPageByCondition" resultMap="joinResultMap">
+        select <include refid="joinParams"/>
+        from procategory_brandinf_relevance pbr join brand_inf bi
+        on pbr.brand_inf_id = bi.brand_inf_id
+        join product_category pc
+        on pbr.product_category_id = pc.product_category_id
+        where 1=1
+        <choose>
+            <when test="pbrEntity.brandInfId != null and pbrEntity.brandInfId != 0">
+                and brand_inf_id = #{pbrEntity.brandInfId}
+            </when>
+            <when test="pbrEntity.productCategoryId != null and pbrEntity.productCategoryId != 0">
+                and product_category_id = #{pbrEntity.productCategoryId}
+            </when>
+        </choose>
+        order by pbr_id
     </select>
 
     <!--根据关联表id获得商品类型品牌信息数据-->
@@ -42,6 +71,7 @@
             </foreach>
     </select>
 
+    <!--通过品牌信息id来获得在关联表中存在的条目数量-->
     <select id="getByBrandInfIdCount" resultType="integer">
         select COUNT(*)
         from procategory_brandinf_relevance
@@ -50,6 +80,20 @@
             <foreach collection="brandInfIdArray" item="brandInfIdArray" open="(" separator="," close=")">
                 #{brandInfIdArray}
             </foreach>
+    </select>
+
+    <!--获取到关联表中所有的品牌信息id-->
+    <select id="getAllBrandInfId" resultType="integer">
+        select brand_inf_id
+        from procategory_brandinf_relevance
+        group by brand_inf_id
+    </select>
+
+    <!--获取到关联表中所有的商品类型id-->
+    <select id="getAllProCategoryId" resultType="string">
+        select product_category_id
+        from procategory_brandinf_relevance
+        group by product_category_id
     </select>
 
     <!--添加商品类型品牌信息关联表的数据-->

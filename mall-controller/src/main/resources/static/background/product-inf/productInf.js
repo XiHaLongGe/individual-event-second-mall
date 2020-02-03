@@ -1,7 +1,7 @@
 $(function () {
-    setTimeout('downBoxClass()',250);
     pageSearch(1);
     downBoxData();
+    setTimeout('downBoxClass()',250);
     /*以下是条件查询的点击事件*/
     $("#searchBTN").click(function () {
         pageSearch(1);

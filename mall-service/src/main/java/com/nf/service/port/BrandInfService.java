@@ -22,11 +22,12 @@ public interface BrandInfService {
                                             Integer pageSize,
                                             BrandInfEntity brandInfEntity);
 
+
     /**
-     * 获取到存在商品的品牌信息
+     * 获取存在关联表中的品牌信息
      * @return
      */
-    List<BrandInfEntity> getExistBrandInf();
+    List<BrandInfEntity> getExistPbrData();
 
     /**
      * 根据品牌信息id来获取品牌信息数据

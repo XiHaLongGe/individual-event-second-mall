@@ -55,6 +55,16 @@
         and product_category_level = #{productCategoryLevel}
     </select>
 
+    <!--获取存在关联表中的商品类型-->
+    <select id="getExistPbrData" resultType="com.nf.entity.ProductCategoryEntity">
+        select <include refid="allParams"/>
+        from product_category
+        where product_category_id in
+            <foreach collection="proCategoryIdArray" item="proCategoryIdArray" open="(" separator="," close=")">
+                #{proCategoryIdArray}
+            </foreach>
+    </select>
+
     <!--获得父类型id的子类型id-->
     <select id="getByParentId" resultType="string">
         select product_category_id

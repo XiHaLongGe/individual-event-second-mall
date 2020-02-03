@@ -24,11 +24,13 @@ public interface BrandInfDao {
                                             @Param("pageSize") Integer pageSize,
                                             @Param("brandInfEntity") BrandInfEntity brandInfEntity);
 
+
     /**
-     * 获取到存在商品的品牌信息
+     * 获取存在关联表中的品牌信息
+     * @param brandInfIdArray 用来接收存在关联表中的品牌信息id
      * @return
      */
-    List<BrandInfEntity> getExistBrandInf();
+    List<BrandInfEntity> getExistPbrData(@Param("brandInfIdArray") Integer[] brandInfIdArray);
 
     /**
      * 根据品牌信息id来获取品牌信息数据
