@@ -80,7 +80,7 @@
     </select>
 
     <!---->
-    <select id="getByParentIdCount" resultType="integer">
+    <select id="getByPbrIdCount" resultType="integer">
         select count(*)
         from product_category
         where  1 = 1

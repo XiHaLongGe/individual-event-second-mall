@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.dao.port.PbrDao">
+    <sql id="allParams">
+        pbr_id,
+        product_category_id,
+        brand_inf_id
+    </sql>
+    <sql id="insertParams">
+        product_category_id,
+        brand_inf_id
+    </sql>
+
+    <!--根据商品类型品牌信息关联表id获得数据-->
+    <select id="getByPbrId" resultType="com.nf.entity.ProCategoryBrandInfRelevanceEntity">
+        select <include refid="allParams"/>
+        from procategory_brandinf_relevance
+        where pbr_id = #{pbrId}
+    </select>
+
+    <!--根据关联表id获得商品类型品牌信息数据-->
+    <select id="getListByPbrId" resultType="com.nf.entity.ProCategoryBrandInfRelevanceEntity">
+        select brand_inf_id
+        from procategory_brandinf_relevance
+        where pbr_id
+        in
+            <foreach collection="pbrIdArray" item="pbrIdArray" open="(" separator="," close=")">
+                #{pbrIdArray}
+            </foreach>
+    </select>
+
+    <!--通过商品类型id来获得其中子类型存在的条目数量-->
+    <select id="getByProCategoryIdCount" resultType="integer">
+        select COUNT(*)
+        from procategory_brandinf_relevance
+        where product_category_id
+        in
+            <foreach collection="proCategoryIdArray" item="proCategoryIdArray" open="(" separator="," close=")">
+                #{proCategoryIdArray}
+            </foreach>
+    </select>
+
+    <select id="getByBrandInfIdCount" resultType="integer">
+        select COUNT(*)
+        from procategory_brandinf_relevance
+        where brand_inf_id
+        in
+            <foreach collection="brandInfIdArray" item="brandInfIdArray" open="(" separator="," close=")">
+                #{brandInfIdArray}
+            </foreach>
+    </select>
+
+    <!--添加商品类型品牌信息关联表的数据-->
+    <insert id="insertPbr">
+        insert procategory_brandinf_relevance(<include refid="insertParams"/>)
+        values
+        (
+            #{proCategoryBrandInfRelevanceEntity.productCategoryId},
+            #{proCategoryBrandInfRelevanceEntity.brandInfId}
+        )
+    </insert>
+
+    <!--修改商品类型品牌信息关联表的数据-->
+    <update id="updatePbr">
+        update procategory_brandinf_relevance
+        set product_category_id = #{proCategoryBrandInfRelevanceEntity.productCategoryId}
+        where pbr_id = #{proCategoryBrandInfRelevanceEntity.pbrId}
+    </update>
+
+    <!--批量删除关联表中包含传入品牌信息id的数据-->
+    <delete id="batchDeleteByBrandInfId">
+        delete from procategory_brandinf_relevance
+        where brand_inf_id in
+        <foreach collection="brandInfIdArray" item="brandInfIdArray" open="(" separator="," close=")">
+            #{brandInfIdArray}
+        </foreach>
+    </delete>
+
+    <!--批量删除关联表信息-->
+    <delete id="batchDeleteBrandInf">
+        delete from procategory_brandinf_relevance
+        where pbr_id in
+        <foreach collection="pbrIdArray" item="pbrIdArray" open="(" separator="," close=")">
+            #{pbrIdArray}
+        </foreach>
+    </delete>
+</mapper>

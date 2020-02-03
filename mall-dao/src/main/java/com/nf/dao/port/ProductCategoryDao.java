@@ -53,11 +53,11 @@ public interface ProductCategoryDao {
 
 
     /**
-     * 通过父类型id来获得商品类型条目
-     * @param parentIdArray 用来接收父类型id
+     * 通过关联表id来获得商品类型条目
+     * @param pbrIdArray 用来接收关联表id
      * @return 接收父类型共有多少子类型条目
      */
-    Integer getByParentIdCount(@Param("parentIdArray")String[] parentIdArray);
+    Integer getByPbrIdCount(@Param("pbrIdArray")String[] pbrIdArray);
 
     /**
      * 添加商品类型数据

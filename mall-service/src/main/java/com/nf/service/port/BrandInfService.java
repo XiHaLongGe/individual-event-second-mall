@@ -23,6 +23,12 @@ public interface BrandInfService {
                                             BrandInfEntity brandInfEntity);
 
     /**
+     * 获取到存在商品的品牌信息
+     * @return
+     */
+    List<BrandInfEntity> getExistBrandInf();
+
+    /**
      * 根据品牌信息id来获取品牌信息数据
      * @param brandInfId 用来接收品牌信息id
      * @return
@@ -45,18 +51,10 @@ public interface BrandInfService {
 
 
     /**
-     * 根据商品类型id对品牌信息进行删除
-     * @param productCategoryIdArray 用来接收商品类型id
-     * @param cascadeDelete 用来确定是否需要对关联表的相关数据进行删除操作
-     * @return 删除结果
-     */
-    boolean deleteByProductCategoryId(String[] productCategoryIdArray, boolean cascadeDelete);
-
-    /**
      * 批量删除品牌信息
      * @param brandInfIdArray 接收需要删除的品牌信息id
-     * @param cascadeDelete 用来确定是否需要对关联表的相关数据进行删除操作
+     * @param cascadeDelete 用来确定是否需要对关联表的相关数据进行删除操作(商品信息表)
      * @return 删除结果
      */
-    boolean batchDeleteBrandInf(String [] brandInfIdArray, boolean cascadeDelete);
+    boolean batchDeleteBrandInf(Integer [] brandInfIdArray, boolean cascadeDelete);
 }

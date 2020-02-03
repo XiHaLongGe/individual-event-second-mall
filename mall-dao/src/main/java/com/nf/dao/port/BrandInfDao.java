@@ -25,6 +25,12 @@ public interface BrandInfDao {
                                             @Param("brandInfEntity") BrandInfEntity brandInfEntity);
 
     /**
+     * 获取到存在商品的品牌信息
+     * @return
+     */
+    List<BrandInfEntity> getExistBrandInf();
+
+    /**
      * 根据品牌信息id来获取品牌信息数据
      * @param brandInfId 用来接收品牌信息id
      * @return
@@ -46,11 +52,11 @@ public interface BrandInfDao {
     Integer updateBrandInf(@Param("brandInfEntity") BrandInfEntity brandInfEntity);
 
     /**
-     * 根据商品类型id对品牌信息进行删除
-     * @param productCategoryIdArray 用来接收商品类型id
+     * 根据品牌信息id对品牌信息进行删除
+     * @param brandInfIdArray 用来接收品牌信息id
      * @return 对数据库的影响行数
      */
-    Integer deleteByProductCategoryId(@Param("productCategoryIdArray")String[] productCategoryIdArray);
+    Integer deleteByProductCategoryId(@Param("brandInfIdArray")String[] brandInfIdArray);
 
     /**
      * 批量删除品牌信息

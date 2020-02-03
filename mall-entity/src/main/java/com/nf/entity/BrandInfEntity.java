@@ -18,7 +18,6 @@ public class BrandInfEntity {
     public String toString() {
         return "BrandInfEntity{" +
                 "brandInfId=" + brandInfId +
-                ", productCategoryId='" + productCategoryId + '\'' +
                 ", brandInfName='" + brandInfName + '\'' +
                 '}';
     }
@@ -28,10 +27,6 @@ public class BrandInfEntity {
      */
     private Integer brandInfId;
     /**
-     * product_category_id: 商品类型表ID
-     */
-    private String productCategoryId;
-    /**
      * brand_inf_name: 品牌名称
      */
     private String brandInfName;
@@ -40,6 +35,14 @@ public class BrandInfEntity {
 
     /*===================================   扩展字段   begin   ==================================*/
 
+    /**
+     * pbrId: pbr关联表ID
+     */
+    private Integer pbrId;
+    /**
+     * product_category_id: 商品类型表ID
+     */
+    private String productCategoryId;
     /**
      * productCategoryName: 类型名称
      */

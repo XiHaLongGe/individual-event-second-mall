@@ -128,6 +128,12 @@
                             <cite>品牌信息</cite>
                         </a>
                     </li>
+                    <li>
+                        <a _href="/mall/background/brand/inf/home">
+                            <i class="iconfont">&#xe6a7;</i>
+                            <cite>关联信息</cite>
+                        </a>
+                    </li>
                 </ul>
             </li>
             <li>
@@ -159,7 +165,7 @@
                         </a>
                     </li>
                     <li>
-                        <a _href="/static/background/home/html/admin-role.html">
+                        <a _href="/mall/background/product/inf/home">
                             <i class="iconfont">&#xe6a7;</i>
                             <cite>商品信息</cite>
                         </a>

@@ -23,7 +23,6 @@ public class ProductInfEntity {
                 "productInfId=" + productInfId +
                 ", brandInfId=" + brandInfId +
                 ", productCategoryId='" + productCategoryId + '\'' +
-                ", columnCategoryId='" + columnCategoryId + '\'' +
                 ", productInfName='" + productInfName + '\'' +
                 ", productInfDescribe='" + productInfDescribe + '\'' +
                 ", productInfPrice=" + productInfPrice +
@@ -45,10 +44,6 @@ public class ProductInfEntity {
      */
     private String productCategoryId;
     /**
-     * column_category_id: 栏目类型ID
-     */
-    private String columnCategoryId;
-    /**
      * product_inf_name: 商品名称
      */
     private String productInfName;
@@ -68,4 +63,31 @@ public class ProductInfEntity {
      * product_inf_stockpile: 商品库存
      */
     private Integer productInfStockpile;
+
+
+    /*===================================   扩展字段   begin   ================================*/
+
+    /**
+     * productCategoryName: 类型名称
+     */
+    private String productCategoryName;
+    /**
+     * brandInfName: 品牌名称
+     */
+    private String brandInfName;
+    /**
+     * orderField: 排序字段，根据哪个字段来进行排序
+     *                      1 : 价格字段
+     *                      2 : 销量字段
+     *                      3 : 库存字段
+     */
+    private Integer orderField;
+    /**
+     * orderType: 排序类型：升序还是降序
+     *                      0 : 升序
+     *                      1 : 降序
+     */
+    private Byte orderType;
+
+    /*===================================   扩展字段   end   ==================================*/
 }

@@ -4,37 +4,59 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nf.dao.port.BrandInfDao">
     <sql id="insertParams">
-        product_category_id,
         brand_inf_name
     </sql>
     <sql id="allParams">
         brand_inf_id,
-        product_category_id,
         brand_inf_name
     </sql>
-    <sql id="joinProCategoryParams">
-        b.brand_inf_id,
-        b.product_category_id,
-        b.brand_inf_name,
-        p.product_category_name as productCategoryName
+    <sql id="pbrParams">
+        pbr.pbr_id,
+        bi.brand_inf_id,
+        bi.brand_inf_name,
+        pc.product_category_name as productCategoryName
     </sql>
     <resultMap id="brandInfResultMap" type="com.nf.entity.BrandInfEntity">
         <result column="productCategoryName" property="productCategoryName"/>
     </resultMap>
-    <!---->
+    <!--获取分页后的数据（可根据条件进行检索）-->
     <select id="getPageByCondition" resultMap="brandInfResultMap">
-        select <include refid="joinProCategoryParams"/>
-        from brand_inf b join product_category p
-        on b.product_category_id = p.product_category_id
+        select <include refid="allParams"/>
+        from brand_inf
         where 1=1
         <choose>
-            <when test="brandInfEntity.productCategoryId != null and brandInfEntity.productCategoryId != ''">
-                and b.product_category_id = #{brandInfEntity.productCategoryId}
-            </when>
             <when test="brandInfEntity.brandInfName != null and brandInfEntity.brandInfName != ''">
-                and b.brand_inf_name like '%' #{brandInfEntity.brandInfName} '%'
+                and brand_inf_name like '%' #{brandInfEntity.brandInfName} '%'
             </when>
         </choose>
+    </select>
+    <!--
+
+        select <include refid="pbrParams"/>
+        from brand_inf pbr join product_category pc
+        on pbr.product_category_id = pc.product_category_id
+        join brand_inf bi
+        on pbr.brand_inf_id = bi.brand_inf_id
+        where 1=1
+        <choose>
+            <when test="brandInfEntity.brandInfName != null and brandInfEntity.brandInfName != ''">
+                and bi.brand_inf_name like '%' #{brandInfEntity.brandInfName} '%'
+            </when>
+            <when test="brandInfEntity.productCategoryId != null and brandInfEntity.productCategoryId != ''">
+                and pbr.product_category_id = #{brandInfEntity.productCategoryId}
+            </when>
+        </choose>
+
+    -->
+
+    <!--获取到存在商品的品牌信息-->
+    <select id="getExistBrandInf" resultMap="brandInfResultMap">
+        select <include refid="pbrParams"/>
+        from brand_inf
+        where brand_inf_id
+        in (
+            select brand_inf_id from procategory_brandinf_relevance group by brand_inf_id
+        )
     </select>
 
     <!--根据品牌信息id来获取品牌信息数据-->
@@ -49,7 +71,6 @@
         insert brand_inf(<include refid="insertParams"/>)
         values
         (
-            #{brandInfEntity.productCategoryId},
             #{brandInfEntity.brandInfName}
         )
     </insert>
@@ -57,25 +78,15 @@
     <!--修改品牌信息数据-->
     <update id="updateBrandInf">
         update brand_inf
-        set product_category_id = #{brandInfEntity.productCategoryId},
-            brand_inf_name = #{brandInfEntity.brandInfName}
+        set brand_inf_name = #{brandInfEntity.brandInfName}
         where brand_inf_id = #{brandInfEntity.brandInfId}
     </update>
 
-    <!--根据商品类型id对品牌信息进行删除-->
-    <delete id="deleteByProductCategoryId">
-        delete from brand_inf
-        where product_category_id in
-        <foreach collection="productCategoryIdArray" item="productCategoryIdArray" open="(" separator="," close=")">
-            #{productCategoryIdArray}
-        </foreach>
-    </delete>
 
     <!--批量删除品牌信息-->
     <delete id="batchDeleteBrandInf">
         delete from brand_inf
-        where 1 = 1
-        and brand_inf_id in
+        where brand_inf_id in
         <foreach collection="brandInfIdArray" item="brandInfIdArray" open="(" separator="," close=")">
             #{brandInfIdArray}
         </foreach>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.dao.port.ProductInfDao">
+    <sql id="insertParams">
+        product_category_id,
+        brand_inf_name
+    </sql>
+    <sql id="allParams">
+        product_inf_id,
+        brand_inf_id,
+        column_category_id,
+        product_inf_name,
+        product_inf_describe,
+        product_inf_price,
+        product_inf_sales,
+        product_inf_stockpile
+    </sql>
+    <sql id="joinParams">
+        pi.product_inf_id,
+        pi.brand_inf_id,
+        pi.column_category_id,
+        pi.product_inf_name,
+        pi.product_inf_describe,
+        pi.product_inf_price,
+        pi.product_inf_sales,
+        pi.product_inf_stockpile,
+        bi.brand_inf_name as brandInfName,
+        pc.product_category_name as productCategoryName
+    </sql>
+
+    <resultMap id="productInfResultMap" type="com.nf.entity.ProductInfEntity">
+        <result column="brandInfName" property="brandInfName"/>
+        <result column="productCategoryName" property="productCategoryName"/>
+    </resultMap>
+
+    <!--获取分页后的数据（可根据条件进行检索）-->
+    <select id="getPageByCondition" resultMap="productInfResultMap">
+        select <include refid="joinParams"/>
+        from product_inf pi join brand_inf bi
+            on pi.brand_inf_id = bi.brand_inf_id
+        join product_category pc
+            on pi.product_category_id = pc.product_category_id
+        where 1=1
+        <choose>
+            <when test="productInfEntity.productInfName != null and productInfEntity.productInfName != ''">
+                and pi.product_inf_name like '%' #{productInfEntity.productInfName} '%'
+            </when>
+            <when test="productInfEntity.brandInfId != null and productInfEntity.brandInfId != 0">
+                and pi.brand_inf_id = #{productInfEntity.brandInfId}
+            </when>
+            <when test="productInfEntity.productCategoryId != null and productInfEntity.productCategoryId != ''">
+                and pi.product_category_id = #{productInfEntity.productCategoryId}
+            </when>
+        </choose>
+        order by
+            <choose>
+                <when test="productInfEntity.orderField != null and productInfEntity.orderField == 1">
+                    pi.product_inf_price <choose><when test="#{productInfEntity.orderType} == 1">desc</when></choose>
+                </when>
+                <when test="productInfEntity.orderField != null and productInfEntity.orderField == 2">
+                    pi.product_inf_sales <choose><when test="#{productInfEntity.orderType} == 1">desc</when></choose>
+                </when>
+                <when test="productInfEntity.orderField != null and productInfEntity.orderField == 3">
+                    pi.product_inf_stockpile <choose><when test="#{productInfEntity.orderType} == 1">desc</when></choose>
+                </when>
+                <otherwise>
+                    pi.product_inf_id
+                </otherwise>
+            </choose>
+    </select>
+</mapper>

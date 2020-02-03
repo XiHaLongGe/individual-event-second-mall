@@ -51,15 +51,16 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     }
 
     @Override
-    public Integer getByParentIdCount(String[] parentIdArray) {
+    public Integer getByPbrIdCount(String[] pbrIdArray) {
         //实例化一个set集合
-        Set<String> set = new HashSet();
+        Set<String> set = new HashSet<>();
         //遍历数组并存入集合,如果元素已存在则不会重复存入
-        for (int i = 0; i < parentIdArray.length; i++) {
-            set.add(parentIdArray[i]);
+        for (int i = 0; i < pbrIdArray.length; i++) {
+            set.add(pbrIdArray[i]);
         }
         //set.toArray() 得到Set集合的数组形式 object类型
-        return productCategoryDao.getByParentIdCount(set.toArray(parentIdArray));
+//        return productCategoryDao.getByParentIdCount(set.toArray(pbrIdArray));
+        return 1;
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -106,18 +107,23 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     }
 
     @Override
-    public boolean deleteByParentId(String[] parentIdArray, boolean cascadeDelete) {
+    public boolean deleteByParentId(String[] pbrIdArray, boolean cascadeDelete) {
         boolean deleteResult = false;
         //获取到传过来的父类型id的子类型有多少条目
-        Integer parentNum = getByParentIdCount(parentIdArray);
+        Integer parentNum = 1;//getByParentIdCount(pbrIdArray);
         //验证删除的条目是否  等于  传过来的父类型id的子类型的条目
-        deleteResult = productCategoryDao.deleteByParentId(parentIdArray).equals(parentNum);
+        deleteResult = productCategoryDao.deleteByParentId(pbrIdArray).equals(parentNum);
         if(cascadeDelete){
             //获得父类型id的子类型id
-            String [] parenIdArrays = getByParentId(parentIdArray);
+            String [] parenIdArrays = getByParentId(pbrIdArray);
             if (parenIdArrays != null && parenIdArrays.length > 0) {
+                /*将字符串数组类型转换成Integer整数类型数组*/
+                Integer [] brandInfIdArrays = new Integer[parenIdArrays.length];
+                for (int i = 0; i < pbrIdArray.length; i++) {
+                    brandInfIdArrays[i] = Integer.valueOf(parenIdArrays[i]);
+                }
                 /*删除品牌信息表中的相关数据*/
-                deleteResult = brandInfService.deleteByProductCategoryId(parenIdArrays, true);
+                deleteResult = brandInfService.batchDeleteBrandInf(brandInfIdArrays, true);
             }
         }
         return deleteResult;

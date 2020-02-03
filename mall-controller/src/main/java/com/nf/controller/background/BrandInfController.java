@@ -2,8 +2,10 @@ package com.nf.controller.background;
 
 import com.github.pagehelper.PageInfo;
 import com.nf.entity.BrandInfEntity;
+import com.nf.entity.ProCategoryBrandInfRelevanceEntity;
 import com.nf.entity.ProductCategoryEntity;
 import com.nf.service.port.BrandInfService;
+import com.nf.service.port.PbrService;
 import com.nf.service.port.ProductCategoryService;
 import com.nf.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,31 +27,50 @@ public class BrandInfController {
     @Autowired
     private BrandInfService brandInfService;
     @Autowired
-    private ProductCategoryService productCategoryService;
+    private PbrService pbrService;
     /**
      * 品牌信息的视图
      * @return
      */
     @RequestMapping("/home")
     public String home(){
-        return "background/brand-inf/list";
+        return "background/brand-inf/brandInfList";
     }
 
     /**
      * 品牌添加和修改的视图
      * @param model 用来将数据写入请求域
-     * @param brandInfId 用来接收修改的品牌信息id
+     * @param pbrId 用来接收修改的商品类型与品牌信息关联表id
+     * @return
+     */
+    @RequestMapping("/relevance/add/edit")
+    public String add(Model model, Integer pbrId){
+        String addOrEditType = "添加";
+        if(pbrId != null && pbrId != 0){
+            ProCategoryBrandInfRelevanceEntity pbrEntity = pbrService.getByPbrId(pbrId);
+            model.addAttribute("pbrEntity", pbrEntity);
+            model.addAttribute("brandInfEntity", brandInfService.getByBrandInfId(pbrEntity.getBrandInfId()));
+            addOrEditType = "修改";
+        }
+        model.addAttribute("addOrEditType", addOrEditType);
+        return "background/brand-inf/addAndEdit";
+    }
+
+    /**
+     * 品牌信息的添加与修改视图
+     * @param model 用来将数据写入请求域
+     * @param brandInfId 需要修改的品牌id，修改时会用上
      * @return
      */
     @RequestMapping("/add/edit")
-    public String add(Model model, Integer brandInfId){
+    public String addEdit(Model model, Integer brandInfId){
         String addOrEditType = "添加";
         if(brandInfId != null && brandInfId != 0){
             model.addAttribute("brandInfEntity", brandInfService.getByBrandInfId(brandInfId));
             addOrEditType = "修改";
         }
         model.addAttribute("addOrEditType", addOrEditType);
-        return "background/brand-inf/addAndEdit";
+        return "background/brand-inf/brandInfAddEdit";
     }
 
 
@@ -88,29 +109,31 @@ public class BrandInfController {
     }
 
     /**
-     * 根据类型层级来获取商品类型数据，因为品牌只需要2级层次所以这里写死
+     * 获取到有商品的品牌信息(有的品牌没有为其添加商品)
      * @return
      */
-    @GetMapping("/product/category/data")
+    @GetMapping("/exist/data")
     @ResponseBody
-    public ResponseVo productCategoryData(){
-        boolean result = false;
-        List<ProductCategoryEntity> categoryEntityList = null;
+    public ResponseVo existData(){
+        boolean result = true;
+        //品牌信息实体类型的列表对象
+        List<BrandInfEntity> brandInfEntityList = null;
         try{
-            categoryEntityList = productCategoryService.getByProductCategoryLevel(2);
-            result = true;
+            brandInfEntityList = brandInfService.getExistBrandInf();
         }catch (Exception e){
+            result = false;
             e.printStackTrace();
         }
         return ResponseVo.newBuilder()
                 .code(result ? 200 : 500)
                 .message(result ? "数据获取成功" : "数据获取失败")
-                .data(categoryEntityList)
+                .data(brandInfEntityList)
                 .build();
     }
 
+
     /**
-     * 添加品牌信息的控制器方法
+     * 添加品牌信息
      * @param brandInfEntity 用于接收添加信息
      * @return
      */
@@ -126,8 +149,8 @@ public class BrandInfController {
     }
 
     /**
-     * 修改品牌信息的控制器方法
-     * @param brandInfEntity 用于接收添加信息
+     * 修改品牌信息
+     * @param brandInfEntity 用于接收修改信息
      * @return
      */
     @PostMapping("/update")
@@ -149,7 +172,7 @@ public class BrandInfController {
      */
     @PostMapping("/batch/delete")
     @ResponseBody
-    public ResponseVo batchDeleteBrandInf(@RequestBody String [] brandInfIdArray){
+    public ResponseVo batchDeleteBrandInf(@RequestBody Integer [] brandInfIdArray){
         boolean result = brandInfService.batchDeleteBrandInf(brandInfIdArray, true);
         return ResponseVo.newBuilder()
                 .code(result ? 200 : 500)

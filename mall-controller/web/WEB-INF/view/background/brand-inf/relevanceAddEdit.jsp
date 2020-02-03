@@ -1,15 +1,15 @@
 <%--
   Created by IntelliJ IDEA.
   User: LJP
-  Date: 2020-02-01
-  Time: 14:36
+  Date: 2020-02-03
+  Time: 14:23
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>添加&修改品牌</title>
+    <title>添加&修改关联信息</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -36,11 +36,12 @@
     <div class="layui-row">
         <form id="searchFORM" class="layui-form layui-col-md12 x-so">
             <div class="layui-input-inline">
-                <input id="brandInfIdINPUT" type="hidden" value="${brandInfEntity.brandInfId}" />
+                <input id="pbrIdIdINPUT" type="hidden" value="${pbrEntity.pbrId}" />
+                <input id="brandInfIdINPUT" type="hidden" value="${pbrEntity.brandInfId}" />
                 <input type="text" id="brandInfNameINPUT"  placeholder="请输入品牌名称" autocomplete="off" class="layui-input" value="${brandInfEntity.brandInfName}">
             </div>
             <div class="layui-input-inline">
-                <input id="productCategoryIdINPUT" type="hidden" value="${brandInfEntity.productCategoryId}" />
+                <input id="productCategoryIdINPUT" type="hidden" value="${pbrEntity.productCategoryId}" />
                 <select id="proCategorySELECT" name="modules" lay-verify="required" lay-search="">
                     <option value="">直接选择或输入搜索</option>
                     <option value="1">layer</option>

@@ -1,5 +1,7 @@
 $(function () {
+    setTimeout('downBoxClass()',250);
     pageSearch(1);
+    downBoxData();
     /*以下是条件查询的点击事件*/
     $("#searchBTN").click(function () {
         pageSearch(1);
@@ -8,20 +10,30 @@ $(function () {
     /*刷新点击事件*/
     $("#refreshA").click(function(){
         $(".layui-input").val("");
+        $("dd.layui-this").removeClass("layui-this")
         pageSearch(1);
         $("#parentDIV").removeClass("layui-form-checked");
     })
 })
 
 
-/*以下是品牌信息的查询*/
+/*以下是处理下拉框的样式问题*/
+function downBoxClass() {
+    $("select[name='modules']").next().children().children('input').attr("style", "width:185px");
+}
+
+/*以下是用户信息的查询*/
 function pageSearch(pageNum){
     $.ajax({
-        url:"/mall/background/brand/inf/condition/page/data?pageNum=" + pageNum,
+        url:"/mall/background/product/inf/condition/page/data?pageNum=" + pageNum,
         type:"GET",
         async: false,
         data:{
-            "brandInfName" : $("#brandInfNameINPUT").val(),
+            "productInfName" : $("#productInfNameINPUT").val(),
+            "brandInfId" : $("#brandInfSELECT").next().children('dl').children('dd.layui-this').attr("lay-value"),
+            "productCategoryId" : $("#columnCategorySELECT").next().children('dl').children('dd.layui-this').attr("lay-value"),
+            "orderField" : $("#orderField").val(),
+            "orderType" : $("#orderType").val()
         },
         contentType: "application/json",
         success:function (data) {
@@ -47,21 +59,92 @@ function customerCount(data){
 
 
 
+/*将数据填充下拉框*/
+function downBoxData() {
+    brandDataFill();
+    parentProCategoryDataFill();
+    childProCategoryDataFill();
+}
+
+/*品牌信息填充*/
+function brandDataFill() {
+    var resultValue = "";
+    $.ajax({
+        url:"/mall/background/brand/inf/exist/data",
+        type:"GET",
+        async: false,
+        contentType: "application/json",
+        success:function (data) {
+            resultValue += "<option value=\"\">品牌:选择或输入搜索</option>";
+            $.each(data.data, function(index, element){
+                resultValue += "<option value=\"" + element.brandInfId + "\">" + element.brandInfName + "</option>";
+            })
+        }
+    })
+    $("#brandInfSELECT").empty().append(resultValue);
+}
+
+
+/*父栏目信息填充*/
+function parentProCategoryDataFill() {
+    var resultValue = "";
+    $.ajax({
+        url:"/mall/background/product/category/level/data?productCategoryLevel=3",
+        type:"GET",
+        async: false,
+        contentType: "application/json",
+        success:function (data) {
+            resultValue += "<option value=\"\">父栏目:选择或输入搜索</option>";
+            $.each(data.data, function(index, element){
+                resultValue += "<option value=\"" + element.productCategoryId + "\">" + element.productCategoryName + "</option>";
+            })
+        }
+    })
+    $("#parentProCategorySELECT").empty().append(resultValue);
+}
+
+
+
+/*子栏目信息填充*/
+function childProCategoryDataFill() {
+    var resultValue = "";
+    $.ajax({
+        url:"/mall/background/product/category/level/data?productCategoryLevel=4",
+        type:"GET",
+        async: false,
+        contentType: "application/json",
+        success:function (data) {
+            resultValue += "<option value=\"\">子栏目:选择或输入搜索</option>";
+            $.each(data.data, function(index, element){
+                resultValue += "<option value=\"" + element.productCategoryId + "\">" + element.productCategoryName + "</option>";
+            })
+        }
+    })
+    $("#childProCategorySELECT").empty().append(resultValue);
+}
+
+
 /*根据传入的data数据对象，将数据填充到table*/
 function customerPageList(data){
     var resultValue = "";
     $.each(data.data.list,function(index, element){
         resultValue += "<tr>";
         resultValue += "<td>";
-        resultValue += "<div class=\"layui-unselect layui-form-checkbox\" lay-skin=\"primary\" data-id='" + element.brandInfId + "'><i class=\"layui-icon\">&#xe605;</i></div>";
+        resultValue += "<div class=\"layui-unselect layui-form-checkbox\" lay-skin=\"primary\" data-id='" + element.productInfId + "'><i class=\"layui-icon\">&#xe605;</i></div>";
         resultValue += "</td>";
         resultValue += "<td>" + parseInt(index + 1) + "</td>";
+        resultValue += "<td>" + element.productInfName + "</td>";
         resultValue += "<td>" + element.brandInfName + "</td>";
+        resultValue += "<td>" + element.productCategoryName + "</td>";
+        resultValue += "<td>" + element.productInfDescribe + "</td>";
+        resultValue += "<td>" + element.productInfPrice + "</td>";
+        resultValue += "<td>" + element.productInfSales + "</td>";
+        resultValue += "<td>" + element.productInfStockpile + "</td>";
         resultValue += "<td class=\"td-manage\">";
-        resultValue += "<a title=\"修改\" onclick=\"x_admin_show('修改品牌', '/mall/background/brand/inf/add/edit?brandInfId=" + element.brandInfId + "',280,200)\" href=\"javascript:;\">";
+        resultValue += "<a title=\"修改\" onclick=\"x_admin_show('修改商品', '/mall/background/brand/inf/add/edit?productInfId=" + element.productInfId + "',300,300)\" href=\"javascript:;\">";
         resultValue += "<i class=\"iconfont\">&#xe69e;</i>";
         resultValue += "</a>";
-        resultValue += "<a title=\"删除\" onclick=\"member_del(this,'" + element.brandInfId + "')\" href=\"javascript:;\">";
+        resultValue += "<a title=\"删除\" onclick=\"member_del(this,'" + element.productInfId + "')\" href=\"javascript:;\">";
         resultValue += "<i class=\"layui-icon\">&#xe640;</i>";
         resultValue += "</a>";
         resultValue += "</td>";
@@ -106,10 +189,10 @@ function clickLoader(){
 
 
 /*以下是单条数据的删除*/
-function member_del(obj,brandInfId){
+function member_del(obj,productCategoryId){
     layer.confirm('确认要删除吗？',function(index){
         var arr = [];
-        arr.push(brandInfId)
+        arr.push(productCategoryId)
         //发异步删除数据
         if(dataDelete(arr)){
             $(obj).parents("tr").remove();
@@ -125,10 +208,10 @@ function member_del(obj,brandInfId){
 /*以下是批量删除*/
 function delAll () {
     /*获取到所有被选中的id*/
-    var brandInfIdArray = tableCheck.getData();
+    var productCategoryIdArray = tableCheck.getData();
     layer.confirm('确认要删除吗？',function(index){
-        //找到所有被选中的，发异步进行删除
-        if(dataDelete(brandInfIdArray)){
+        //捉到所有被选中的，发异步进行删除
+        if(dataDelete(productCategoryIdArray)){
             layer.msg('删除成功', {icon: 1});
             $(".layui-form-checked").not('.header').parents('tr').remove();
             $("#parentDIV").removeClass("layui-form-checked");

@@ -52,11 +52,11 @@ public interface ProductCategoryService {
 
 
     /**
-     * 通过父类型id来获得商品类型条目
-     * @param parentIdArray 用来接收父类型id
+     * 通过关联表id来获得商品类型条目
+     * @param pbrIdArray 用来接收关联表id
      * @return 接收父类型共有多少子类型条目
      */
-    Integer getByParentIdCount(String[] parentIdArray);
+    Integer getByPbrIdCount(String[] pbrIdArray);
 
     /**
      * 添加商品类型数据
@@ -76,11 +76,11 @@ public interface ProductCategoryService {
 
     /**
      * 根据父id对商品类型进行删除
-     * @param parentIdArray 用来接收父id
+     * @param pbrIdArray 用来接收关联表id
      * @param cascadeDelete 用来确定是否需要对关联表的相关数据进行删除操作
      * @return 删除结果
      */
-    boolean deleteByParentId(String[] parentIdArray, boolean cascadeDelete);
+    boolean deleteByParentId(String[] pbrIdArray, boolean cascadeDelete);
 
 
     /**
