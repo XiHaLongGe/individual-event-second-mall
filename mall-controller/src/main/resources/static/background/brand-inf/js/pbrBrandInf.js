@@ -30,8 +30,8 @@ function pageSearch(pageNum){
         type:"GET",
         async: false,
         data:{
-            "brandInfId" : $("#brandInfNameSELECT").val(),
-            "productCategoryId" : $("dd.layui-this").attr("lay-value")
+            "brandInfId" : $("#brandInfNameSELECT").next().children('dl').children('dd.layui-this').attr("lay-value"),
+            "productCategoryId" : $("#proCategorySELECT").next().children('dl').children('dd.layui-this').attr("lay-value")
         },
         contentType: "application/json",
         success:function (data) {

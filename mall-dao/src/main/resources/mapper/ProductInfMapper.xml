@@ -47,9 +47,13 @@
             <when test="productInfEntity.productInfName != null and productInfEntity.productInfName != ''">
                 and pi.product_inf_name like '%' #{productInfEntity.productInfName} '%'
             </when>
+        </choose>
+        <choose>
             <when test="productInfEntity.brandInfId != null and productInfEntity.brandInfId != 0">
                 and pi.brand_inf_id = #{productInfEntity.brandInfId}
             </when>
+        </choose>
+        <choose>
             <when test="productInfEntity.productCategoryId != null and productInfEntity.productCategoryId != ''">
                 and pi.product_category_id = #{productInfEntity.productCategoryId}
             </when>

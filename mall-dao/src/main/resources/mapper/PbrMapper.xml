@@ -40,13 +40,15 @@
         where 1=1
         <choose>
             <when test="pbrEntity.brandInfId != null and pbrEntity.brandInfId != 0">
-                and brand_inf_id = #{pbrEntity.brandInfId}
-            </when>
-            <when test="pbrEntity.productCategoryId != null and pbrEntity.productCategoryId != 0">
-                and product_category_id = #{pbrEntity.productCategoryId}
+                and pbr.brand_inf_id = #{pbrEntity.brandInfId}
             </when>
         </choose>
-        order by pbr_id
+        <choose>
+            <when test="pbrEntity.productCategoryId != null and pbrEntity.productCategoryId != ''">
+                and pbr.product_category_id = #{pbrEntity.productCategoryId}
+            </when>
+        </choose>
+        order by pbr.pbr_id
     </select>
 
     <!--根据关联表id获得商品类型品牌信息数据-->
