@@ -39,6 +39,13 @@ public interface PbrService {
 
 
     /**
+     * 获得 与传过来的商品类型id 关联的 品牌信息id
+     * @param proCategoryIdArray 商品类型id
+     * @return
+     */
+    Integer[] getBrandInfIdByParenId(String[] proCategoryIdArray);
+
+    /**
      * 获取到关联表中所有的品牌信息id
      * @return
      */

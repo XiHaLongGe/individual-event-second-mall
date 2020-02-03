@@ -121,24 +121,25 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
         return productCategoryDao.updateProductCategory(productCategoryEntity) > 0;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
-    public boolean deleteByParentId(String[] pbrIdArray, boolean cascadeDelete) {
-        boolean deleteResult = false;
+    public boolean deleteByParentId(String[] productCategoryIdArray, boolean cascadeDelete) {
+        boolean deleteResult;
+        //获得父类型id的子类型id
+        String [] parenIdArrays = getByParentId(productCategoryIdArray);
         //获取到传过来的父类型id的子类型有多少条目
-        Integer parentNum = 1;//getByParentIdCount(pbrIdArray);
-        //验证删除的条目是否  等于  传过来的父类型id的子类型的条目
-        deleteResult = productCategoryDao.deleteByParentId(pbrIdArray).equals(parentNum);
+        Integer parentNum = parenIdArrays.length;
+        //验证删除子类型的条目是否  等于  传过来的父类型id的子类型的条目
+        deleteResult = productCategoryDao.deleteByParentId(productCategoryIdArray).equals(parentNum);
         if(cascadeDelete){
-            //获得父类型id的子类型id
-            String [] parenIdArrays = getByParentId(pbrIdArray);
-            if (parenIdArrays != null && parenIdArrays.length > 0) {
-                /*将字符串数组类型转换成Integer整数类型数组*/
-                Integer [] brandInfIdArrays = new Integer[parenIdArrays.length];
-                for (int i = 0; i < pbrIdArray.length; i++) {
-                    brandInfIdArrays[i] = Integer.valueOf(parenIdArrays[i]);
+            if (parenIdArrays.length > 0) {
+                /*获得 与商品类型id 关联的 品牌信息id*/
+                Integer [] brandInfIdArrays = pbrService.getBrandInfIdByParenId(parenIdArrays);
+                /*如果存在与商品类型id 关联的 品牌信息id，对其进行删除*/
+                if(brandInfIdArrays.length > 0){
+                    /*删除品牌信息表中的相关数据*/
+                    deleteResult = brandInfService.batchDeleteBrandInf(brandInfIdArrays, true);
                 }
-                /*删除品牌信息表中的相关数据*/
-                deleteResult = brandInfService.batchDeleteBrandInf(brandInfIdArrays, true);
             }
         }
         return deleteResult;

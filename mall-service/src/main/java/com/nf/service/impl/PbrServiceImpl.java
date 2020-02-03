@@ -40,6 +40,11 @@ public class PbrServiceImpl implements PbrService {
     }
 
     @Override
+    public Integer[] getBrandInfIdByParenId(String[] proCategoryIdArray) {
+        return pbrDao.getBrandInfIdByParenId(proCategoryIdArray);
+    }
+
+    @Override
     public Integer[] getAllBrandInfId() {
         return pbrDao.getAllBrandInfId();
     }

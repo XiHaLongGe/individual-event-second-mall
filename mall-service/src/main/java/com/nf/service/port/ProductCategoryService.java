@@ -90,11 +90,11 @@ public interface ProductCategoryService {
 
     /**
      * 根据父id对商品类型进行删除
-     * @param pbrIdArray 用来接收关联表id
+     * @param productCategoryIdArray 用来接收父id
      * @param cascadeDelete 用来确定是否需要对关联表的相关数据进行删除操作
      * @return 删除结果
      */
-    boolean deleteByParentId(String[] pbrIdArray, boolean cascadeDelete);
+    boolean deleteByParentId(String[] productCategoryIdArray, boolean cascadeDelete);
 
 
     /**

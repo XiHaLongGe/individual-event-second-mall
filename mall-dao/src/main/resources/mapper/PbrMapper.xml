@@ -84,6 +84,18 @@
             </foreach>
     </select>
 
+    <!--获得 与传过来的商品类型id 关联的 品牌信息id-->
+    <select id="getBrandInfIdByParenId" resultType="integer">
+        select brand_inf_id
+        from procategory_brandinf_relevance
+        where product_category_id
+        in
+        <foreach collection="proCategoryIdArray" item="proCategoryIdArray" open="(" separator="," close=")">
+            #{proCategoryIdArray}
+        </foreach>
+        group by brand_inf_id
+    </select>
+
     <!--获取到关联表中所有的品牌信息id-->
     <select id="getAllBrandInfId" resultType="integer">
         select brand_inf_id

@@ -56,17 +56,7 @@ public class BrandInfServiceImpl implements BrandInfService {
 
     @Override
     public boolean updateBrandInf(BrandInfEntity brandInfEntity) {
-        /*获取到一个商品类型与品牌信息关联表实体类实例*//*
-        ProCategoryBrandInfRelevanceEntity proCategoryBrandInfRelevanceEntity = ProCategoryBrandInfRelevanceEntity.newBuilder().build();
-        *//*通过BeanUtils工具类对相同字段进行复制赋值操作*//*
-        BeanUtils.copyProperties(brandInfEntity, proCategoryBrandInfRelevanceEntity);
-        *//*得到商品类型与品牌信息关联表的修改结果*//*
-        boolean result = pbrService.updatePbr(proCategoryBrandInfRelevanceEntity);
-        *//*获取到要修改的品牌id*//*
-        Integer brandInfId = pbrService.getByPbrId(brandInfEntity.getPbrId()).getBrandInfId();
-        *//*将获取到的品牌id传入实体类*//*
-        brandInfEntity.setBrandInfId(brandInfId);*/
-        return /*result && */brandInfDao.updateBrandInf(brandInfEntity) > 0;
+        return brandInfDao.updateBrandInf(brandInfEntity) > 0;
     }
 
     @Transactional(rollbackFor = Exception.class)
