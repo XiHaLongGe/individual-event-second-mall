@@ -78,4 +78,92 @@ public class ProductInfEntity {
 
 
     /*===================================   扩展字段   end   ==================================*/
+
+
+
+
+    private ProductInfEntity(Builder builder) {
+        productInfId = builder.productInfId;
+        brandInfId = builder.brandInfId;
+        productCategoryId = builder.productCategoryId;
+        productInfName = builder.productInfName;
+        productInfDescribe = builder.productInfDescribe;
+        productInfPrice = builder.productInfPrice;
+        productInfSales = builder.productInfSales;
+        productInfStockpile = builder.productInfStockpile;
+    }
+
+    public static Builder newBuilder() {
+        return new Builder();
+    }
+
+    public static Builder newBuilder(ProductInfEntity copy) {
+        Builder builder = new Builder();
+        builder.productInfId = copy.getProductInfId();
+        builder.brandInfId = copy.getBrandInfId();
+        builder.productCategoryId = copy.getProductCategoryId();
+        builder.productInfName = copy.getProductInfName();
+        builder.productInfDescribe = copy.getProductInfDescribe();
+        builder.productInfPrice = copy.getProductInfPrice();
+        builder.productInfSales = copy.getProductInfSales();
+        builder.productInfStockpile = copy.getProductInfStockpile();
+        return builder;
+    }
+    public static final class Builder {
+        private Integer productInfId;
+        private Integer brandInfId;
+        private String productCategoryId;
+        private String productInfName;
+        private String productInfDescribe;
+        private BigDecimal productInfPrice;
+        private Integer productInfSales;
+        private Integer productInfStockpile;
+
+        private Builder() {
+        }
+
+        public Builder productInfId(Integer val) {
+            productInfId = val;
+            return this;
+        }
+
+        public Builder brandInfId(Integer val) {
+            brandInfId = val;
+            return this;
+        }
+
+        public Builder productCategoryId(String val) {
+            productCategoryId = val;
+            return this;
+        }
+
+        public Builder productInfName(String val) {
+            productInfName = val;
+            return this;
+        }
+
+        public Builder productInfDescribe(String val) {
+            productInfDescribe = val;
+            return this;
+        }
+
+        public Builder productInfPrice(BigDecimal val) {
+            productInfPrice = val;
+            return this;
+        }
+
+        public Builder productInfSales(Integer val) {
+            productInfSales = val;
+            return this;
+        }
+
+        public Builder productInfStockpile(Integer val) {
+            productInfStockpile = val;
+            return this;
+        }
+
+        public ProductInfEntity build() {
+            return new ProductInfEntity(this);
+        }
+    }
 }

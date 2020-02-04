@@ -32,7 +32,7 @@ function pageSearch(pageNum){
         data:{
             "productInfName" : $("#productInfNameINPUT").val(),
             "brandInfId" : $("#brandInfSELECT").next().children('dl').children('dd.layui-this').attr("lay-value"),
-            "productCategoryId" : $("#categorySELECT").next().children('dl').children('dd.layui-this').attr("lay-value")
+            "productCategoryId" : $("#treeclass").next().val()
         },
         contentType: "application/json",
         success:function (data) {
@@ -104,7 +104,7 @@ function categoryDownBoxLogin(){
 }
 /*栏目信息填充, 返回栏目信息json*/
 function categoryDataFill() {
-    var $jsonArrays = [{"name":"选择栏目","id":0}];
+    var $jsonArrays = [{"name":"选择栏目","id":''}];
     var $jsonData = {};
     $.ajax({
         url:"/mall/background/product/category/level/data?productCategoryLevel=3",

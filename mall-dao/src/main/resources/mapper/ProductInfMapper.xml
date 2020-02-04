@@ -43,18 +43,19 @@
             on pi.product_category_id = pc.product_category_id
         where 1=1
         <choose>
-            <when test="productInfEntity.productInfName != null and productInfEntity.productInfName != ''">
+            <when test='productInfEntity.productInfName != null and productInfEntity.productInfName != ""'>
                 and pi.product_inf_name like '%' #{productInfEntity.productInfName} '%'
             </when>
         </choose>
         <choose>
-            <when test="productInfEntity.brandInfId != null and productInfEntity.brandInfId != 0">
+            <when test="productInfEntity.brandInfId != null and productInfEntity.brandInfId > 0">
                 and pi.brand_inf_id = #{productInfEntity.brandInfId}
             </when>
         </choose>
         <choose>
-            <when test="productInfEntity.productCategoryId != null and productInfEntity.productCategoryId != ''">
-                and pi.product_category_id = #{productInfEntity.productCategoryId}
+            <when test='productInfEntity.productCategoryId != null and productInfEntity.productCategoryId != "" and productInfEntity.productCategoryId != "0" '>
+                and pi.product_category_id
+                in (select product_category_id from product_category where product_category_id = #{productInfEntity.productCategoryId} or parent_id = #{productInfEntity.productCategoryId})
             </when>
         </choose>
         order by pi.product_inf_id
