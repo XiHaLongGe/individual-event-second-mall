@@ -25,7 +25,27 @@ public class ProductInfServiceImpl implements ProductInfService {
     }
 
     @Override
+    public ProductInfEntity getByProductInfId(Integer productInfId) {
+        return productInfDao.getByProductInfId(productInfId);
+    }
+
+    @Override
     public Integer[] getAllBrandInfId() {
         return productInfDao.getAllBrandInfId();
+    }
+
+    @Override
+    public boolean insertProductInf(ProductInfEntity productInfEntity) {
+        return productInfDao.insertProductInf(productInfEntity) > 0;
+    }
+
+    @Override
+    public boolean updateProductInf(ProductInfEntity productInfEntity) {
+        return productInfDao.updateProductInf(productInfEntity) > 0;
+    }
+
+    @Override
+    public boolean batchDeleteBrandInf(Integer[] productInfIdArray) {
+        return productInfDao.batchDeleteBrandInf(productInfIdArray) == productInfIdArray.length;
     }
 }

@@ -4,8 +4,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nf.dao.port.ProductInfDao">
     <sql id="insertParams">
+        brand_inf_id,
         product_category_id,
-        brand_inf_name
+        product_inf_name,
+        product_inf_describe,
+        product_inf_price,
+        product_inf_sales,
+        product_inf_stockpile
     </sql>
     <sql id="allParams">
         product_inf_id,
@@ -53,7 +58,7 @@
             </when>
         </choose>
         <choose>
-            <when test='productInfEntity.productCategoryId != null and productInfEntity.productCategoryId != "" and productInfEntity.productCategoryId != "0" '>
+            <when test='productInfEntity.productCategoryId != null and productInfEntity.productCategoryId != ""'>
                 and pi.product_category_id
                 in (select product_category_id from product_category where product_category_id = #{productInfEntity.productCategoryId} or parent_id = #{productInfEntity.productCategoryId})
             </when>
@@ -67,4 +72,51 @@
         from product_inf
         group by brand_inf_id
     </select>
+
+    <!--根据商品id获取商品信息-->
+    <select id="getByProductInfId" resultMap="productInfResultMap">
+        select <include refid="joinParams"/>
+        from product_inf pi left join brand_inf bi
+        on pi.brand_inf_id = bi.brand_inf_id
+        left join product_category pc
+        on pi.product_category_id = pc.product_category_id
+        where pi.product_inf_id = #{productInfId}
+    </select>
+
+    <!--添加商品信息-->
+    <insert id="insertProductInf">
+        insert into product_inf(<include refid="insertParams"/>) values
+        (
+            #{productInfEntity.brandInfId},
+            #{productInfEntity.productCategoryId},
+            #{productInfEntity.productInfName},
+            #{productInfEntity.productInfDescribe},
+            #{productInfEntity.productInfPrice},
+            0,
+            #{productInfEntity.productInfStockpile}
+        )
+    </insert>
+
+    <!--修改商品信息-->
+    <update id="updateProductInf">
+        update product_inf set
+        brand_inf_id = #{productInfEntity.brandInfId},
+        product_category_id = #{productInfEntity.productCategoryId},
+        product_inf_name = #{productInfEntity.productInfName},
+        product_inf_describe = #{productInfEntity.productInfDescribe},
+        product_inf_price = #{productInfEntity.productInfPrice},
+        product_inf_stockpile = #{productInfEntity.productInfStockpile}
+        where product_inf_id = #{productInfEntity.productInfId}
+    </update>
+
+
+
+    <!--批量删除商品信息-->
+    <delete id="batchDeleteBrandInf">
+        delete from product_inf
+        where product_inf_id in
+        <foreach collection="productInfIdArray" item="productInfIdArray" open="(" separator="," close=")">
+            #{productInfIdArray}
+        </foreach>
+    </delete>
 </mapper>

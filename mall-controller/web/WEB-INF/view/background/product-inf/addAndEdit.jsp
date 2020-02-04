@@ -1,15 +1,15 @@
 <%--
   Created by IntelliJ IDEA.
   User: LJP
-  Date: 2020-02-02
-  Time: 14:26
+  Date: 2020-02-04
+  Time: 14:21
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>商品信息</title>
+    <title>添加&修改商品信息</title>
     <meta name="renderer" content="webkit">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />
@@ -62,23 +62,22 @@
 </head>
 
 <body class="layui-anim layui-anim-up">
-<div class="x-nav">
-    <a id="refreshA" class="layui-btn layui-btn-primary layui-btn-small" style="line-height:1.6em;margin-top:3px;float:right" href="javascript:;" title="刷新">
-        <i class="layui-icon" style="line-height:38px">ဂ</i></a>
-</div>
+<input id="productInfIdINPUT" type="hidden" value="${productInfEntity.productInfId}"/>
+<input id="brandInfIdINPUT" type="hidden" value="${productInfEntity.brandInfId}"/>
+<input id="productCategoryNameINPUT" type="hidden" value="${productInfEntity.productCategoryName}"/>
+<input id="productCategoryIdINPUT" type="hidden" value="${productInfEntity.productCategoryId}"/>
+
 <div class="x-body">
     <div class="layui-row">
         <form id="searchFORM" class="layui-form layui-col-md12 x-so">
             <div class="layui-input-inline">
-                <input type="text" id="productInfNameINPUT"  placeholder="请输入商品名称" autocomplete="off" class="layui-input">
+                <input type="text" id="productInfNameINPUT" placeholder="请输入商品名称" autocomplete="off" class="layui-input" value="${productInfEntity.productInfName}">
             </div>
-
+            <br/><br/>
             <div class="layui-input-inline">
-                <select id="brandInfSELECT" name="modules" lay-search="">
-                    <option value="">品牌:选择或输入搜索</option>
-                </select>
+                <select id="brandInfSELECT" name="modules" lay-verify="required" lay-search=""></select>
             </div>
-
+            <br/><br/>
             <div class="layui-input-inline">
                 <div class="layui-unselect layui-form-select downpanel">
                     <div class="layui-select-title">
@@ -93,42 +92,22 @@
                     </dl>
                 </div>
             </div>
-            <button id="searchBTN" type="button" class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
+            <br/><br/>
+            <div class="layui-input-inline">
+                <textarea id="proTEXTAREA" maxlength="50" style="width: 230px; height: 10px;" placeholder="商品描述" class="layui-textarea">${productInfEntity.productInfDescribe}</textarea>
+            </div>
+            <br/><br/>
+            <div class="layui-input-inline" style="width: 100px;">
+                <input type="text" id="priceINPUT" placeholder="￥商品价格" value="${productInfEntity.productInfPrice}" autocomplete="off" class="layui-input">
+            </div>
+            <br/><br/>
+            <div class="layui-input-inline" style="width: 100px;">
+                <input type="text" id="stockpileINPUT" placeholder="商品库存" value="${productInfEntity.productInfStockpile}" autocomplete="off" class="layui-input">
+            </div>
+            <br/><br/>
+            <button id="confirmBTN" type="button" class="layui-btn" lay-submit="">${addOrEditType}</button>
+            <button type="button" class="layui-btn" onclick="x_admin_close()" >取消</button>
         </form>
-    </div>
-    <xblock>
-        <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加商品','/mall/background/product/inf/add/edit',300,400)"><i class="layui-icon"></i>添加商品</button>
-        <span id="countSPAN" class="x-right" style="line-height:40px">共有数据：88 条</span>
-    </xblock>
-    <table class="layui-table">
-        <thead>
-        <tr>
-            <th>
-                <div id="parentDIV" class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
-            </th>
-            <th>序号</th>
-            <th>名称</th>
-            <th>品牌</th>
-            <th>栏目</th>
-            <th>描述</th>
-            <th>价格<%--<a name="topAndBottom" href="javascript:;"><i class="iconfont nav_right">&#xe6a5;</i></a>--%></th>
-            <th>销量<%--<a name="topAndBottom" href="javascript:;"><i class="iconfont nav_right">&#xe6a5;</i></a>--%></th>
-            <th>库存<%--<a name="topAndBottom" href="javascript:;"><i class="iconfont nav_right">&#xe6a5;</i></a>--%></th>
-            <th>操作</th>
-        </tr>
-        </thead>
-        <tbody id="customerTBODY"></tbody>
-    </table>
-    <div class="page">
-        <div id="pageDIV">
-            <a class="prev" href="">&lt;&lt;</a>
-            <a class="num" href="">1</a>
-            <span class="current">2</span>
-            <a class="num" href="">3</a>
-            <a class="num" href="">489</a>
-            <a class="next" href="">&gt;&gt;</a>
-        </div>
     </div>
 </div>
 <script>
@@ -144,6 +123,6 @@
         });
     });
 </script>
-<script src="/static/background/product-inf/js/productInf.js?v=<%= System.currentTimeMillis()%>"></script>
+<script src="/static/background/product-inf/js/productInfAddEdit.js?v=<%= System.currentTimeMillis()%>"></script>
 </body>
 </html>

@@ -10,10 +10,8 @@ import com.nf.service.port.ProductInfService;
 import com.nf.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,34 +34,56 @@ public class ProductInfController {
 
     /**
      * 商品信息视图
+     *
      * @return
      */
     @GetMapping("/home")
-    public String home(){return "background/product-inf/list";}
+    public String home() {
+        return "background/product-inf/list";
+    }
+
+    /**
+     * 商品信息的添加与修改视图
+     *
+     * @param model        用来将数据写入请求域
+     * @param productInfId 需要修改的商品id，修改时会用上
+     * @return
+     */
+    @RequestMapping("/add/edit")
+    public String addEdit(Model model, Integer productInfId) {
+        String addOrEditType = "添加";
+        if (productInfId != null && productInfId != 0) {
+            model.addAttribute("productInfEntity", productInfService.getByProductInfId(productInfId));
+            addOrEditType = "修改";
+        }
+        model.addAttribute("addOrEditType", addOrEditType);
+        return "background/product-inf/addAndEdit";
+    }
 
     /**
      * 根据条件查询商品信息
-     * @param pageNum 用来接收当前页数
-     * @param pageSize 用来接收每页显示的条目
+     *
+     * @param pageNum          用来接收当前页数
+     * @param pageSize         用来接收每页显示的条目
      * @param productInfEntity 用来接收查询条件
      * @return
      */
     @GetMapping("/condition/page/data")
     @ResponseBody
-    public ResponseVo conditionPageData(@RequestParam(value = "pageNum", required = false, defaultValue = "1")Integer pageNum,
+    public ResponseVo conditionPageData(@RequestParam(value = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                                         @RequestParam(value = "pageSize", required = false, defaultValue = "2") Integer pageSize,
-                                        ProductInfEntity productInfEntity){
-        boolean result =true;
+                                        ProductInfEntity productInfEntity) {
+        boolean result = true;
         //商品信息实体类型的列表对象
         List<ProductInfEntity> productInfEntityList;
         //分页工具类对象
         PageInfo pageInfo = null;
-        try{
+        try {
             //获取分页后的商品信息的相关数据
             productInfEntityList = productInfService.getPageByCondition(pageNum, pageSize, productInfEntity);
             //使用分页工具类对象来处理数据的分页效果
             pageInfo = new PageInfo(productInfEntityList, 5);
-        }catch (Exception e){
+        } catch (Exception e) {
             result = false;
             e.printStackTrace();
         }
@@ -76,17 +96,18 @@ public class ProductInfController {
 
     /**
      * 获取到传来的商品类型id的父类型
+     *
      * @param childCategoryId 子类型id
      * @return
      */
     @GetMapping("/parent/category/data")
     @ResponseBody
-    public ResponseVo parentCategoryData(String childCategoryId){
+    public ResponseVo parentCategoryData(String childCategoryId) {
         boolean result = true;
         ProductCategoryEntity productCategoryEntity = null;
         try {
             productCategoryEntity = productCategoryService.getByProductCategoryId(childCategoryId);
-        }catch (Exception e){
+        } catch (Exception e) {
             result = false;
             e.printStackTrace();
         }
@@ -99,18 +120,19 @@ public class ProductInfController {
 
     /**
      * 获取存在商品信息表中的品牌信息
+     *
      * @return
      */
     @GetMapping("/exist/brand/inf/data")
     @ResponseBody
-    public ResponseVo existBrandInfData(){
+    public ResponseVo existBrandInfData() {
         boolean result = true;
         List<BrandInfEntity> brandInfEntityList = null;
         try {
             //获取到关联表中所有的品牌信息id
             Integer[] brandInfIdArray = productInfService.getAllBrandInfId();
             brandInfEntityList = brandInfService.getExistData(brandInfIdArray);
-        }catch (Exception e){
+        } catch (Exception e) {
             result = false;
             e.printStackTrace();
         }
@@ -118,6 +140,58 @@ public class ProductInfController {
                 .code(result ? 200 : 500)
                 .message(result ? "获取商品信息表中的品牌信息成功" : "获取商品信息表中的品牌信息失败")
                 .data(brandInfEntityList)
+                .build();
+    }
+
+
+    /**
+     * 添加商品信息
+     *
+     * @param productInfEntity 接受添加大的商品信息
+     * @return
+     */
+    @PostMapping("/insert")
+    @ResponseBody
+    public ResponseVo insert(@RequestBody ProductInfEntity productInfEntity) {
+        boolean result = productInfService.insertProductInf(productInfEntity);
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "添加商品信息成功" : "添加商品信息失败")
+                .data(result)
+                .build();
+    }
+
+    /**
+     * 修改商品信息
+     *
+     * @param productInfEntity 接受修改大的商品信息
+     * @return
+     */
+    @PostMapping("/update")
+    @ResponseBody
+    public ResponseVo update(@RequestBody ProductInfEntity productInfEntity) {
+        boolean result = productInfService.updateProductInf(productInfEntity);
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "修改商品信息成功" : "修改商品信息失败")
+                .data(result)
+                .build();
+    }
+
+
+    /**
+     * 批量删除商品信息
+     * @param productInfIdArray 接收需要删除的商品信息id
+     * @return
+     */
+    @PostMapping("/batch/delete")
+    @ResponseBody
+    public ResponseVo batchDeleteBrandInf(@RequestBody Integer [] productInfIdArray){
+        boolean result = productInfService.batchDeleteBrandInf(productInfIdArray);
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "删除商品信息成功" : "删除商品信息失败")
+                .data(result)
                 .build();
     }
 }

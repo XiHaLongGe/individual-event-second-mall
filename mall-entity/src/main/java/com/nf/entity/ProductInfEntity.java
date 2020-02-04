@@ -23,7 +23,7 @@ public class ProductInfEntity {
                 "productInfId=" + productInfId +
                 ", brandInfId=" + brandInfId +
                 ", productCategoryId='" + productCategoryId + '\'' +
-                ", productInfName='" + productInfName + '\'' +
+                    ", productInfName='" + productInfName + '\'' +
                 ", productInfDescribe='" + productInfDescribe + '\'' +
                 ", productInfPrice=" + productInfPrice +
                 ", productInfSales=" + productInfSales +

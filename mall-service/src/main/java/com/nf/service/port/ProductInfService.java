@@ -23,10 +23,43 @@ public interface ProductInfService {
                                               ProductInfEntity productInfEntity);
 
 
+
+    /**
+     * 根据商品id获取商品信息
+     * @param productInfId 接受修改的商品信息数据
+     * @return
+     */
+    ProductInfEntity getByProductInfId(Integer productInfId);
+
     /**
      * 获取到关联表中所有的品牌信息id
      * @return
      */
     Integer[] getAllBrandInfId();
+
+
+    /**
+     * 添加商品信息
+     * @param productInfEntity 接受添加的商品信息数据
+     * @return
+     */
+    boolean insertProductInf(ProductInfEntity productInfEntity);
+
+
+    /**
+     * 修改商品信息
+     * @param productInfEntity 接受修改的商品信息数据
+     * @return
+     */
+    boolean updateProductInf(ProductInfEntity productInfEntity);
+
+
+
+    /**
+     * 批量删除商品信息
+     * @param productInfIdArray 接收需要删除的商品信息id
+     * @return
+     */
+    boolean batchDeleteBrandInf(Integer [] productInfIdArray);
 
 }

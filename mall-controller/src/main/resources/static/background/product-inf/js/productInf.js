@@ -11,7 +11,8 @@ $(function () {
     /*刷新点击事件*/
     $("#refreshA").click(function(){
         $(".layui-input").val("");
-        $("dd.layui-this").removeClass("layui-this")
+        $("dd.layui-this").removeClass("layui-this");
+        $("#treeclass").text("选择栏目").next().val("");
         pageSearch(1);
         $("#parentDIV").removeClass("layui-form-checked");
     })
@@ -188,7 +189,7 @@ function customerPageList(data){
         resultValue += "<td>" + element.productInfSales + "</td>";
         resultValue += "<td>" + element.productInfStockpile + "</td>";
         resultValue += "<td class=\"td-manage\">";
-        resultValue += "<a title=\"修改\" onclick=\"x_admin_show('修改商品', '/mall/background/brand/inf/add/edit?productInfId=" + element.productInfId + "',300,300)\" href=\"javascript:;\">";
+        resultValue += "<a title=\"修改\" onclick=\"x_admin_show('修改商品', '/mall/background/product/inf/add/edit?productInfId=" + element.productInfId + "',300,400)\" href=\"javascript:;\">";
         resultValue += "<i class=\"iconfont\">&#xe69e;</i>";
         resultValue += "</a>";
         resultValue += "<a title=\"删除\" onclick=\"member_del(this,'" + element.productInfId + "')\" href=\"javascript:;\">";
@@ -236,10 +237,10 @@ function clickLoader(){
 
 
 /*以下是单条数据的删除*/
-function member_del(obj,productCategoryId){
+function member_del(obj,productInfIdArray){
     layer.confirm('确认要删除吗？',function(index){
         var arr = [];
-        arr.push(productCategoryId)
+        arr.push(productInfIdArray)
         //发异步删除数据
         if(dataDelete(arr)){
             $(obj).parents("tr").remove();
@@ -255,10 +256,10 @@ function member_del(obj,productCategoryId){
 /*以下是批量删除*/
 function delAll () {
     /*获取到所有被选中的id*/
-    var productCategoryIdArray = tableCheck.getData();
+    var productInfIdArray = tableCheck.getData();
     layer.confirm('确认要删除吗？',function(index){
         //捉到所有被选中的，发异步进行删除
-        if(dataDelete(productCategoryIdArray)){
+        if(dataDelete(productInfIdArray)){
             layer.msg('删除成功', {icon: 1});
             $(".layui-form-checked").not('.header').parents('tr').remove();
             $("#parentDIV").removeClass("layui-form-checked");
@@ -272,12 +273,12 @@ function delAll () {
 
 
 //异步对数据删除
-function dataDelete(productCategoryIdArray){
+function dataDelete(productInfIdArray){
     var yn = false;
     $.ajax({
-        url:"/mall/background/brand/inf/batch/delete",
+        url:"/mall/background/product/inf/batch/delete",
         type:"POST",
-        data:JSON.stringify(productCategoryIdArray),
+        data:JSON.stringify(productInfIdArray),
         dataType:"json",
         async: false,//设置为同步
         contentType: "application/json",
