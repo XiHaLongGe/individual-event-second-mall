@@ -10,7 +10,6 @@
     <sql id="allParams">
         product_inf_id,
         brand_inf_id,
-        column_category_id,
         product_inf_name,
         product_inf_describe,
         product_inf_price,
@@ -20,7 +19,7 @@
     <sql id="joinParams">
         pi.product_inf_id,
         pi.brand_inf_id,
-        pi.column_category_id,
+        pi.product_category_id,
         pi.product_inf_name,
         pi.product_inf_describe,
         pi.product_inf_price,
@@ -38,9 +37,9 @@
     <!--获取分页后的数据（可根据条件进行检索）-->
     <select id="getPageByCondition" resultMap="productInfResultMap">
         select <include refid="joinParams"/>
-        from product_inf pi join brand_inf bi
+        from product_inf pi left join brand_inf bi
             on pi.brand_inf_id = bi.brand_inf_id
-        join product_category pc
+        left join product_category pc
             on pi.product_category_id = pc.product_category_id
         where 1=1
         <choose>
@@ -58,20 +57,13 @@
                 and pi.product_category_id = #{productInfEntity.productCategoryId}
             </when>
         </choose>
-        order by
-            <choose>
-                <when test="productInfEntity.orderField != null and productInfEntity.orderField == 1">
-                    pi.product_inf_price <choose><when test="#{productInfEntity.orderType} == 1">desc</when></choose>
-                </when>
-                <when test="productInfEntity.orderField != null and productInfEntity.orderField == 2">
-                    pi.product_inf_sales <choose><when test="#{productInfEntity.orderType} == 1">desc</when></choose>
-                </when>
-                <when test="productInfEntity.orderField != null and productInfEntity.orderField == 3">
-                    pi.product_inf_stockpile <choose><when test="#{productInfEntity.orderType} == 1">desc</when></choose>
-                </when>
-                <otherwise>
-                    pi.product_inf_id
-                </otherwise>
-            </choose>
+        order by pi.product_inf_id
+    </select>
+
+    <!--获取到商品信息表中所有的品牌信息id-->
+    <select id="getAllBrandInfId" resultType="integer">
+        select brand_inf_id
+        from product_inf
+        group by brand_inf_id
     </select>
 </mapper>

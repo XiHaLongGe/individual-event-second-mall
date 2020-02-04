@@ -26,6 +26,39 @@
     <script src="https://cdn.staticfile.org/html5shiv/r29/html5.min.js"></script>
     <script src="https://cdn.staticfile.org/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <style type="text/css">
+        .downpanel .layui-select-title span {
+            line-height: 38px;
+        }
+
+        /*继承父类颜色*/
+        .downpanel dl dd:hover {
+            background-color: inherit;
+        }
+    </style>
+    <style type="text/css">
+        body {
+            height: 100%;
+            width: 100%;
+            background-size: cover;
+            margin: 0 auto;
+        }
+        td {
+            font-size: 12px !important;
+        }
+
+        .layui-form-checkbox span {
+            height: 30px;
+        }
+        .layui-field-title {
+            border-top: 1px solid white;
+        }
+        table {
+            width: 100% !important;
+        }
+
+    </style>
 </head>
 
 <body class="layui-anim layui-anim-up">
@@ -47,22 +80,25 @@
             </div>
 
             <div class="layui-input-inline">
-                <select id="proCategorySELECT" name="modules" lay-search="">
-                    <option value="">父栏目:选择或输入搜索</option>
-                </select>
-            </div>
-
-            <div class="layui-input-inline">
-                <select id="childProCategorySELECT" name="modules" lay-search="">
-                    <option value="">子栏目:选择或输入搜索</option>
-                </select>
+                <div class="layui-unselect layui-form-select downpanel">
+                    <div class="layui-select-title">
+                        <span class="layui-input layui-unselect" id="treeclass">选择栏目</span>
+                        <input type="hidden" name="selectID" value="0">
+                        <i class="layui-edge"></i>
+                    </div>
+                    <dl class="layui-anim layui-anim-upbit">
+                        <dd>
+                            <ul id="classtree"></ul>
+                        </dd>
+                    </dl>
+                </div>
             </div>
             <button id="searchBTN" type="button" class="layui-btn"  lay-submit="" lay-filter="sreach"><i class="layui-icon">&#xe615;</i></button>
         </form>
     </div>
     <xblock>
         <button class="layui-btn layui-btn-danger" onclick="delAll()"><i class="layui-icon"></i>批量删除</button>
-        <button class="layui-btn" onclick="x_admin_show('添加品牌','/mall/background/brand/inf/add/edit',300,300)"><i class="layui-icon"></i>添加品牌</button>
+        <button class="layui-btn" onclick="x_admin_show('添加商品','/mall/background/brand/inf/add/edit',300,300)"><i class="layui-icon"></i>添加商品</button>
         <span id="countSPAN" class="x-right" style="line-height:40px">共有数据：88 条</span>
     </xblock>
     <table class="layui-table">
@@ -76,9 +112,9 @@
             <th>品牌</th>
             <th>栏目</th>
             <th>描述</th>
-            <th>价格<a name="topAndBottom" href="javascript:;"><i class="iconfont nav_right">&#xe6a5;</i></a></th>
-            <th>销量<a name="topAndBottom" href="javascript:;"><i class="iconfont nav_right">&#xe6a5;</i></a></th>
-            <th>库存<a name="topAndBottom" href="javascript:;"><i class="iconfont nav_right">&#xe6a5;</i></a></th>
+            <th>价格<%--<a name="topAndBottom" href="javascript:;"><i class="iconfont nav_right">&#xe6a5;</i></a>--%></th>
+            <th>销量<%--<a name="topAndBottom" href="javascript:;"><i class="iconfont nav_right">&#xe6a5;</i></a>--%></th>
+            <th>库存<%--<a name="topAndBottom" href="javascript:;"><i class="iconfont nav_right">&#xe6a5;</i></a>--%></th>
             <th>操作</th>
         </tr>
         </thead>
@@ -108,6 +144,6 @@
         });
     });
 </script>
-<script src="/static/background/product-inf/productInf.js?v=<%= System.currentTimeMillis()%>"></script>
+<script src="/static/background/product-inf/js/productInf.js?v=<%= System.currentTimeMillis()%>"></script>
 </body>
 </html>

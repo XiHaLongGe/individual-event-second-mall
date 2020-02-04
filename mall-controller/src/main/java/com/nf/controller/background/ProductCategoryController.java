@@ -109,27 +109,30 @@ public class ProductCategoryController {
                 .build();
     }
 
+
     /**
-     * 获取所有商品类型
+     * 根据父类型id来获取到子类型数据
+     * @param parentCategoryId 用来接收父类型id
      * @return
      */
-    /*@GetMapping("/all/data")
+    @GetMapping("/child/data")
     @ResponseBody
-    public ResponseVo allData(){
+    public ResponseVo childData(String parentCategoryId){
+        boolean result = false;
         List<ProductCategoryEntity> productCategoryEntityList = null;
-        boolean result = true;
         try{
-            productCategoryEntityList = productCategoryService.getAllData();
+            productCategoryEntityList = productCategoryService.getByParentCategoryId(parentCategoryId);
+            result = true;
         }catch (Exception e){
-            result = false;
             e.printStackTrace();
+            result = false;
         }
         return ResponseVo.newBuilder()
                 .code(result ? 200 : 500)
                 .message(result ? "数据获取成功" : "数据获取失败")
                 .data(productCategoryEntityList)
                 .build();
-    }*/
+    }
 
     /**
      * 添加商品类型数据

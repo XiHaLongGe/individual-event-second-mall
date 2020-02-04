@@ -21,4 +21,12 @@ public interface ProductInfService {
     List<ProductInfEntity> getPageByCondition(Integer pageNum,
                                               Integer pageSize,
                                               ProductInfEntity productInfEntity);
+
+
+    /**
+     * 获取到关联表中所有的品牌信息id
+     * @return
+     */
+    Integer[] getAllBrandInfId();
+
 }

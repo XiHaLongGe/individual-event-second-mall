@@ -36,8 +36,8 @@
         </choose>
     </select>
 
-    <!--获取存在关联表中的品牌信息-->
-    <select id="getExistPbrData" resultType="com.nf.entity.BrandInfEntity">
+    <!--根据品牌信息id获得列表数据-->
+    <select id="getExistData" resultType="com.nf.entity.BrandInfEntity">
         select <include refid="allParams"/>
         from brand_inf
         where brand_inf_id in

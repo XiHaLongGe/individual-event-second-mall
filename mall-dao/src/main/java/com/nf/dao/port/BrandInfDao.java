@@ -32,11 +32,11 @@ public interface BrandInfDao {
 
 
     /**
-     * 获取存在关联表中的品牌信息
-     * @param brandInfIdArray 用来接收存在关联表中的品牌信息id
+     * 根据品牌信息id获得列表数据
+     * @param brandInfIdArray 用来接收品牌信息id
      * @return
      */
-    List<BrandInfEntity> getExistPbrData(@Param("brandInfIdArray") Integer[] brandInfIdArray);
+    List<BrandInfEntity> getExistData(@Param("brandInfIdArray") Integer[] brandInfIdArray);
 
     /**
      * 根据品牌信息id来获取品牌信息数据

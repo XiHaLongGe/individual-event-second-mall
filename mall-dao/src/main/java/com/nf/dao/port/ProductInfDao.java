@@ -24,4 +24,12 @@ public interface ProductInfDao {
                                               @Param("pageSize") Integer pageSize,
                                               @Param("productInfEntity") ProductInfEntity productInfEntity);
 
+
+
+    /**
+     * 获取到商品信息表中所有的品牌信息id
+     * @return
+     */
+    Integer[] getAllBrandInfId();
+
 }

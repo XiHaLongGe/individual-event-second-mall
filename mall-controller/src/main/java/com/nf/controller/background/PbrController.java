@@ -100,7 +100,9 @@ public class PbrController {
         boolean result = true;
         List<BrandInfEntity> brandInfEntityList = null;
         try {
-            brandInfEntityList = brandInfService.getExistPbrData();
+            //获取到关联表中所有的品牌信息id
+            Integer[] brandInfIdArray = pbrService.getAllBrandInfId();
+            brandInfEntityList = brandInfService.getExistData(brandInfIdArray);
         }catch (Exception e){
             result = false;
             e.printStackTrace();

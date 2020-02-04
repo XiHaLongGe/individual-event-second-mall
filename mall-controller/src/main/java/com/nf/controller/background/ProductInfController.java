@@ -1,7 +1,11 @@
 package com.nf.controller.background;
 
 import com.github.pagehelper.PageInfo;
+import com.nf.entity.BrandInfEntity;
+import com.nf.entity.ProductCategoryEntity;
 import com.nf.entity.ProductInfEntity;
+import com.nf.service.port.BrandInfService;
+import com.nf.service.port.ProductCategoryService;
 import com.nf.service.port.ProductInfService;
 import com.nf.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +29,10 @@ public class ProductInfController {
 
     @Autowired
     private ProductInfService productInfService;
+    @Autowired
+    private BrandInfService brandInfService;
+    @Autowired
+    private ProductCategoryService productCategoryService;
 
     /**
      * 商品信息视图
@@ -63,6 +71,53 @@ public class ProductInfController {
                 .code(result ? 200 : 500)
                 .message(result ? "数据获取成功" : "数据获取失败")
                 .data(pageInfo)
+                .build();
+    }
+
+    /**
+     * 获取到传来的商品类型id的父类型
+     * @param childCategoryId 子类型id
+     * @return
+     */
+    @GetMapping("/parent/category/data")
+    @ResponseBody
+    public ResponseVo parentCategoryData(String childCategoryId){
+        boolean result = true;
+        ProductCategoryEntity productCategoryEntity = null;
+        try {
+            productCategoryEntity = productCategoryService.getByProductCategoryId(childCategoryId);
+        }catch (Exception e){
+            result = false;
+            e.printStackTrace();
+        }
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "获取商品信息表父类型信息成功" : "获取商品信息表父类型信息失败")
+                .data(productCategoryEntity)
+                .build();
+    }
+
+    /**
+     * 获取存在商品信息表中的品牌信息
+     * @return
+     */
+    @GetMapping("/exist/brand/inf/data")
+    @ResponseBody
+    public ResponseVo existBrandInfData(){
+        boolean result = true;
+        List<BrandInfEntity> brandInfEntityList = null;
+        try {
+            //获取到关联表中所有的品牌信息id
+            Integer[] brandInfIdArray = productInfService.getAllBrandInfId();
+            brandInfEntityList = brandInfService.getExistData(brandInfIdArray);
+        }catch (Exception e){
+            result = false;
+            e.printStackTrace();
+        }
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "获取商品信息表中的品牌信息成功" : "获取商品信息表中的品牌信息失败")
+                .data(brandInfEntityList)
                 .build();
     }
 }

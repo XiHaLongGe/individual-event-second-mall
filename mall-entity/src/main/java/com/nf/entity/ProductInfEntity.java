@@ -75,19 +75,7 @@ public class ProductInfEntity {
      * brandInfName: 品牌名称
      */
     private String brandInfName;
-    /**
-     * orderField: 排序字段，根据哪个字段来进行排序
-     *                      1 : 价格字段
-     *                      2 : 销量字段
-     *                      3 : 库存字段
-     */
-    private Integer orderField;
-    /**
-     * orderType: 排序类型：升序还是降序
-     *                      0 : 升序
-     *                      1 : 降序
-     */
-    private Byte orderType;
+
 
     /*===================================   扩展字段   end   ==================================*/
 }

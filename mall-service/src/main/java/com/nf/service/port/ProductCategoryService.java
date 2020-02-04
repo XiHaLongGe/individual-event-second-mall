@@ -35,6 +35,13 @@ public interface ProductCategoryService {
      */
     List<ProductCategoryEntity> getByProductCategoryLevel(Integer productCategoryLevel);
 
+    /**
+     * 根据父类型id来获取到子类型数据
+     * @param parentCategoryId 用来接收父类型id
+     * @return
+     */
+    List<ProductCategoryEntity> getByParentCategoryId(String parentCategoryId);
+
 
     /**
      * 获取存在关联表中的商品类型

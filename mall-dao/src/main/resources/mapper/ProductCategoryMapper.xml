@@ -47,18 +47,24 @@
     </select>
 
     <select id="getByProductCategoryId" resultType="com.nf.entity.ProductCategoryEntity">
-        select <include refid="allParams"/>
-        from product_category
-        where 1 = 1
-        and product_category_id = #{productCategoryId}
+        select <include refid="selfJoinParams"/>
+        from product_category p1 left join product_category p2
+        on p2.product_category_id = p1.parent_id
+        where p1.product_category_id = #{productCategoryId}
     </select>
 
     <!--根据商品类型层级来获取到商品类型信息-->
     <select id="getByProductCategoryLevel" resultType="com.nf.entity.ProductCategoryEntity">
         select <include refid="allParams"/>
         from product_category
-        where 1 = 1
-        and product_category_level = #{productCategoryLevel}
+        where product_category_level = #{productCategoryLevel}
+    </select>
+
+    <!--根据父类型id来获取到子类型数据-->
+    <select id="getByParentCategoryId" resultType="com.nf.entity.ProductCategoryEntity">
+        select <include refid="allParams"/>
+        from product_category
+        where parent_id = #{parentCategoryId}
     </select>
 
     <!--获取存在关联表中的商品类型-->

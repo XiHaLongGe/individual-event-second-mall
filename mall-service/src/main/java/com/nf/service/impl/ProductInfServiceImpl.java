@@ -23,4 +23,9 @@ public class ProductInfServiceImpl implements ProductInfService {
     public List<ProductInfEntity> getPageByCondition(Integer pageNum, Integer pageSize, ProductInfEntity productInfEntity) {
         return productInfDao.getPageByCondition(pageNum, pageSize, productInfEntity);
     }
+
+    @Override
+    public Integer[] getAllBrandInfId() {
+        return productInfDao.getAllBrandInfId();
+    }
 }

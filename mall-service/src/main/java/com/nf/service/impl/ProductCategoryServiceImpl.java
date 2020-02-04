@@ -49,6 +49,11 @@ public class ProductCategoryServiceImpl implements ProductCategoryService {
     }
 
     @Override
+    public List<ProductCategoryEntity> getByParentCategoryId(String parentCategoryId) {
+        return productCategoryDao.getByParentCategoryId(parentCategoryId);
+    }
+
+    @Override
     public List<ProductCategoryEntity> getExistPbrData() {
         //获取到关联表中所有的商品类型id
         String[] proCategoryIdArray = pbrService.getAllProCategoryId();
