@@ -45,6 +45,11 @@ public class ProductInfServiceImpl implements ProductInfService {
     }
 
     @Override
+    public boolean updateCarousel(ProductInfEntity productInfEntity) {
+        return productInfDao.updateCarousel(productInfEntity) > 0;
+    }
+
+    @Override
     public boolean batchDeleteBrandInf(Integer[] productInfIdArray) {
         return productInfDao.batchDeleteBrandInf(productInfIdArray) == productInfIdArray.length;
     }

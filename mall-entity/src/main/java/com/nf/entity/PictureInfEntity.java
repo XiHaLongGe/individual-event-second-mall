@@ -19,10 +19,9 @@ public class PictureInfEntity {
     public String toString() {
         return "PictureInfEntity{" +
                 "pictureInfId=" + pictureInfId +
-                ", pictureCategoryId=" + pictureCategoryId +
                 ", productInfId=" + productInfId +
                 ", pictureInfUrl='" + pictureInfUrl + '\'' +
-                ", pictureInfOrder=" + pictureInfOrder +
+                ", pictureInfMaster=" + pictureInfMaster +
                 '}';
     }
 
@@ -30,10 +29,6 @@ public class PictureInfEntity {
      * picture_inf_id: 图片信息表ID
      */
     private Integer pictureInfId;
-    /**
-     * picture_category_id: 图片类型表ID
-     */
-    private Integer pictureCategoryId;
     /**
      * product_inf_id: 商品信息表ID
      */
@@ -43,7 +38,61 @@ public class PictureInfEntity {
      */
     private String pictureInfUrl;
     /**
-     * picture_inf_order: 图片排序
+     * pictureInfMaster: 是否为主图(0:"否",1:"是")
      */
-    private Integer pictureInfOrder;
+    private Byte pictureInfMaster;
+
+
+    private PictureInfEntity(Builder builder) {
+        pictureInfId = builder.pictureInfId;
+        productInfId = builder.productInfId;
+        pictureInfUrl = builder.pictureInfUrl;
+        pictureInfMaster = builder.pictureInfMaster;
+    }
+
+    public static Builder newBuilder() {
+        return new Builder();
+    }
+
+    public static Builder newBuilder(PictureInfEntity copy) {
+        Builder builder = new Builder();
+        builder.pictureInfId = copy.getPictureInfId();
+        builder.productInfId = copy.getProductInfId();
+        builder.pictureInfUrl = copy.getPictureInfUrl();
+        builder.pictureInfMaster = copy.getPictureInfMaster();
+        return builder;
+    }
+    public static final class Builder {
+        private Integer pictureInfId;
+        private Integer productInfId;
+        private String pictureInfUrl;
+        private Byte pictureInfMaster;
+
+        private Builder() {
+        }
+
+        public Builder pictureInfId(Integer val) {
+            pictureInfId = val;
+            return this;
+        }
+
+        public Builder productInfId(Integer val) {
+            productInfId = val;
+            return this;
+        }
+
+        public Builder pictureInfUrl(String val) {
+            pictureInfUrl = val;
+            return this;
+        }
+
+        public Builder pictureInfMaster(Byte val) {
+            pictureInfMaster = val;
+            return this;
+        }
+
+        public PictureInfEntity build() {
+            return new PictureInfEntity(this);
+        }
+    }
 }

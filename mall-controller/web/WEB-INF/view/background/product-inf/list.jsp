@@ -108,6 +108,7 @@
                 <div id="parentDIV" class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
             </th>
             <th>序号</th>
+            <th>主图</th>
             <th>名称</th>
             <th>品牌</th>
             <th>栏目</th>
@@ -115,6 +116,7 @@
             <th>价格<%--<a name="topAndBottom" href="javascript:;"><i class="iconfont nav_right">&#xe6a5;</i></a>--%></th>
             <th>销量<%--<a name="topAndBottom" href="javascript:;"><i class="iconfont nav_right">&#xe6a5;</i></a>--%></th>
             <th>库存<%--<a name="topAndBottom" href="javascript:;"><i class="iconfont nav_right">&#xe6a5;</i></a>--%></th>
+            <th>轮播展示</th>
             <th>操作</th>
         </tr>
         </thead>

@@ -58,6 +58,13 @@ public interface ProductInfDao {
      */
     Integer updateProductInf(@Param("productInfEntity") ProductInfEntity productInfEntity);
 
+    /**
+     * 修改商品的轮播展示状态
+     * @param productInfEntity 接受修改信息
+     * @return
+     */
+    Integer updateCarousel(@Param("productInfEntity") ProductInfEntity productInfEntity);
+
 
     /**
      * 批量删除商品信息

@@ -86,14 +86,15 @@ function customerPageList(data){
             var userStats = "";
             var layuiIco = "";
             if(element.accountStats == 1){
-                resultValue += "<span class=\"layui-btn layui-btn-normal layui-btn-sm\">已激活</span></td>";
+                resultValue += "<span class=\"layui-btn layui-btn-normal layui-btn-sm\">已激活</span>";
                 userStats = "注销激活";
                 layuiIco = "&#xe601;";
             }else{
-                resultValue += "<span class=\"layui-btn layui-btn-normal layui-btn-sm layui-btn-disabled\">未激活</span></td>";
+                resultValue += "<span class=\"layui-btn layui-btn-normal layui-btn-sm layui-btn-disabled\">未激活</span>";
                 userStats = "激活";
                 layuiIco = "&#xe62f;";
             }
+        resultValue += "</td>";
         resultValue += "<td class=\"td-manage\">";
         resultValue += "<a onclick=\"member_stop(this," + element.loginId + ")\" href=\"javascript:;\"  title=\"" + userStats + "\">";
         resultValue += "<i class=\"layui-icon\">" + layuiIco + "</i>";

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.dao.port.PictureInfDao">
+    <sql id="allParams">
+        picture_inf_id,
+        product_inf_id,
+        picture_inf_url,
+        picture_inf_master
+    </sql>
+    <sql id="insertParams">
+        product_inf_id,
+        picture_inf_url,
+        picture_inf_master
+    </sql>
+
+    <!--根据商品id获得该商品的图片信息-->
+    <select id="getByProInf" resultType="com.nf.entity.PictureInfEntity">
+        select <include refid="allParams"/>
+        from picture_inf
+        where product_inf_id = #{pictureInfEntity.productInfId}
+    </select>
+
+
+    <!--根据商品id信息获得该商品在图片信息表中的id-->
+    <select id="getMasterByProInfId" resultType="integer">
+        select <include refid="allParams"/>
+        from picture_inf
+        where product_inf_id = #{pictureInfEntity.productInfId}
+        <choose>
+            <when test="isMaster == true">
+                and picture_inf_master = 1
+            </when>
+            <otherwise>
+                and picture_inf_master = 0
+            </otherwise>
+        </choose>
+    </select>
+
+    <!--对商品图片进行批量添加-->
+    <insert id="batchInsert">
+        insert picture_inf(<include refid="insertParams"/>) values
+            (#{pictureInfEntity.productInfId},#{pictureInfEntity.pictureInfUrl},#{pictureInfEntity.pictureInfMaster})
+    </insert>
+
+    <!--对商品图片进行批量修改-->
+    <update id="batchUpdate">
+            update picture_inf
+            set
+                picture_inf_url = #{pictureInfEntity.pictureInfUrl}
+            where
+                picture_inf_id = #{pictureInfEntity.pictureInfId}
+    </update>
+</mapper>

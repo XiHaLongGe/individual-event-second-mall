@@ -23,11 +23,14 @@ public class ProductInfEntity {
                 "productInfId=" + productInfId +
                 ", brandInfId=" + brandInfId +
                 ", productCategoryId='" + productCategoryId + '\'' +
-                    ", productInfName='" + productInfName + '\'' +
+                ", productInfName='" + productInfName + '\'' +
                 ", productInfDescribe='" + productInfDescribe + '\'' +
                 ", productInfPrice=" + productInfPrice +
                 ", productInfSales=" + productInfSales +
                 ", productInfStockpile=" + productInfStockpile +
+                ", productInfCarousel=" + productInfCarousel +
+                ", productCategoryName='" + productCategoryName + '\'' +
+                ", brandInfName='" + brandInfName + '\'' +
                 '}';
     }
 
@@ -63,6 +66,10 @@ public class ProductInfEntity {
      * product_inf_stockpile: 商品库存
      */
     private Integer productInfStockpile;
+    /**
+     * productInfCarousel: 是否轮播展示(0:"否",1:"是")
+     */
+    private Byte productInfCarousel;
 
 
     /*===================================   扩展字段   begin   ================================*/
@@ -79,9 +86,6 @@ public class ProductInfEntity {
 
     /*===================================   扩展字段   end   ==================================*/
 
-
-
-
     private ProductInfEntity(Builder builder) {
         productInfId = builder.productInfId;
         brandInfId = builder.brandInfId;
@@ -91,6 +95,9 @@ public class ProductInfEntity {
         productInfPrice = builder.productInfPrice;
         productInfSales = builder.productInfSales;
         productInfStockpile = builder.productInfStockpile;
+        productInfCarousel = builder.productInfCarousel;
+        productCategoryName = builder.productCategoryName;
+        brandInfName = builder.brandInfName;
     }
 
     public static Builder newBuilder() {
@@ -107,8 +114,12 @@ public class ProductInfEntity {
         builder.productInfPrice = copy.getProductInfPrice();
         builder.productInfSales = copy.getProductInfSales();
         builder.productInfStockpile = copy.getProductInfStockpile();
+        builder.productInfCarousel = copy.getProductInfCarousel();
+        builder.productCategoryName = copy.getProductCategoryName();
+        builder.brandInfName = copy.getBrandInfName();
         return builder;
     }
+
     public static final class Builder {
         private Integer productInfId;
         private Integer brandInfId;
@@ -118,6 +129,9 @@ public class ProductInfEntity {
         private BigDecimal productInfPrice;
         private Integer productInfSales;
         private Integer productInfStockpile;
+        private Byte productInfCarousel;
+        private String productCategoryName;
+        private String brandInfName;
 
         private Builder() {
         }
@@ -162,8 +176,25 @@ public class ProductInfEntity {
             return this;
         }
 
+        public Builder productInfCarousel(Byte val) {
+            productInfCarousel = val;
+            return this;
+        }
+
+        public Builder productCategoryName(String val) {
+            productCategoryName = val;
+            return this;
+        }
+
+        public Builder brandInfName(String val) {
+            brandInfName = val;
+            return this;
+        }
+
         public ProductInfEntity build() {
             return new ProductInfEntity(this);
         }
     }
+
+
 }

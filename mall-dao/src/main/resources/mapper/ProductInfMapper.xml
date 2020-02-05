@@ -10,7 +10,8 @@
         product_inf_describe,
         product_inf_price,
         product_inf_sales,
-        product_inf_stockpile
+        product_inf_stockpile,
+        product_inf_carousel
     </sql>
     <sql id="allParams">
         product_inf_id,
@@ -19,7 +20,8 @@
         product_inf_describe,
         product_inf_price,
         product_inf_sales,
-        product_inf_stockpile
+        product_inf_stockpile,
+        product_inf_carousel
     </sql>
     <sql id="joinParams">
         pi.product_inf_id,
@@ -30,6 +32,7 @@
         pi.product_inf_price,
         pi.product_inf_sales,
         pi.product_inf_stockpile,
+        pi.product_inf_carousel,
         bi.brand_inf_name as brandInfName,
         pc.product_category_name as productCategoryName
     </sql>
@@ -93,7 +96,8 @@
             #{productInfEntity.productInfDescribe},
             #{productInfEntity.productInfPrice},
             0,
-            #{productInfEntity.productInfStockpile}
+            #{productInfEntity.productInfStockpile},
+            #{productInfEntity.productInfCarousel}
         )
     </insert>
 
@@ -105,7 +109,16 @@
         product_inf_name = #{productInfEntity.productInfName},
         product_inf_describe = #{productInfEntity.productInfDescribe},
         product_inf_price = #{productInfEntity.productInfPrice},
-        product_inf_stockpile = #{productInfEntity.productInfStockpile}
+        product_inf_stockpile = #{productInfEntity.productInfStockpile},
+        product_inf_carousel = #{productInfEntity.productInfCarousel}
+        where product_inf_id = #{productInfEntity.productInfId}
+    </update>
+
+
+    <!--修改商品的轮播展示状态-->
+    <update id="updateCarousel">
+        update product_inf set
+        product_inf_carousel = #{productInfEntity.productInfCarousel}
         where product_inf_id = #{productInfEntity.productInfId}
     </update>
 

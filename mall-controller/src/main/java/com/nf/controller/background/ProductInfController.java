@@ -61,6 +61,18 @@ public class ProductInfController {
     }
 
     /**
+     * 商品图片修改视图
+     * @param model 用来将数据写入请求域
+     * @param productInfId 需要修改图片的商品id
+     * @return
+     */
+    @RequestMapping("/edit/picture")
+    public String editPicture(Model model, Integer productInfId){
+        model.addAttribute("productInfId", productInfId);
+        return "background/product-inf/editPicture";
+    }
+
+    /**
      * 根据条件查询商品信息
      *
      * @param pageNum          用来接收当前页数
@@ -174,6 +186,23 @@ public class ProductInfController {
         return ResponseVo.newBuilder()
                 .code(result ? 200 : 500)
                 .message(result ? "修改商品信息成功" : "修改商品信息失败")
+                .data(result)
+                .build();
+    }
+
+
+    /**
+     * 修改商品的轮播展示状态
+     * @param productInfEntity 接受修改信息
+     * @return
+     */
+    @PostMapping("/update/carousel")
+    @ResponseBody
+    public ResponseVo updateCarousel(@RequestBody ProductInfEntity productInfEntity){
+        boolean result = productInfService.updateCarousel(productInfEntity);
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "修改商品轮播展示信息成功" : "修改商品轮播展示信息失败")
                 .data(result)
                 .build();
     }

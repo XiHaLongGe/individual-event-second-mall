@@ -136,7 +136,8 @@ public class PersonalDataController {
             //将系统为上传文件生成的路径赋给customerIndividualEntity对象中
             customerIndividualEntity.setHeadIconUrl(path);
             try {
-                //获取到项目的Resource目录路径
+                //获取到项目的Resource目录路径，如下：
+//                  /D:/学习文件/项目/个人项目/商城项目(重写)/mall/mall-controller/target/mall-controller-1.0-SNAPSHOT/WEB-INF/classes/
                 String classPath = this.getClass().getClassLoader().getResource("/").getPath();
                 //把文件上传的路径赋给文件对象
                 File file = new File(classPath + path);
@@ -148,9 +149,7 @@ public class PersonalDataController {
             }
         }
         //将文件路径存至数据库中
-        if(updateCustomer(request, customerIndividualEntity)){
-            result = true;
-        }
+        result = updateCustomer(request, customerIndividualEntity);
         return ResponseVo.newBuilder()
                     .code(result ? 200 : 500)
                     .message(result ? "用户个人资料更新成功" : "用户个人资料更新失败")
