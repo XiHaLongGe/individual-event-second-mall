@@ -5,6 +5,7 @@ import com.nf.service.port.ProductInfService;
 import com.nf.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,6 +25,41 @@ public class ForegroundProductInfController {
     @Autowired
     private ProductInfService productInfService;
 
+    /**
+     * 商品信息视图
+     * @param model 将数据存放至请求域
+     * @param productInfId 商品信息id
+     * @return
+     */
+    @GetMapping("/home")
+    public String home(Model model, Integer productInfId){
+        model.addAttribute("productInfId", productInfId);
+        return "foreground/product-inf/productInf";
+    }
+
+
+    /**
+     * 根据商品id获得商品数据
+     * @param productInfId 商品id
+     * @return
+     */
+    @GetMapping("/single/data")
+    @ResponseBody
+    public ResponseVo productInfData(Integer productInfId){
+        boolean result = true;
+        ProductInfEntity productInfEntity = null;
+        try{
+            productInfEntity = productInfService.getByProductInfId(productInfId);
+        }catch (Exception e){
+            e.printStackTrace();
+            result = false;
+        }
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "数据获取成功" : "数据获取失败")
+                .data(productInfEntity)
+                .build();
+    }
 
     /**
      * 根据栏目id获取到相应数据
@@ -33,11 +69,10 @@ public class ForegroundProductInfController {
     @GetMapping("/column")
     @ResponseBody
     public ResponseVo columnData(String categoryId){
-        boolean result = false;
+        boolean result = true;
         List<ProductInfEntity> productCategoryEntities = null;
         try{
             productCategoryEntities = productInfService.getByColumn(categoryId);
-            result = true;
         }catch (Exception e){
             e.printStackTrace();
             result = false;

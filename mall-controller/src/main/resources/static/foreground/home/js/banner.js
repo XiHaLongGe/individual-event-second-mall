@@ -10,7 +10,7 @@ function mainPicture(){
         success:function(data){
             $.each(data.data, function(index,element) {
                 resultVal += "<li>";
-                resultVal += (picIndex == 0) ? "<a title=\"\" target=\"_blank\" href=\"/foreground/product?productId=" + element.productInfId + "\">" : "<a title=\"\" target=\"_blank\" href=\"/foreground/product?productId=" + element.productInfId + "\">";
+                resultVal += (picIndex == 0) ? "<a title=\"\" target=\"_blank\" href=\"/mall/foreground/product/inf/home?productInfId=" + element.productInfId + "\">" : "<a title=\"\" target=\"_blank\" href=\"/mall/foreground/product/inf/home?productInfId=" + element.productInfId + "\">";
                 resultVal += "<img width=\"1920\" height=\"500\" alt=\"\" style=\"background: url(/static/home/images/banner1.png) no-repeat center;\" src=\"" + element.pictureInfUrl + "\">";
                 resultVal += "</a>";
                 resultVal += "</li>";

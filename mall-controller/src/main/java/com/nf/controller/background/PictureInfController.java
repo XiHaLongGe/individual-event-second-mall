@@ -34,8 +34,8 @@ public class PictureInfController {
     @Autowired
     private PictureInfService pictureInfService;
     /**
-     * 根据商品实体类信息获得该商品的图片信息
-     * @param pictureInfEntity 商品实体类信息
+     * 根据商品id获得该商品的图片信息
+     * @param pictureInfEntity 用来接收商品id
      * @return
      */
     @GetMapping("/product/picture")

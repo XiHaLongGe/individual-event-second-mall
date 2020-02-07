@@ -32,7 +32,7 @@ public interface ProductInfService {
 
     /**
      * 根据商品id获取商品信息
-     * @param productInfId 接受修改的商品信息数据
+     * @param productInfId 商品id
      * @return
      */
     ProductInfEntity getByProductInfId(Integer productInfId);

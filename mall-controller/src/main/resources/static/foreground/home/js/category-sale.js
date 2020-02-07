@@ -59,10 +59,10 @@ function categoryProduct(categoryId, prefixIndex, suffixIndex){
         success:function(data){
             $.each(data.data, function(index, element){
                 resultDIV += "<li>";
-                resultDIV += "<a href=\"/foreground/product?productId=" + element.productInfId + "\" target=\"_blank\"><img src=\"" + element.pictureInfUrl + "\" style=\" margin:0 auto; display:block; width:220px; height:220px\"></a>";
+                resultDIV += "<a href=\"/mall/foreground/product/inf/home?productInfId=" + element.productInfId + "\" target=\"_blank\"><img src=\"" + element.pictureInfUrl + "\" style=\" margin:0 auto; display:block; width:220px; height:220px\"></a>";
                 resultDIV += "<light1><img src=\"/static/home/images/saoguang.png\"></light1>";
                 resultDIV += "<span>￥" + element.productInfPrice + "</span>";
-                resultDIV += "<a href=\"/foreground/product?productId=" + element.productInfId + "\" target=\"_blank\"><p>" + element.productInfName + "</p></a>";
+                resultDIV += "<a href=\"/mall/foreground/product/inf/home?productInfId=" + element.productInfId + "\" target=\"_blank\"><p>" + element.productInfName + "</p></a>";
                 resultDIV += "<em>";
                 resultDIV += "<a href=\"#\">收藏</a>";
                 resultDIV += "<a onclick='addCart($(this))' productId=" + element.productInfId + " href=\"javascript:void(0)\" class=\"add_scar\">加入购物车</a>";

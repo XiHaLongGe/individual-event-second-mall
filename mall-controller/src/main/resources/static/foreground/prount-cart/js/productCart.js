@@ -60,8 +60,8 @@ function productJoint(element, brandOrder){
     resultValue += "<label for=\"checkbox_" + brandOrder + "\"></label>";
     resultValue += "</li>";
     resultValue += "<li class=\"list_con\">";
-    resultValue += "<div class=\"list_img\"><a href=\"/foreground/product?productId=" + element.productInfId + "\"><img src=\"" + element.pictureInfUrl + "\" alt=\"\"></a></div>";
-    resultValue += "<div class=\"list_text\"><a href=\"/foreground/product?productId=" + element.productInfId + "\">" + element.productInfName + "</a></div>";
+    resultValue += "<div class=\"list_img\"><a href=\"/mall/foreground/product/inf/home?productInfId=" + element.productInfId + "\"><img src=\"" + element.pictureInfUrl + "\" alt=\"\"></a></div>";
+    resultValue += "<div class=\"list_text\"><a href=\"/mall/foreground/product/inf/home?productInfId=" + element.productInfId + "\">" + element.productInfName + "</a></div>";
     resultValue += "</li>";
     resultValue += "<li class=\"list_info\">";
     /*描述*/

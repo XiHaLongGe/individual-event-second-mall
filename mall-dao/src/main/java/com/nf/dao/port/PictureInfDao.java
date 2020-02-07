@@ -13,8 +13,8 @@ import java.util.List;
  */
 public interface PictureInfDao {
     /**
-     * 根据商品实体类信息获得该商品的图片信息
-     * @param pictureInfEntity 商品实体类信息
+     * 根据商品id获得该商品的图片信息
+     * @param pictureInfEntity 用来接收商品id
      * @return
      */
     List<PictureInfEntity> getByProInf(@Param("pictureInfEntity") PictureInfEntity pictureInfEntity);

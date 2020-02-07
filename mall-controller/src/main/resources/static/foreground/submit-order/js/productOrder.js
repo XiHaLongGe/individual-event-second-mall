@@ -1,30 +1,5 @@
-
 productOrderData();
 function productOrderData(){
-    /*
-          想要达到效果：
-                <dd class="item clearfix">
-                    <div class="item-row">
-                        <div class="col col-1">
-                            <div class="g-pic">
-                                <img src="http://i1.mifile.cn/a1/T11lLgB5YT1RXrhCrK!40x40.jpg" srcset="http://i1.mifile.cn/a1/T11lLgB5YT1RXrhCrK!80x80.jpg 2x" width="40" height="40" />
-                            </div>
-                            <div class="g-info">
-                                <a href="#">
-                                    小米T恤 忍者米兔双截棍 军绿 XXL                                            </a>
-                            </div>
-                        </div>
-
-                        <div class="col col-2">39元</div>
-                        <div class="col col-3">1</div>
-                        <div class="col col-4">39元</div>
-                    </div>
-                </dd>
-    */
-
-    /*
-
-    */
     var resultValue = "";
     var totalValue = 0;
     $.ajax({
