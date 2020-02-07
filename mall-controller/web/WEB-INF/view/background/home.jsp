@@ -25,19 +25,19 @@
 <body>
 <!-- 顶部开始 -->
 <div class="container">
-    <div class="logo"><a href="/static/background/home/html/index.html">L-admin v2.0</a></div>
+    <div class="logo"><a href="/static/background/home/html/index.html">商城管理系统</a></div>
     <div class="left_open">
         <i title="展开左侧栏" class="iconfont">&#xe699;</i>
     </div>
     <ul class="layui-nav left fast-add" lay-filter="">
-        <li class="layui-nav-item">
+        <%--<li class="layui-nav-item">
             <a href="javascript:;">+新增</a>
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
                 <dd><a onclick="x_admin_show('资讯','http://www.baidu.com')"><i class="iconfont">&#xe6a2;</i>资讯</a></dd>
                 <dd><a onclick="x_admin_show('图片','http://www.baidu.com')"><i class="iconfont">&#xe6a8;</i>图片</a></dd>
                 <dd><a onclick="x_admin_show('用户','http://www.baidu.com')"><i class="iconfont">&#xe6b8;</i>用户</a></dd>
             </dl>
-        </li>
+        </li>--%>
     </ul>
     <ul class="layui-nav right" lay-filter="">
         <li class="layui-nav-item">
@@ -48,7 +48,7 @@
                 <dd><a id="logoutA" href="javascript:;">注销帐号</a></dd>
             </dl>
         </li>
-        <li class="layui-nav-item to-index"><a href="/static/background/home/html/#">前台首页</a></li>
+        <li class="layui-nav-item to-index"><a href="/mall/foreground/home">前台首页</a></li>
     </ul>
     <script>
         $("#logoutA").click(function(){

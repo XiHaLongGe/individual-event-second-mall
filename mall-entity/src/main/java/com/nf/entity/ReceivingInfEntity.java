@@ -14,18 +14,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReceivingInfEntity {
-
     @Override
     public String toString() {
         return "ReceivingInfEntity{" +
                 "receivingInfId=" + receivingInfId +
-                ", customerIndividualId=" + customerIndividualId +
+                ", loginId=" + loginId +
                 ", receivingInfName='" + receivingInfName + '\'' +
                 ", receivingInfPhone='" + receivingInfPhone + '\'' +
                 ", receivingInfProvince='" + receivingInfProvince + '\'' +
                 ", receivingInfCity='" + receivingInfCity + '\'' +
                 ", receivingInfDistrict='" + receivingInfDistrict + '\'' +
                 ", receivingInfAddress='" + receivingInfAddress + '\'' +
+                ", receivingInfDefault=" + receivingInfDefault +
                 '}';
     }
 
@@ -34,9 +34,9 @@ public class ReceivingInfEntity {
      */
     private Integer receivingInfId;
     /**
-     * customer_individual_id: 用户信息表ID
+     * login_id: 用户登录表ID
      */
-    private Integer customerIndividualId;
+    private Integer loginId;
     /**
      * receiving_inf_name: 收货人姓名
      */
@@ -61,4 +61,8 @@ public class ReceivingInfEntity {
      * receiving_inf_address: 收货人详细地址
      */
     private String receivingInfAddress;
+    /**
+     * receiving_inf_default: 是否为默认地址(0:"否",1:"是")
+     */
+    private Byte receivingInfDefault;
 }

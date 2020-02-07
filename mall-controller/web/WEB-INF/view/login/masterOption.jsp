@@ -42,7 +42,7 @@
                     <div class="col-md-1 column"></div>
                     <div class="col-md-1 column"></div>
                     <div class="col-md-2 column">
-                        <a class="btn btn-primary btn-lg" href="/frontstage/home/index">前台页面</a>
+                        <a class="btn btn-primary btn-lg" href="/mall/foreground/home">前台页面</a>
                     </div>
                     <div class="col-md-3 column"></div>
                 </div>

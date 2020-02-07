@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.dao.port.ReceivingInfDao">
+    <sql id="allParams">
+        receiving_inf_id,
+        login_id,
+        receiving_inf_name,
+        receiving_inf_phone,
+        receiving_inf_province,
+        receiving_inf_city,
+        receiving_inf_district,
+        receiving_inf_address,
+        receiving_inf_default
+    </sql>
+    <sql id="insertParams">
+        login_id,
+        receiving_inf_name,
+        receiving_inf_phone,
+        receiving_inf_province,
+        receiving_inf_city,
+        receiving_inf_district,
+        receiving_inf_address,
+        receiving_inf_default
+    </sql>
+    <!--根据用户id获取所有收货信息-->
+    <select id="getListByLoginId" resultType="com.nf.entity.ReceivingInfEntity">
+        select <include refid="allParams"/>
+        from receiving_inf
+        where login_id = #{loginId}
+    </select>
+
+    <!--根据收货信息id获取所有收货信息-->
+    <select id="getListByReceivingInfId" resultType="com.nf.entity.ReceivingInfEntity">
+        select <include refid="allParams"/>
+        from receiving_inf
+        where receiving_inf_id = #{receivingInfId}
+    </select>
+
+    <!--添加收货信息-->
+    <insert id="insertReceivingInf">
+        insert receiving_inf(<include refid="insertParams"/>) values
+        (
+            #{receivingInfEntity.loginId},
+            #{receivingInfEntity.receivingInfName},
+            #{receivingInfEntity.receivingInfPhone},
+            #{receivingInfEntity.receivingInfProvince},
+            #{receivingInfEntity.receivingInfCity},
+            #{receivingInfEntity.receivingInfDistrict},
+            #{receivingInfEntity.receivingInfAddress},
+            0
+        )
+    </insert>
+
+    <!--修改收货信息-->
+    <update id="updateReceivingInf">
+        update receiving_inf
+        set
+            receiving_inf_name = #{receivingInfEntity.receivingInfName},
+            receiving_inf_phone = #{receivingInfEntity.receivingInfPhone},
+            receiving_inf_province = #{receivingInfEntity.receivingInfProvince},
+            receiving_inf_city = #{receivingInfEntity.receivingInfCity},
+            receiving_inf_district = #{receivingInfEntity.receivingInfDistrict},
+            receiving_inf_address = #{receivingInfEntity.receivingInfAddress}
+        where receiving_inf_id = #{receivingInfEntity.receivingInfId}
+    </update>
+
+    <!--根据收货信息id设为默认地址-->
+    <update id="updateIsDefault">
+        update receiving_inf
+        set receiving_inf_default = 1
+        where receiving_inf_id = #{receivingInfId}
+    </update>
+
+    <!--撤消用户id的默认地址-->
+    <update id="updateNotDefault">
+        update receiving_inf
+        set receiving_inf_default = 0
+        where login_id = #{loginId} and receiving_inf_default = 1
+    </update>
+
+    <!--删除收货信息-->
+    <delete id="deleteReceivingInf">
+        delete from receiving_inf where receiving_inf_id = #{receivingInfId}
+    </delete>
+
+</mapper>

@@ -83,7 +83,7 @@ $(document).ready(function(){
                             window.location.href = "/mall/login/master/option";
                         }else{
                             //为普通用户的时候直接进入前台界面
-                            window.location.href = "/foreground/home/";
+                            window.location.href = "/mall/foreground/home";
                         }
                     }else{
                         alert("账号不存在或账号密码错误")
