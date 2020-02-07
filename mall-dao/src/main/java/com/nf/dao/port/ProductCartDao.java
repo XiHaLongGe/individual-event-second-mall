@@ -3,6 +3,8 @@ package com.nf.dao.port;
 import com.nf.entity.ProductCartEntity;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * @Author: LJP
  * @Classname ProductCartDao
@@ -17,6 +19,13 @@ public interface ProductCartDao {
      * @return
      */
     Integer getCountByLoginId(@Param("loginId") Integer loginId);
+
+    /**
+     * 此方法用于获取传入登录id的购物车所有数据
+     * @param loginId 登录id
+     * @return
+     */
+    List<ProductCartEntity> getAllDataByLoginId(@Param("loginId") Integer loginId);
 
     /**
      * 此方法用于获取用户购物车中某条信息
@@ -38,4 +47,11 @@ public interface ProductCartDao {
      * @return
      */
     Integer insertProduct(@Param("productCartEntity") ProductCartEntity productCartEntity);
+
+    /**
+     * 批量删除购物车中商品
+     * @param productCartEntity 删除信息
+     * @return
+     */
+    Integer deleteByProductId(@Param("productCartEntity") ProductCartEntity productCartEntity);
 }

@@ -61,10 +61,6 @@
                 <button>搜索</button>
             </form>
         </search>
-        <div class="sping_car">
-            <b></b>
-            <em>我的购物车</em>
-        </div>
     </header>
 </div>
 <!--导航-->
@@ -2148,7 +2144,7 @@
 <!--页脚-->
 <!--侧边栏   // target="_blank"-->
 <div class="toolbar">
-    <a href="/foreground/product/cart?customerInfId=1" class="toolbar-item toolbar-item-weixin" style=" position:relative">
+    <a href="/mall/foreground/product/cart/home" class="toolbar-item toolbar-item-weixin" style=" position:relative">
         <em style=" position:absolute; display:block; line-height:20px; font-size:12px; color:#f00; top:-20px; left:0">(<b id="cartNumB">0</b>)</em>
         <!--<span class="toolbar-layer"></span>-->
     </a>
@@ -2165,7 +2161,11 @@
         async: false,//设置为同步
         contentType: "application/json",
         success:function(data){
-            $("#cartNumB").text(data.data)
+            if(data.data != null){
+                $("#cartNumB").text(data.data)
+            }else{
+                $("#cartNumB").text(0)
+            }
         }
     })
 </script>

@@ -14,11 +14,44 @@
         product_inf_id,
         product_cart_num
     </sql>
+    <sql id="joinParam">
+        pc.product_cart_id,
+        pc.login_id,
+        pc.product_inf_id,
+        pc.product_cart_num,
+        bi.brand_inf_id as brandInfId,
+        bi.brand_inf_name as brandInfName,
+        pi.product_inf_name as productInfName,
+        pi.product_inf_describe as productInfDescribe,
+        pi.product_inf_price as productInfPrice,
+        pi2.picture_inf_url as pictureInfUrl
+    </sql>
+
+    <resultMap id="joinResultMap" type="com.nf.entity.ProductCartEntity">
+        <result property="brandInfId" column="brandInfId"/>
+        <result property="brandInfName" column="brandInfName"/>
+        <result property="productInfName" column="productInfName"/>
+        <result property="productInfDescribe" column="productInfDescribe"/>
+        <result property="productInfPrice" column="productInfPrice"/>
+        <result property="pictureInfUrl" column="pictureInfUrl"/>
+    </resultMap>
 
     <!--获得传入用户登录id的购物车中的商品数量-->
     <select id="getCountByLoginId" resultType="integer">
         select SUM(product_cart_num) from  product_cart
         where login_id = #{loginId}
+    </select>
+
+    <!--此方法用于获取传入登录id的购物车所有数据-->
+    <select id="getAllDataByLoginId" resultMap="joinResultMap">
+        select <include refid="joinParam"/>
+        from product_cart pc join product_inf pi
+        on pc.product_inf_id = pi.product_inf_id
+        join picture_inf pi2
+        on pi.product_inf_id = pi2.product_inf_id
+        join brand_inf bi
+        on pi.brand_inf_id = bi.brand_inf_id
+        where pc.login_id = #{loginId} and pi2.picture_inf_master = 1
     </select>
 
     <!--此方法用于获取用户购物车中某条信息-->
@@ -45,4 +78,14 @@
             #{productCartEntity.productCartNum}
         )
     </insert>
+
+    <!--批量删除购物车中商品-->
+    <delete id="deleteByProductId">
+        delete from product_cart
+        where login_id = #{productCartEntity.loginId}
+        and product_inf_id in
+            <foreach collection="productCartEntity.productInfIdArray" item="productInfId" open="(" separator="," close=")">
+                #{productInfId}
+            </foreach>
+    </delete>
 </mapper>

@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 /**
  * @Author: LJP
  * @Classname ProductCartEntity
@@ -41,6 +43,39 @@ public class ProductCartEntity {
      */
     private Integer productCartNum;
 
+
+    /*===================================   扩展字段   begin   ================================*/
+    /**
+     * productInfIdArray: 用来接收批量删除的商品id
+     */
+    private Integer[] productInfIdArray;
+    /**
+     * productInfName: 商品名称
+     */
+    private String productInfName;
+    /**
+     * product_inf_describe: 商品描述
+     */
+    private String productInfDescribe;
+    /**
+     * product_inf_price: 商品价格
+     */
+    private BigDecimal productInfPrice;
+    /**
+     * brandInfId: 品牌信息表ID
+     */
+    private Integer brandInfId;
+    /**
+     * brandInfName: 品牌名称
+     */
+    private String brandInfName;
+    /**
+     * pictureInfUrl: 图片路径
+     */
+    private String pictureInfUrl;
+
+
+    /*===================================   扩展字段   end   ==================================*/
 
     private ProductCartEntity(Builder builder) {
         productCartId = builder.productCartId;

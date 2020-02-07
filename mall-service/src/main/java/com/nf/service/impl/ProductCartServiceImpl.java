@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * @Author: LJP
  * @Classname ProductCartServiceImpl
@@ -21,6 +23,11 @@ public class ProductCartServiceImpl implements ProductCartService {
     @Override
     public Integer getCountByLoginId(Integer loginId) {
         return productCartDao.getCountByLoginId(loginId);
+    }
+
+    @Override
+    public List<ProductCartEntity> getAllDataByLoginId(Integer loginId) {
+        return productCartDao.getAllDataByLoginId(loginId);
     }
 
     @Override
@@ -55,5 +62,10 @@ public class ProductCartServiceImpl implements ProductCartService {
             result = insertProduct(productCartEntity);
         }
          return result;
+    }
+
+    @Override
+    public boolean deleteByProductId(ProductCartEntity productCartEntity) {
+        return productCartDao.deleteByProductId(productCartEntity) > 0;
     }
 }

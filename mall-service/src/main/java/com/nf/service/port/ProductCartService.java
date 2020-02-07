@@ -2,6 +2,8 @@ package com.nf.service.port;
 
 import com.nf.entity.ProductCartEntity;
 
+import java.util.List;
+
 /**
  * @Author: LJP
  * @Classname ProductCartService
@@ -16,6 +18,14 @@ public interface ProductCartService {
      * @return
      */
     Integer getCountByLoginId(Integer loginId);
+
+
+    /**
+     * 此方法用于获取传入登录id的购物车所有数据
+     * @param loginId 登录id
+     * @return
+     */
+    List<ProductCartEntity> getAllDataByLoginId(Integer loginId);
 
     /**
      * 此方法用于获取用户购物车中某条信息
@@ -45,4 +55,12 @@ public interface ProductCartService {
      * @return
      */
     boolean addCart(ProductCartEntity productCartEntity);
+
+
+    /**
+     * 批量删除购物车中商品
+     * @param productCartEntity 删除信息
+     * @return
+     */
+    boolean deleteByProductId(ProductCartEntity productCartEntity);
 }

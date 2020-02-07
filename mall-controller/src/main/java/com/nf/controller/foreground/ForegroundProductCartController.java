@@ -22,6 +22,33 @@ public class ForegroundProductCartController {
     private ProductCartService productCartService;
 
     /**
+     * 购物车视图
+     * @return
+     */
+    @GetMapping("/home")
+    private String home(){
+        return "foreground/product-cart/productCart";
+    }
+
+    @GetMapping("/all/data")
+    @ResponseBody
+    public ResponseVo allData(Integer loginId){
+        boolean result = true;
+        List<ProductCartEntity> productCartEntities = null;
+        try{
+            productCartEntities = productCartService.getAllDataByLoginId(loginId);
+        }catch (Exception e){
+            e.printStackTrace();
+            result = false;
+        }
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "数据获取成功" : "数据获取失败")
+                .data(productCartEntities)
+                .build();
+    }
+
+    /**
      * 获得传入用户登录id的购物车中的商品数量
      * @param loginId 用户登录id
      * @return
@@ -59,4 +86,40 @@ public class ForegroundProductCartController {
                 .data(result)
                 .build();
     }
+
+
+    /**
+     * 修改购物车中商品信息
+     * @param productCartEntity 修改信息
+     * @return
+     */
+    @PostMapping("/update/cart")
+    @ResponseBody
+    public ResponseVo updateCart(@RequestBody ProductCartEntity productCartEntity){
+        boolean result = productCartService.updateProductNum(productCartEntity);
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "修改成功" : "修改失败")
+                .data(result)
+                .build();
+    }
+
+
+
+    /**
+     * 删除购物车中商品信息
+     * @return
+     */
+    @PostMapping("/batch/delete/cart")
+    @ResponseBody
+    public ResponseVo batchDeleteCart(@RequestBody ProductCartEntity productCartEntity){
+        boolean result = productCartService.deleteByProductId(productCartEntity);
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "删除成功" : "删除失败")
+                .data(result)
+                .build();
+    }
+
+
 }
