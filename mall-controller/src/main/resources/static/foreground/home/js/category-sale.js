@@ -80,14 +80,16 @@ function addCart($this){
     var productId = $this.attr("productId");
     var cartNum = $("#cartNumB").text();
     $.ajax({
-        url:"/foreground/product/cart/insert",
+        url:"/mall/foreground/product/cart/add/cart",
         type:"POST",
-        data:JSON.stringify({"loginId" : loginId, "productId" : productId, "productCartNum" : 1}),
+        data:JSON.stringify({"loginId" : loginId, "productInfId" : productId, "productCartNum" : 1}),
         async: false,//设置为同步
         contentType: "application/json",
         success:function(data){
-            if(data.data){
+            if(data.code == 200){
                 $("#cartNumB").text(parseInt(cartNum) + 1)
+            }else{
+                alert(data.message);
             }
         }
     })

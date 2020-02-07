@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.dao.port.ProductCartDao">
+    <sql id="allParam">
+        product_cart_id,
+        login_id,
+        product_inf_id,
+        product_cart_num
+    </sql>
+    <sql id="insertParam">
+        login_id,
+        product_inf_id,
+        product_cart_num
+    </sql>
+
+    <!--获得传入用户登录id的购物车中的商品数量-->
+    <select id="getCountByLoginId" resultType="integer">
+        select SUM(product_cart_num) from  product_cart
+        where login_id = #{loginId}
+    </select>
+
+    <!--此方法用于获取用户购物车中某条信息-->
+    <select id="getProductCart" resultType="com.nf.entity.ProductCartEntity">
+        select <include refid="allParam"/>
+        from product_cart
+        where login_id = #{productCartEntity.loginId} and product_inf_id = #{productCartEntity.productInfId}
+    </select>
+
+    <!--修改购物车信息-->
+    <update id="updateProductNum">
+        update product_cart
+        set product_cart_num = #{productCartEntity.productCartNum}
+        where login_id = #{productCartEntity.loginId} and product_inf_id = #{productCartEntity.productInfId}
+    </update>
+
+
+    <!--添加商品到购物车-->
+    <insert id="insertProduct">
+        insert product_cart(<include refid="insertParam"/>) values
+        (
+            #{productCartEntity.loginId},
+            #{productCartEntity.productInfId},
+            #{productCartEntity.productCartNum}
+        )
+    </insert>
+</mapper>

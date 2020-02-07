@@ -14,31 +14,85 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ProductCartEntity {
-
     @Override
     public String toString() {
         return "ProductCartEntity{" +
                 "productCartId=" + productCartId +
-                ", customerIndividualId=" + customerIndividualId +
+                ", loginId=" + loginId +
                 ", productInfId=" + productInfId +
                 ", productCartNum=" + productCartNum +
                 '}';
     }
 
     /**
-     * product_cart_id: 购物车表ID
+     * productCartId: 购物车表ID
      */
     private Integer productCartId;
     /**
-     * customer_individual_id: 用户信息表ID
+     * loginId: 用户登录表ID
      */
-    private Integer customerIndividualId;
+    private Integer loginId;
     /**
-     * product_inf_id: 商品信息表ID
+     * productInfId: 商品信息表ID
      */
     private Integer productInfId;
     /**
-     * product_cart_num: 商品数量
+     * productCartNum: 商品数量
      */
     private Integer productCartNum;
+
+
+    private ProductCartEntity(Builder builder) {
+        productCartId = builder.productCartId;
+        loginId = builder.loginId;
+        productInfId = builder.productInfId;
+        productCartNum = builder.productCartNum;
+    }
+
+    public static Builder newBuilder() {
+        return new Builder();
+    }
+
+    public static Builder newBuilder(ProductCartEntity copy) {
+        Builder builder = new Builder();
+        builder.productCartId = copy.getProductCartId();
+        builder.loginId = copy.getLoginId();
+        builder.productInfId = copy.getProductInfId();
+        builder.productCartNum = copy.getProductCartNum();
+        return builder;
+    }
+
+    public static final class Builder {
+        private Integer productCartId;
+        private Integer loginId;
+        private Integer productInfId;
+        private Integer productCartNum;
+
+        private Builder() {
+        }
+
+        public Builder productCartId(Integer val) {
+            productCartId = val;
+            return this;
+        }
+
+        public Builder loginId(Integer val) {
+            loginId = val;
+            return this;
+        }
+
+        public Builder productInfId(Integer val) {
+            productInfId = val;
+            return this;
+        }
+
+        public Builder productCartNum(Integer val) {
+            productCartNum = val;
+            return this;
+        }
+
+        public ProductCartEntity build() {
+            return new ProductCartEntity(this);
+        }
+    }
 }

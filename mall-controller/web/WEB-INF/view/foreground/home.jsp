@@ -28,7 +28,7 @@
     <section class="seck">
         <div class="register_login">
             <em>您好，${loginName}</em>
-            <a id="logoutA" href="/customer/login/logout">注销登录</a>
+            <a id="logoutA" href="javascript:;">注销登录</a>
         </div>
         <script>
             $("#logoutA").click(function(){
@@ -2145,7 +2145,6 @@
     <h4 class="guanfangremai">推荐商品</h4>
 </div>
 </span>
-<script src="/static/foreground/home/js/category-sale.js?v=<%= System.currentTimeMillis()%>"></script>
 <!--页脚-->
 <!--侧边栏   // target="_blank"-->
 <div class="toolbar">
@@ -2161,7 +2160,7 @@
 </div>
 <script>
     $.ajax({
-        url:"/foreground/product/cart/count?customerInfId=1",
+        url:"/mall/foreground/product/cart/data/count?loginId=" + $("#loginIdINPUT").val(),
         type:"GET",
         async: false,//设置为同步
         contentType: "application/json",
@@ -2170,6 +2169,7 @@
         }
     })
 </script>
+<script src="/static/foreground/home/js/category-sale.js?v=<%= System.currentTimeMillis()%>"></script>
 <!--购物车fly插件-->
 </body>
 </html>
