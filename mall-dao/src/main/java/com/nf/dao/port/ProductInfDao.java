@@ -24,6 +24,12 @@ public interface ProductInfDao {
                                               @Param("pageSize") Integer pageSize,
                                               @Param("productInfEntity") ProductInfEntity productInfEntity);
 
+    /**
+     * 获取设为轮播展示的商品id
+     * @return
+     */
+    Integer[] getCarouselProductInfId();
+
 
 
     /**
@@ -31,6 +37,14 @@ public interface ProductInfDao {
      * @return
      */
     Integer[] getAllBrandInfId();
+
+
+    /**
+     * 根据栏目id获取到相应数据
+     * @param categoryId 用来接收栏目id
+     * @return
+     */
+    List<ProductInfEntity> getByColumn(@Param("categoryId") String categoryId);
 
 
 

@@ -19,6 +19,13 @@ public interface PictureInfService {
      */
     List<PictureInfEntity> getByProInf(PictureInfEntity pictureInfEntity);
 
+
+    /**
+     * 获得商品信息的轮播图
+     * @return
+     */
+    List<PictureInfEntity> getCarousel();
+
     /**
      * 根据商品id信息获得该商品在图片信息表中的id
      * @param productInfId 商品id

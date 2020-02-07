@@ -25,8 +25,18 @@ public class ProductInfServiceImpl implements ProductInfService {
     }
 
     @Override
+    public Integer[] getCarouselProductInfId() {
+        return productInfDao.getCarouselProductInfId();
+    }
+
+    @Override
     public ProductInfEntity getByProductInfId(Integer productInfId) {
         return productInfDao.getByProductInfId(productInfId);
+    }
+
+    @Override
+    public List<ProductInfEntity> getByColumn(String categoryId) {
+        return productInfDao.getByColumn(categoryId);
     }
 
     @Override

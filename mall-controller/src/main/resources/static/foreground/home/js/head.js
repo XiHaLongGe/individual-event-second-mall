@@ -2,17 +2,6 @@ categoryName();
 /*分类层次id  左侧分类列表显示数据层次*/
 /*生成左侧分类名称*/
 function categoryName(){
-    /*
-        想要达到效果：
-            <li class="cates"  mt-ct="list01">
-                <p>
-                    <a href="#">家电</a>
-                    <a href="#">数码</a>
-                    <a href="#">手机</a>
-                    <i style="font-family:'宋体';color:#666; line-height:23px; font-size:14px; float:left">></i>
-                </p>
-            </li>
-    */
     $.ajax({
         url:"/mall/foreground/product/category/level/data?productCategoryLevel=1",
         type:"GET",
@@ -50,17 +39,6 @@ function categoryName(){
     categorySpread();
 }
 function categorySpread(){
-    /*
-        想要达到效果：
-            <div class="import_list b-list1">
-                <dt>与内容无关：</dt>
-                <dd>
-                    <a href="#">T恤</a>
-                    <a href="#">休闲裤</a>
-                    <a href="#">条纹T</a>
-                </dd>
-             </div>
-    */
     var resultVal = "";
     var resultIndex = 1;
     $("#categoryUL li").each(function(){

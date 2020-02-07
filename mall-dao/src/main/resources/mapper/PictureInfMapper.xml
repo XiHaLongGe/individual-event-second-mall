@@ -22,6 +22,19 @@
         where product_inf_id = #{pictureInfEntity.productInfId}
     </select>
 
+    <!--获得商品信息的轮播图-->
+    <select id="getCarousel" resultType="com.nf.entity.PictureInfEntity">
+        select <include refid="allParams"/>
+        from picture_inf
+        <if test='productInfIdArray.length > 0'>
+            where product_inf_id in
+            <foreach collection="productInfIdArray" item="productInfIdArray" open="(" separator="," close=")">
+                    #{productInfIdArray}
+            </foreach>
+            and picture_inf_master = 1
+        </if>
+    </select>
+
 
     <!--根据商品id信息获得该商品在图片信息表中的id-->
     <select id="getMasterByProInfId" resultType="integer">

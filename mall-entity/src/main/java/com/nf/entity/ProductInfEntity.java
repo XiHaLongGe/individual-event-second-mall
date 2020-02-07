@@ -82,6 +82,10 @@ public class ProductInfEntity {
      * brandInfName: 品牌名称
      */
     private String brandInfName;
+    /**
+     * pictureInfUrl: 图片路径
+     */
+    private String pictureInfUrl;
 
 
     /*===================================   扩展字段   end   ==================================*/

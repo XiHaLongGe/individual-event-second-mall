@@ -23,6 +23,12 @@ public interface ProductInfService {
                                               ProductInfEntity productInfEntity);
 
 
+    /**
+     * 获取设为轮播展示的商品id
+     * @return
+     */
+    Integer[] getCarouselProductInfId();
+
 
     /**
      * 根据商品id获取商品信息
@@ -30,6 +36,14 @@ public interface ProductInfService {
      * @return
      */
     ProductInfEntity getByProductInfId(Integer productInfId);
+
+
+    /**
+     * 根据栏目id获取到相应数据
+     * @param categoryId 用来接收栏目id
+     * @return
+     */
+    List<ProductInfEntity> getByColumn(String categoryId);
 
     /**
      * 获取到关联表中所有的品牌信息id

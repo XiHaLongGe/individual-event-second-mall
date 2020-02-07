@@ -3,8 +3,10 @@ package com.nf.service.impl;
 import com.nf.dao.port.PictureInfDao;
 import com.nf.entity.PictureInfEntity;
 import com.nf.service.port.PictureInfService;
+import com.nf.service.port.ProductInfService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,9 +20,17 @@ import java.util.List;
 public class PictureInfServiceImpl implements PictureInfService {
     @Autowired
     private PictureInfDao pictureInfDao;
+    @Autowired
+    private ProductInfService productInfService;
     @Override
     public List<PictureInfEntity> getByProInf(PictureInfEntity pictureInfEntity) {
         return pictureInfDao.getByProInf(pictureInfEntity);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public List<PictureInfEntity> getCarousel() {
+        return pictureInfDao.getCarousel(productInfService.getCarouselProductInfId());
     }
 
     @Override

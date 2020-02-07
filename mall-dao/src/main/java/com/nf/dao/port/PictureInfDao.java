@@ -19,6 +19,13 @@ public interface PictureInfDao {
      */
     List<PictureInfEntity> getByProInf(@Param("pictureInfEntity") PictureInfEntity pictureInfEntity);
 
+    /**
+     * 获得商品信息的轮播图
+     * @param productInfId 设置为轮播图展示的商品id
+     * @return
+     */
+    List<PictureInfEntity> getCarousel(@Param("productInfIdArray") Integer[] productInfId);
+
 
     /**
      * 根据商品id信息获得该商品在图片信息表中的id

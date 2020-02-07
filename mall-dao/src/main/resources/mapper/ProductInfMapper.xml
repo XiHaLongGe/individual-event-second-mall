@@ -37,9 +37,23 @@
         pc.product_category_name as productCategoryName
     </sql>
 
+    <sql id="joinPictureParams">
+        pi.product_inf_id,
+        pi.brand_inf_id,
+        pi.product_category_id,
+        pi.product_inf_name,
+        pi.product_inf_describe,
+        pi.product_inf_price,
+        pi.product_inf_sales,
+        pi.product_inf_stockpile,
+        pi.product_inf_carousel,
+        pi2.picture_inf_url as pictureInfUrl
+    </sql>
+
     <resultMap id="productInfResultMap" type="com.nf.entity.ProductInfEntity">
         <result column="brandInfName" property="brandInfName"/>
         <result column="productCategoryName" property="productCategoryName"/>
+        <result column="pictureInfUrl" property="pictureInfUrl"/>
     </resultMap>
 
     <!--获取分页后的数据（可根据条件进行检索）-->
@@ -69,11 +83,26 @@
         order by pi.product_inf_id
     </select>
 
+    <!--获取设为轮播展示的商品id-->
+    <select id="getCarouselProductInfId" resultType="integer">
+        select product_inf_id
+        from product_inf
+        where product_inf_carousel = 1
+    </select>
+
     <!--获取到商品信息表中所有的品牌信息id-->
     <select id="getAllBrandInfId" resultType="integer">
         select brand_inf_id
         from product_inf
         group by brand_inf_id
+    </select>
+
+    <!--根据栏目id获取到相应数据-->
+    <select id="getByColumn" resultMap="productInfResultMap">
+        select <include refid="joinPictureParams"/>
+        from product_inf pi join picture_inf pi2
+        on pi.product_inf_id = pi2.product_inf_id
+        where pi.product_category_id = #{categoryId} and pi2.picture_inf_master = 1
     </select>
 
     <!--根据商品id获取商品信息-->

@@ -22,7 +22,7 @@
     <script>document.createElement("light1")</script>
 </head>
 <body>
-<input type="hidden" value="${customerInfId}" id="customerInfId"/>
+<input type="hidden" value="${loginId}" id="loginIdINPUT"/>
 <!--头部-->
 <top>
     <section class="seck">
