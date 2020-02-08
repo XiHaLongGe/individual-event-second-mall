@@ -3,7 +3,7 @@ function productOrderData(){
     var resultValue = "";
     var totalValue = 0;
     $.ajax({
-        url:"/foreground/product/order/productOrderNumber/list?productOrderNumber=" + $("input[name = 'productOrderNumber']").val(),
+        url:"/mall/foreground/product/order/submit/data?productOrderNumber=" + $("input[name='productOrderNumber']").val(),
         type:"GET",
         async:false,
         contentType: "application/json;charset=utf-8",
@@ -17,16 +17,16 @@ function productOrderData(){
                 resultValue += "</div>";
                 resultValue += "<div class=\"g-info\">";
                 resultValue += "<a href=\"#\">";
-                resultValue += element.productName + "                                            </a>";
+                resultValue += element.productInfName + "                                            </a>";
                 resultValue += "</div>";
                 resultValue += "</div>";
-                resultValue += "<div class=\"col col-2\">" + element.productPrice + "元</div>";
+                resultValue += "<div class=\"col col-2\">" + element.productInfPrice + "元</div>";
                 resultValue += "<div class=\"col col-3\">" + element.productNum + "</div>";
-                resultValue += "<div class=\"col col-4\">" + (parseFloat(element.productNum) * parseFloat(element.productPrice)).toFixed(2) + "元</div>";
+                resultValue += "<div class=\"col col-4\">" + (parseFloat(element.productNum) * parseFloat(element.productInfPrice)).toFixed(2) + "元</div>";
                 resultValue += "</div>";
                 resultValue += "</dd>";
                 // totalValue = (parseFloat(totalValue) + parseFloat(element.productNum) * parseFloat(element.productPrice));
-                totalValue = totalValue + (parseFloat(element.productNum) * parseFloat(element.productPrice))
+                totalValue = totalValue + (parseFloat(element.productNum) * parseFloat(element.productInfPrice))
             })
         }
     })
@@ -39,14 +39,18 @@ $(function(){
     $("#checkoutToPay").on("click", function(){
         clearInterval(iCount);
         $.ajax({
-            url:"/foreground/product/order/submit/update",
+            url:"/mall/foreground/product/order/submit/order",
             type:"POST",
-            data:JSON.stringify(transformJSON("checkoutForm")),
+            data:JSON.stringify({
+                "receivingInfId" : $("input[name='receivingInfId']").val(),
+                "leaveWord" : $("input[name='leaveWord']").val(),
+                "productOrderNumber" : $("input[name='productOrderNumber']").val(),
+            }),
             async:false,
             contentType: "application/json;charset=utf-8",
             success:function(data){
                 if(data.data){
-                    window.location.href = "/foreground/product/order/success/submit?productOrderNumber=" + $("input[name='productOrderNumber']").val();
+                    window.location.href = "/mall/foreground/product/order/success/submit?productOrderNumber=" + $("input[name='productOrderNumber']").val();
                 }
             }
         })
@@ -60,31 +64,17 @@ $("#cancelA").on("click", function(){
     /*删除用户未下单数据*/
     function delCustomerOrder() {
         clearInterval(iCount);
-        var productOrderIds = [];
-        $("#productSPAN").children("dd").each(function(i,e){
-            productOrderIds.push($(this).attr("productOrderId"))
-        })
         $.ajax({
-            url:"/foreground/product/order/delete",
+            url:"/mall/foreground/product/order/delete/order",
             type:"POST",
-            data:JSON.stringify({"productOrderIds" : productOrderIds}),
+            data:$("input[name='productOrderNumber']").val(),
             async:false,
             contentType: "application/json;charset=utf-8",
             success:function(data){
-                if(data.data){
-                    window.history.go(-1);
+                if(data.code === 200){
+                    window.location.href = "/mall/foreground/home";
                 }
             }
         })
     }
 })
-
-//将表单数据转换成json数据
-function transformJSON(formID){
-    var $jsonData = {};
-    /*下面是将form表单的数据转换成一个json的数据格式*/
-    $.each($("#"+ formID).serializeArray(), function(i,e){
-        $jsonData[e.name] = e.value;
-    })
-    return $jsonData;
-}

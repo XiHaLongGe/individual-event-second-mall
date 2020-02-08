@@ -48,6 +48,14 @@ public interface ProductCartDao {
      */
     Integer insertProduct(@Param("productCartEntity") ProductCartEntity productCartEntity);
 
+
+    /**
+     * 批量删除购物车中商品
+     * @param productCartEntities 删除信息
+     * @return
+     */
+    Integer deleteByProductList(@Param("productCartEntities") List<ProductCartEntity> productCartEntities);
+
     /**
      * 批量删除购物车中商品
      * @param productCartEntity 删除信息

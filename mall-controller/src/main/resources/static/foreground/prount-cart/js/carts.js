@@ -273,22 +273,24 @@ $(function () {
         $sonCheckBox.each(function (){
             if ($(this).is(':checked')) {
                 var proJSON = {};
-                proJSON["productId"] = $(this).attr("productId");
+                proJSON["productInfId"] = $(this).attr("productId");
                 proJSON["productCartId"] = $(this).attr("productCartId");
-                proJSON["productNum"] = $(this).parents('.order_lists').find('.sum').val();
-                proJSON["customerInfId"] = $("#customerInfId").val();
+                proJSON["productCartNum"] = $(this).parents('.order_lists').find('.sum').val();
+                proJSON["loginId"] = $("#loginIdINPUT").val();
                 proJSONArray.push(proJSON);
             }
         });
         $.ajax({
-            url:"/foreground/product/order/batch/insert",
+            url:"/mall/foreground/product/order/cart/add/order",
             type:"POST",
             async:false,
             data:JSON.stringify(proJSONArray),
             contentType: "application/json;charset=utf-8",
             success:function(data){
-                if(data.data != ""){
-                    window.location.href = "/foreground/product/order?productOrderNumber=" + data.data;
+                if(data.code === 200){
+                    window.location.href = "/mall/foreground/product/order/home?productOrderNumber=" + data.data;
+                }else{
+                    alert(data.message);
                 }
             }
         })

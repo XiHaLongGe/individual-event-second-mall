@@ -73,15 +73,30 @@ public class ProductCartEntity {
      * pictureInfUrl: 图片路径
      */
     private String pictureInfUrl;
+    /**
+     * productOrderNumber: 订单编号
+     */
+    private String productOrderNumber;
+
 
 
     /*===================================   扩展字段   end   ==================================*/
+
+
 
     private ProductCartEntity(Builder builder) {
         productCartId = builder.productCartId;
         loginId = builder.loginId;
         productInfId = builder.productInfId;
         productCartNum = builder.productCartNum;
+        productInfIdArray = builder.productInfIdArray;
+        productInfName = builder.productInfName;
+        productInfDescribe = builder.productInfDescribe;
+        productInfPrice = builder.productInfPrice;
+        brandInfId = builder.brandInfId;
+        brandInfName = builder.brandInfName;
+        pictureInfUrl = builder.pictureInfUrl;
+        productOrderNumber = builder.productOrderNumber;
     }
 
     public static Builder newBuilder() {
@@ -94,14 +109,31 @@ public class ProductCartEntity {
         builder.loginId = copy.getLoginId();
         builder.productInfId = copy.getProductInfId();
         builder.productCartNum = copy.getProductCartNum();
+        builder.productInfIdArray = copy.getProductInfIdArray();
+        builder.productInfName = copy.getProductInfName();
+        builder.productInfDescribe = copy.getProductInfDescribe();
+        builder.productInfPrice = copy.getProductInfPrice();
+        builder.brandInfId = copy.getBrandInfId();
+        builder.brandInfName = copy.getBrandInfName();
+        builder.pictureInfUrl = copy.getPictureInfUrl();
+        builder.productOrderNumber = copy.getProductOrderNumber();
         return builder;
     }
+
 
     public static final class Builder {
         private Integer productCartId;
         private Integer loginId;
         private Integer productInfId;
         private Integer productCartNum;
+        private Integer[] productInfIdArray;
+        private String productInfName;
+        private String productInfDescribe;
+        private BigDecimal productInfPrice;
+        private Integer brandInfId;
+        private String brandInfName;
+        private String pictureInfUrl;
+        private String productOrderNumber;
 
         private Builder() {
         }
@@ -126,8 +158,53 @@ public class ProductCartEntity {
             return this;
         }
 
+        public Builder productInfIdArray(Integer[] val) {
+            productInfIdArray = val;
+            return this;
+        }
+
+        public Builder productInfName(String val) {
+            productInfName = val;
+            return this;
+        }
+
+        public Builder productInfDescribe(String val) {
+            productInfDescribe = val;
+            return this;
+        }
+
+        public Builder productInfPrice(BigDecimal val) {
+            productInfPrice = val;
+            return this;
+        }
+
+        public Builder brandInfId(Integer val) {
+            brandInfId = val;
+            return this;
+        }
+
+        public Builder brandInfName(String val) {
+            brandInfName = val;
+            return this;
+        }
+
+        public Builder pictureInfUrl(String val) {
+            pictureInfUrl = val;
+            return this;
+        }
+
+        public Builder productOrderNumber(String val) {
+            productOrderNumber = val;
+            return this;
+        }
+
         public ProductCartEntity build() {
             return new ProductCartEntity(this);
         }
     }
+
+
+
+
+
 }

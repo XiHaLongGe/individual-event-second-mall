@@ -44,6 +44,7 @@
         };
         var miniCartDisable=true;
     </script>
+
     <div class="container">
         <div class="checkout-box">
             <form  id="checkoutForm" action="#" method="post">
@@ -274,8 +275,6 @@
                                                 </div>
                                             </div>                </div>
                                         <!-- 发票信息 END-->
-
-
                                         --%>
                 </div>
                 <div class="checkout-box-ft">

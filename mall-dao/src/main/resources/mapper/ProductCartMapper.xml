@@ -80,12 +80,21 @@
     </insert>
 
     <!--批量删除购物车中商品-->
+    <delete id="deleteByProductList">
+        delete from product_cart
+        where product_cart_id in
+        <foreach collection="productCartEntities" item="productCartEntity" open="(" separator="," close=")">
+            #{productCartEntity.productCartId}
+        </foreach>
+    </delete>
+
+    <!--批量删除购物车中商品-->
     <delete id="deleteByProductId">
         delete from product_cart
         where login_id = #{productCartEntity.loginId}
         and product_inf_id in
-            <foreach collection="productCartEntity.productInfIdArray" item="productInfId" open="(" separator="," close=")">
-                #{productInfId}
-            </foreach>
+        <foreach collection="productCartEntity.productInfIdArray" item="productInfId" open="(" separator="," close=")">
+            #{productInfId}
+        </foreach>
     </delete>
 </mapper>

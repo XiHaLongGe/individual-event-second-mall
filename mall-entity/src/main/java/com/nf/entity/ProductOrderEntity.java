@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -21,12 +22,11 @@ public class ProductOrderEntity {
     public String toString() {
         return "ProductOrderEntity{" +
                 "productOrderId=" + productOrderId +
-                ", customerIndividualId=" + customerIndividualId +
+                ", loginId=" + loginId +
                 ", receivingInfId=" + receivingInfId +
                 ", productInfId=" + productInfId +
                 ", productNum=" + productNum +
                 ", leaveWord='" + leaveWord + '\'' +
-                ", payment=" + payment +
                 ", submitTime=" + submitTime +
                 ", paymentTime=" + paymentTime +
                 ", productOrderState=" + productOrderState +
@@ -39,9 +39,9 @@ public class ProductOrderEntity {
      */
     private Integer productOrderId;
     /**
-     * customer_individual_id: 用户信息表ID
+     * loginId: 用户登录表ID
      */
-    private Integer customerIndividualId;
+    private Integer loginId;
     /**
      * receiving_inf_id: 收货信息表ID
      */
@@ -58,14 +58,6 @@ public class ProductOrderEntity {
      * leave_word: 用户留言
      */
     private String leaveWord;
-    /**
-     * payment: 支付方式
-     *                          0 : "未支付"
-     *                          1 : "支付宝"
-     *                          2 : "微信"
-     *                          3 : "现金"
-     */
-    private Integer payment;
     /**
      * submit_time: 下单时间
      */
@@ -85,4 +77,24 @@ public class ProductOrderEntity {
      * product_order_number: 订单编号
      */
     private String productOrderNumber;
+
+    /*===================================   扩展字段   begin   ================================*/
+
+
+
+    /**
+     * productInfName: 商品名称
+     */
+    private String productInfName;
+    /**
+     * product_inf_price: 商品价格
+     */
+    private BigDecimal productInfPrice;
+    /**
+     * pictureInfUrl: 图片路径
+     */
+    private String pictureInfUrl;
+
+
+    /*===================================   扩展字段   end   ==================================*/
 }

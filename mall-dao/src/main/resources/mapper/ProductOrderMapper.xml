@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nf.dao.port.ProductOrderDao">
+    <sql id="joinReceivingParam">
+        po.product_order_id,
+        po.login_id,
+        po.receiving_inf_id,
+        po.product_inf_id,
+        po.product_num as productNum,
+        po.leave_word,
+        po.submit_time,
+        po.payment_time,
+        po.product_order_state,
+        po.product_order_number as productOrderNumber,
+        pi.product_inf_name as productInfName,
+        pi.product_inf_price as productInfPrice,
+        ri.receiving_inf_name as receivingInfName,
+        ri.receiving_inf_phone as receivingInfPhone,
+        ri.receiving_inf_province as receivingInfProvince,
+        ri.receiving_inf_city as receivingInfCity,
+        ri.receiving_inf_district as receivingInfDistrict,
+        ri.receiving_inf_address as receivingInfAddress
+
+    </sql>
+    <sql id="joinProductParam">
+        po.product_order_id,
+        po.login_id,
+        po.receiving_inf_id,
+        po.product_inf_id,
+        po.product_num,
+        po.leave_word,
+        po.submit_time,
+        po.payment_time,
+        po.product_order_state,
+        po.product_order_number,
+        pi.product_inf_name as productInfName,
+        pi.product_inf_price as productInfPrice,
+        pi2.picture_inf_url as pictureInfUrl
+    </sql>
+    <sql id="insertParam">
+        login_id,
+        product_inf_id,
+        product_num,
+        product_order_number
+    </sql>
+
+    <resultMap id="receivingInfResultMap" type="com.nf.entity.ReceivingInfEntity">
+        <result property="productNum" column="productNum"/>
+        <result property="productOrderNumber" column="productOrderNumber"/>
+        <result property="productInfName" column="productInfName"/>
+        <result property="productInfPrice" column="productInfPrice"/>
+        <result property="receivingInfName" column="receivingInfName"/>
+        <result property="receivingInfPhone" column="receivingInfPhone"/>
+        <result property="receivingInfProvince" column="receivingInfProvince"/>
+        <result property="receivingInfCity" column="receivingInfCity"/>
+        <result property="receivingInfDistrict" column="receivingInfDistrict"/>
+        <result property="receivingInfAddress" column="receivingInfAddress"/>
+    </resultMap>
+
+    <resultMap id="productOrderResultMap" type="com.nf.entity.ProductOrderEntity">
+        <result property="productInfName" column="productInfName"/>
+        <result property="productInfPrice" column="productInfPrice"/>
+        <result property="pictureInfUrl" column="pictureInfUrl"/>
+    </resultMap>
+
+    <!--获得属于订单编号的收货信息-->
+    <select id="getReceivingData" resultMap="receivingInfResultMap">
+        select <include refid="joinReceivingParam"/>
+        from product_order po join product_inf pi
+        on po.product_inf_id = pi.product_inf_id
+        join receiving_inf ri
+        on po.receiving_inf_id = ri.receiving_inf_id
+        where po.product_order_number = #{productOrderNumber}
+        LIMIT 1
+    </select>
+
+
+    <!--获得属于订单编号的商品信息-->
+    <select id="getSubmitData" resultMap="productOrderResultMap">
+        select <include refid="joinProductParam"/>
+        from product_order po join product_inf pi
+        on po.product_inf_id = pi.product_inf_id
+        join picture_inf pi2
+        on po.product_inf_id = pi2.product_inf_id
+        where po.product_order_number = #{productOrderNumber}
+        and pi2.picture_inf_master = 1
+    </select>
+
+
+    <!--添加订单信息(商品信息界面结算)-->
+    <insert id="insertSingleProductOrder">
+        insert into product_order(<include refid="insertParam"/>) values
+        (
+            #{productCartEntity.loginId},
+            #{productCartEntity.productInfId},
+            #{productCartEntity.productCartNum},
+            #{productOrderNumber}
+        )
+    </insert>
+
+    <!--添加订单信息（购物车中结算）-->
+    <insert id="insertCartProductOrder">
+        insert into product_order(<include refid="insertParam"/>) values
+        <foreach collection="productCartEntities" item="productCartEntity" separator=",">
+            (
+                #{productCartEntity.loginId},
+                #{productCartEntity.productInfId},
+                #{productCartEntity.productCartNum},
+                #{productOrderNumber}
+            )
+        </foreach>
+    </insert>
+
+    <!--提交订单操作-->
+    <update id="submitOrder">
+        update product_order
+        set
+            receiving_inf_id = #{productOrderEntity.receivingInfId},
+            leave_word = #{productOrderEntity.leaveWord},
+            submit_time = NOW(),
+            product_order_state = 1
+        where product_order_number = #{productOrderEntity.productOrderNumber}
+    </update>
+
+
+    <!--付款成功修改订单信息-->
+    <update id="paymentOrder">
+        update product_order
+        set
+            payment_time = NOW(),
+            product_order_state = 2
+        where product_order_number = #{productOrderNumber}
+    </update>
+
+
+    <!--对用户没有下单的订单进行删除-->
+    <delete id="deleteOrder">
+        delete from product_order
+        where product_order_number = #{productOrderNumber}
+    </delete>
+</mapper>

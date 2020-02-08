@@ -65,6 +65,11 @@ public class ProductCartServiceImpl implements ProductCartService {
     }
 
     @Override
+    public boolean deleteByProductList(List<ProductCartEntity> productCartEntities) {
+        return productCartDao.deleteByProductList(productCartEntities) > 0;
+    }
+
+    @Override
     public boolean deleteByProductId(ProductCartEntity productCartEntity) {
         return productCartDao.deleteByProductId(productCartEntity) > 0;
     }

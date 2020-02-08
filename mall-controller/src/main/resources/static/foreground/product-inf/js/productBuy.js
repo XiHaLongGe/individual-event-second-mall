@@ -86,7 +86,7 @@ function productBuyData(){
             resultValue +="<div class=\"Xcontent30\">";
             resultValue +="<p class=\"Xcontent31\">数量</p>";
             resultValue +="<div class=\"Xcontent32\"><img src=\"/static/home/product-inf-list/images/shangpinxiangqing/X15.png\"></div>";
-            resultValue +="<input id='productNumINPUT' onkeyup='positive(this)' class=\"input\" value=\"1\">";
+            resultValue +="<input id='productCartNumINPUT' onkeyup='positive(this)' class=\"input\" value=\"1\">";
             resultValue +="<div class=\"Xcontent33\"><img src=\"/static/home/product-inf-list/images/shangpinxiangqing/16.png\"></div>";
             resultValue +="</div>";
             /*立即购买  &  加入购物车*/
@@ -106,7 +106,7 @@ function positive($this){
 
 $(function(){
     $("#addCartDIV").click(function(){
-        var proNum = $("#productNumINPUT").val();
+        var proNum = $("#productCartNumINPUT").val();
         var proId = $("#productInfId").val();
         $.ajax({
             url:"/mall/foreground/product/cart/add/cart",
@@ -125,14 +125,16 @@ $(function(){
     })
     $("#submitOrderDIV").click(function(){
         $.ajax({
-            url:"/foreground/product/order/insert",
+            url:"/mall/foreground/product/order/single/add/order",
             type:"POST",
-            data:JSON.stringify({"customerInfId" : $("#customerInfId").val(), "productId" : $("#productId").val(), "productNum" : $("#productNumINPUT").val()}),
+            data:JSON.stringify({"loginId" : $("#loginIdINPUT").val(), "productInfId" : $("#productInfId").val(), "productCartNum" : $("#productCartNumINPUT").val()}),
             async: false,//设置为同步
             contentType: "application/json",
             success:function(data){
-                if(data.data != ""){
-                    window.location.href = "/foreground/product/order?productOrderNumber=" + data.data;
+                if(data.code === 200){
+                    window.location.href = "/mall/foreground/product/order/home?productOrderNumber=" + data.data;
+                }else{
+                    alert(data.message);
                 }
             }
         })
