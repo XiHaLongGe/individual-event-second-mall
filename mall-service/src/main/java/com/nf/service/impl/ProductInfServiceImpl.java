@@ -40,6 +40,11 @@ public class ProductInfServiceImpl implements ProductInfService {
     }
 
     @Override
+    public List<ProductInfEntity> getByProductName(ProductInfEntity productInfEntity) {
+        return productInfDao.getByProductName(productInfEntity);
+    }
+
+    @Override
     public Integer[] getAllBrandInfId() {
         return productInfDao.getAllBrandInfId();
     }

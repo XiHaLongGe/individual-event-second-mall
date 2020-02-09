@@ -56,20 +56,13 @@
     <header>
         <b class="logo"><img src="/static/foreground/home/images/logo.png"></b>
         <search>
-            <form>
-                <input id="queryINPUT" type="text" placeholder="查询关键词..." required style=" width:440px; height:30px; text-indent:2em; float:left; box-shadow:none">
-                <button><a href="javascript:;" onclick="queryClick()">搜索</a></button>
+            <form action="/mall/foreground/product/inf/query/product" type="POST">
+                <input name="productInfName" type="text" placeholder="查询关键词..." required style=" width:440px; height:30px; text-indent:2em; float:left; box-shadow:none">
+                <button><a>搜索</a></button>
             </form>
         </search>
     </header>
 </div>
-<script>
-    function queryClick() {
-        if($("#queryINPUT").val() != ""){
-            window.location.href = "/mall/foreground/product/inf/query/product?productInfName=" + $("#queryINPUT").val();
-        }
-    }
-</script>
 <!--导航-->
 <section class="dao_hang">
     <nav>
@@ -2154,10 +2147,10 @@
         <em style=" position:absolute; display:block; line-height:20px; font-size:12px; color:#f00; top:-20px; left:0">(<b id="cartNumB">0</b>)</em>
         <!--<span class="toolbar-layer"></span>-->
     </a>
-    <a href="###" class="toolbar-item toolbar-item-feedback"></a>
+   <%-- <a href="###" class="toolbar-item toolbar-item-feedback"></a>
     <a href="###" class="toolbar-item toolbar-item-app">
         <span class="toolbar-layer"></span>
-    </a>
+    </a>--%>
     <a href="javascript:scroll(0,0)" id="top" class="toolbar-item toolbar-item-top"></a>
 </div>
 <script>

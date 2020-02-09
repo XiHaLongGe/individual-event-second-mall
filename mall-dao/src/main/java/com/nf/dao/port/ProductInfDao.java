@@ -46,6 +46,12 @@ public interface ProductInfDao {
      */
     List<ProductInfEntity> getByColumn(@Param("categoryId") String categoryId);
 
+    /**
+     * 前台主界面查询上商品信息
+     * @param productInfEntity 条件信息
+     * @return
+     */
+    List<ProductInfEntity> getByProductName(@Param("productInfEntity") ProductInfEntity productInfEntity);
 
 
     /**

@@ -1,6 +1,6 @@
 $(document).ready(function(){
 							
-	$("#select1 dd").click(function () {
+	$("#select1 dd").live("click", function () {
 		$(this).addClass("selected").siblings().removeClass("selected");
 		if ($(this).hasClass("select-all")) {
 			$("#selectA").remove();
@@ -12,9 +12,10 @@ $(document).ready(function(){
 				$(".select-result dl").append(copyThisA.attr("id", "selectA"));
 			}
 		}
+		searchProduct();
 	});
 	
-	$("#select2 dd").click(function () {
+	$("#select2 dd").live("click", function () {
 		$(this).addClass("selected").siblings().removeClass("selected");
 		if ($(this).hasClass("select-all")) {
 			$("#selectB").remove();
@@ -26,9 +27,10 @@ $(document).ready(function(){
 				$(".select-result dl").append(copyThisB.attr("id", "selectB"));
 			}
 		}
+		searchProduct();
 	});
 	
-	$("#select3 dd").click(function () {
+	$("#select3 dd").live("click", function () {
 		$(this).addClass("selected").siblings().removeClass("selected");
 		if ($(this).hasClass("select-all")) {
 			$("#selectC").remove();
@@ -45,11 +47,13 @@ $(document).ready(function(){
 	$("#selectA").live("click", function () {
 		$(this).remove();
 		$("#select1 .select-all").addClass("selected").siblings().removeClass("selected");
+		searchProduct();
 	});
 	
 	$("#selectB").live("click", function () {
 		$(this).remove();
 		$("#select2 .select-all").addClass("selected").siblings().removeClass("selected");
+		searchProduct();
 	});
 	
 	$("#selectC").live("click", function () {

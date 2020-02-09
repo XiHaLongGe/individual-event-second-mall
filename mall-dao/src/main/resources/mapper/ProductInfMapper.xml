@@ -105,6 +105,38 @@
         where pi.product_category_id = #{categoryId} and pi2.picture_inf_master = 1
     </select>
 
+    <!--根据栏目id获取到相应数据-->
+    <select id="getByProductName" resultMap="productInfResultMap">
+        select <include refid="joinPictureParams"/>
+        from product_inf pi join picture_inf pi2
+        on pi.product_inf_id = pi2.product_inf_id
+        where 1=1
+        <choose>
+            <when test='productInfEntity.productCategoryName != null and productInfEntity.productCategoryName != ""'>
+                and pi.product_category_id = #{productInfEntity.productCategoryName}
+            </when>
+        </choose>
+        <choose>
+            <when test="productInfEntity.brandInfId != null and productInfEntity.brandInfId != 0">
+                and pi.brand_inf_id = #{productInfEntity.brandInfId}
+            </when>
+        </choose>
+        <choose>
+            <when test="productInfEntity.beginPrice != null and productInfEntity.endPrice != null and productInfEntity.beginPrice != 0 or productInfEntity.endPrice != 0">
+                <choose>
+                    <when test="productInfEntity.beginPrice != 0 and productInfEntity.endPrice == 0">
+                        and pi.product_inf_price > #{productInfEntity.beginPrice}
+                    </when>
+                    <otherwise>
+                        and pi.product_inf_price BETWEEN #{productInfEntity.beginPrice} AND #{productInfEntity.endPrice}
+                    </otherwise>
+                </choose>
+            </when>
+        </choose>
+         and pi.product_inf_name like '%' #{productInfEntity.productInfName} '%'
+         and pi2.picture_inf_master = 1
+    </select>
+
     <!--根据商品id获取商品信息-->
     <select id="getByProductInfId" resultMap="productInfResultMap">
         select <include refid="joinParams"/>

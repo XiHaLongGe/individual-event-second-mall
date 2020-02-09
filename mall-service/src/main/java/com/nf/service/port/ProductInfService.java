@@ -45,6 +45,15 @@ public interface ProductInfService {
      */
     List<ProductInfEntity> getByColumn(String categoryId);
 
+
+
+    /**
+     * 前台主界面查询上商品信息
+     * @param productInfEntity 条件信息
+     * @return
+     */
+    List<ProductInfEntity> getByProductName(ProductInfEntity productInfEntity);
+
     /**
      * 获取到关联表中所有的品牌信息id
      * @return

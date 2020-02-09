@@ -86,6 +86,14 @@ public class ProductInfEntity {
      * pictureInfUrl: 图片路径
      */
     private String pictureInfUrl;
+    /**
+     * beginPrice: 起始价格
+     */
+    private BigDecimal beginPrice;
+    /**
+     * endPrice：截至价格
+     */
+    private BigDecimal endPrice;
 
 
     /*===================================   扩展字段   end   ==================================*/

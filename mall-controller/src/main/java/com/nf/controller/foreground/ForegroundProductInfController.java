@@ -67,6 +67,30 @@ public class ForegroundProductInfController {
                 .build();
     }
 
+
+    /**
+     * 根据商品名称及品牌信息、栏目信息来获得商品数据
+     * @param productInfEntity 条件信息
+     * @return
+     */
+    @GetMapping("/name/data")
+    @ResponseBody
+    public ResponseVo byProductNameData(ProductInfEntity productInfEntity){
+        boolean result = true;
+        List<ProductInfEntity> productInfEntities = null;
+        try{
+            productInfEntities = productInfService.getByProductName(productInfEntity);
+        }catch (Exception e){
+            e.printStackTrace();
+            result = false;
+        }
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "数据获取成功" : "数据获取失败")
+                .data(productInfEntities)
+                .build();
+    }
+
     /**
      * 根据栏目id获取到相应数据
      * @param categoryId 用来接收栏目id
