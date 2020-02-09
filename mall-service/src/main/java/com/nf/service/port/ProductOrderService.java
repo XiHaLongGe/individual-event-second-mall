@@ -75,6 +75,13 @@ public interface ProductOrderService {
      */
     boolean paymentOrder(String productOrderNumber);
 
+    /**
+     * 确认收货
+     * @param productOrderNumber 订单编号
+     * @return
+     */
+    boolean confirmReceipt(String productOrderNumber);
+
 
     /**
      * 对用户没有下单的订单进行删除

@@ -133,7 +133,11 @@
                 </choose>
             </when>
         </choose>
-         and pi.product_inf_name like '%' #{productInfEntity.productInfName} '%'
+        <choose>
+            <when test='productInfEntity.productInfName != null and productInfEntity.productInfName != ""'>
+                and pi.product_inf_name like '%' #{productInfEntity.productInfName} '%'
+            </when>
+        </choose>
          and pi2.picture_inf_master = 1
     </select>
 

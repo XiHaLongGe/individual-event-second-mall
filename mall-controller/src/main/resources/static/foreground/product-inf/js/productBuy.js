@@ -105,6 +105,7 @@ function positive($this){
 }
 
 $(function(){
+    /*加入购物车*/
     $("#addCartDIV").click(function(){
         var proNum = $("#productCartNumINPUT").val();
         var proId = $("#productInfId").val();
@@ -123,6 +124,7 @@ $(function(){
             }
         })
     })
+    /*立即购买*/
     $("#submitOrderDIV").click(function(){
         $.ajax({
             url:"/mall/foreground/product/order/single/add/order",

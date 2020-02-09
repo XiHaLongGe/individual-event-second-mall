@@ -221,7 +221,7 @@ public class ForegroundProductOrderController {
     }
 
 
-    /**
+    /*/**
      * 付款后修改订单信息
      * @param productOrderNumber 订单编号
      * @return
@@ -236,6 +236,22 @@ public class ForegroundProductOrderController {
                 .data(result)
                 .build();
     }*/
+
+    /**
+     * 确认收货
+     * @param productOrderNumber 订单编号
+     * @return
+     */
+    @PostMapping("/confirm/receipt")
+    @ResponseBody
+    public ResponseVo confirmReceipt(@RequestParam("productOrderNumber") String productOrderNumber){
+        boolean result = productOrderService.confirmReceipt(productOrderNumber);
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "确认收货成功" : "确认收货失败")
+                .data(result)
+                .build();
+    }
 
 
     /**

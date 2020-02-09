@@ -76,6 +76,23 @@ public interface ProductOrderDao {
     Integer paymentOrder(@Param("productOrderNumber") String productOrderNumber);
 
 
+
+    /**
+     * 确认发货
+     * @param productOrderNumber 订单编号
+     * @return
+     */
+    Integer confirmDeliver(@Param("productOrderNumber") String productOrderNumber);
+
+
+    /**
+     * 确认收货
+     * @param productOrderNumber 订单编号
+     * @return
+     */
+    Integer confirmReceipt(@Param("productOrderNumber") String productOrderNumber);
+
+
     /**
      * 对用户没有下单的订单进行删除
      * @param productOrderNumber 订单编号

@@ -74,6 +74,11 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     }
 
     @Override
+    public boolean confirmReceipt(String productOrderNumber) {
+        return productOrderDao.confirmReceipt(productOrderNumber) > 0;
+    }
+
+    @Override
     public boolean deleteOrder(String productOrderNumber) {
         return productOrderDao.deleteOrder(productOrderNumber) > 0;
     }

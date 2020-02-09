@@ -325,7 +325,7 @@
         $.ajax({
             url:"/mall/foreground/product/cart/add/cart",
             type:"POST",
-            data:JSON.stringify({"loginId" : loginId, "productInfId" : productId, "productCartNum" : 1}),
+            data:JSON.stringify({"loginId" : $("#loginIdINPUT").val(), "productInfId" : productId, "productCartNum" : 1}),
             async: false,//设置为同步
             contentType: "application/json",
             success:function(data){

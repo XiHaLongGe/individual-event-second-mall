@@ -94,6 +94,7 @@
         where po.login_id = #{loginId}
         and po.product_order_state = #{state}
         and pi2.picture_inf_master = 1
+        order by po.product_order_number
     </select>
 
 
@@ -155,9 +156,28 @@
     </update>
 
 
+    <!--确认发货-->
+    <update id="confirmDeliver">
+        update product_order
+        set
+            product_order_state = 3
+        where product_order_number = #{productOrderNumber}
+    </update>
+
+
+    <!--确认收货-->
+    <update id="confirmReceipt">
+        update product_order
+        set
+            product_order_state = 4
+        where product_order_number = #{productOrderNumber}
+    </update>
+
+
     <!--对用户没有下单的订单进行删除-->
     <delete id="deleteOrder">
-        delete from product_order
-        where product_order_number = #{productOrderNumber}
+        delete from product_order where product_order_number = #{productOrderNumber}
     </delete>
+
+
 </mapper>

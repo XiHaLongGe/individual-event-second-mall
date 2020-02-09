@@ -1299,18 +1299,108 @@
                     async: false,//设置为同步
                     contentType: "application/json;charset=utf-8",
                     success: function (data) {
-                    <%--<script>
-                        $(".am-active").removeClass("am-active");
-                        $("a[href='#tab" + ${state} + "']").parent().attr("class", "am-active");
-                    </script>--%>
                         var html = "";
+                        var advanceHtml = "";
                         var sumPrice = 0;
+                        var categoryOrderNumber = "";
                         $.each(data.data,function (index,element) {
-                            if(index === 0){
+                            if(categoryOrderNumber != "" && element.productOrderNumber != categoryOrderNumber){
+                                html += advanceHtml;
+                                sumPrice = 0;
+                            }
+                            /*获取总价*/
+                            sumPrice = (parseFloat(sumPrice) + (parseFloat(element.productNum) * parseFloat(element.productInfPrice))).toFixed(2);
+                            advanceHtml = "</div>";
+                            advanceHtml += "<div class=\"order-right\">";
+                            advanceHtml += "<li class=\"td td-amount\">";
+                            advanceHtml += "<div class=\"item-amount\">";
+                            advanceHtml += "合计：" + sumPrice;
+                            advanceHtml += "</div>";
+                            advanceHtml += "</li>";
+                            if(element.productOrderState === 0){
+                                advanceHtml += "<div class=\"move-right\">";
+                                advanceHtml += "<li class=\"td td-status\">";
+                                advanceHtml += "<div class=\"item-status\">";
+                                advanceHtml += "<p class=\"Mystatus\">交易关闭</p>";
+                                advanceHtml += "</div>";
+                                advanceHtml += "</li>";
+                                advanceHtml += "<li class=\"td td-change\">";
+                                advanceHtml += "<div onclick='deleteOrder(\"" + element.productOrderNumber + "\")' class=\"am-btn am-btn-danger anniu\">";
+                                advanceHtml += "删除订单";
+                                advanceHtml += "</div>";
+                                advanceHtml += "</li>";
+                                advanceHtml += "</div>";
+                                advanceHtml += "</div>";
+                                advanceHtml += "</div>";
+                            }else if(element.productOrderState === 1){
+                                advanceHtml += "<div class=\"move-right\">";
+                                advanceHtml += "<li class=\"td td-status\">";
+                                advanceHtml += "<div class=\"item-status\">";
+                                advanceHtml += "<p class=\"Mystatus\">待付款</p>";
+                                advanceHtml += "</div>";
+                                advanceHtml += "</li>";
+                                advanceHtml += "<li class=\"td td-change\">";
+                                advanceHtml += "<div onclick='paymentOrder(\"" + element.productOrderNumber + "\")' class=\"am-btn am-btn-danger anniu\">";
+                                advanceHtml += "立即支付";
+                                advanceHtml += "</div>";
+                                advanceHtml += "</li>";
+                                advanceHtml += "</div>";
+                                advanceHtml += "</div>";
+                                advanceHtml += "</div>";
+                            }else if(element.productOrderState === 2){
+                                advanceHtml += "<div class=\"move-right\">";
+                                advanceHtml += "<li class=\"td td-status\">";
+                                advanceHtml += "<div class=\"item-status\">";
+                                advanceHtml += "<p class=\"Mystatus\">已付款</p>";
+                                advanceHtml += "</div>";
+                                advanceHtml += "</li>";
+                                advanceHtml += "<li class=\"td td-change\">";
+                                advanceHtml += "<div onclick='' class=\"am-btn am-btn-danger anniu\">";
+                                advanceHtml += "提醒发货";
+                                advanceHtml += "</div>";
+                                advanceHtml += "</li>";
+                                advanceHtml += "</div>";
+                                advanceHtml += "</div>";
+                                advanceHtml += "</div>";
+                            }else if(element.productOrderState === 3){
+                                advanceHtml += "<div class=\"move-right\">";
+                                advanceHtml += "<li class=\"td td-status\">";
+                                advanceHtml += "<div class=\"item-status\">";
+                                advanceHtml += "<p class=\"Mystatus\">待收货</p>";
+                                advanceHtml += "</div>";
+                                advanceHtml += "</li>";
+                                advanceHtml += "<li class=\"td td-change\">";
+                                advanceHtml += "<div onclick='confirmReceipt(\"" + element.productOrderNumber + "\")' class=\"am-btn am-btn-danger anniu\">";
+                                advanceHtml += "确认收货";
+                                advanceHtml += "</div>";
+                                advanceHtml += "</li>";
+                                advanceHtml += "</div>";
+                                advanceHtml += "</div>";
+                                advanceHtml += "</div>";
+                            }else if(element.productOrderState === 4){
+                                advanceHtml += "<div class=\"move-right\">";
+                                advanceHtml += "<li class=\"td td-status\">";
+                                advanceHtml += "<div class=\"item-status\">";
+                                advanceHtml += "<p class=\"Mystatus\">交易成功</p>";
+                                advanceHtml += "</div>";
+                                advanceHtml += "</li>";
+                                advanceHtml += "<li class=\"td td-change\">";
+                                advanceHtml += "<div onclick='deleteOrder(\"" + element.productOrderNumber + "\")' class=\"am-btn am-btn-danger anniu\">";
+                                advanceHtml += "删除订单";
+                                advanceHtml += "</div>";
+                                advanceHtml += "</li>";
+                                advanceHtml += "</div>";
+                                advanceHtml += "</div>";
+                                advanceHtml += "</div>";
+                                advanceHtml += "</div>";
+                            }
+                            if(index === 0 || categoryOrderNumber != "" && element.productOrderNumber != categoryOrderNumber){
+                                categoryOrderNumber = element.productOrderNumber;
                                 html += "<div class=\"order-status" + i + "\">";
                                 html += "<div class=\"order-title\">";
                                 html += "<div class=\"dd-num\">订单编号：<a href=\"javascript:;\">" + element.productOrderNumber + "</a></div>";
-                                html += "<span>下单时间：" + element.submitTime + "</span>";
+                                var submitTime = (element.submitTime == null) ? "未下单" : element.submitTime;
+                                html += "<span>下单时间：" + submitTime + "</span>";
                                 html += "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;";
                                 var paymentTime = (element.paymentTime == null) ? "未付款" : element.paymentTime;
                                 html += "<span>付款时间：" + paymentTime + "</span>";
@@ -1347,104 +1437,16 @@
                             html += "</div>";
                             html += "</li>";
                             /*下面是商品操作*/
-                            var operation = (element.productOrderState === 1) ? "<a href='javascript:;'>删除订单</a>" : "";
+                            var operation = (element.productOrderState === 1) ? "<a href='javascript:;' onclick='deleteOrder(\"" + element.productOrderNumber + "\")'>删除订单</a>" : "";
                             html += "<li class=\"td td-operation\">";
                             html += "<div class=\"item-operation\">";
                             html += operation;
                             html += "</div>";
                             html += "</li>";
                             html += "</ul>";
-
-                            /*获取总价*/
-                            sumPrice = (parseFloat(sumPrice) + (parseFloat(element.productNum) * parseFloat(element.productInfPrice))).toFixed(2);
                             if(index === Object.keys(data.data).length - 1){
-                                html += "</div>";
-                                html += "<div class=\"order-right\">";
-                                html += "<li class=\"td td-amount\">";
-                                html += "<div class=\"item-amount\">";
-
-                                html += "合计：" + sumPrice;
-                                /*html += "<p>含运费：<span>10.00</span></p>";*/
-                                html += "</div>";
-                                html += "</li>";
-
-                                if(element.productOrderState === 0){
-                                    html += "<div class=\"move-right\">";
-                                    html += "<li class=\"td td-status\">";
-                                    html += "<div class=\"item-status\">";
-                                    html += "<p class=\"Mystatus\">交易关闭</p>";
-                                    html += "</div>";
-                                    html += "</li>";
-                                    html += "<li class=\"td td-change\">";
-                                    html += "<div class=\"am-btn am-btn-danger anniu\">";
-                                    html += "删除订单";
-                                    html += "</div>";
-                                    html += "</li>";
-                                    html += "</div>";
-                                    html += "</div>";
-                                    html += "</div>";
-                                }else if(element.productOrderState === 1){
-                                    html += "<div class=\"move-right\">";
-                                    html += "<li class=\"td td-status\">";
-                                    html += "<div class=\"item-status\">";
-                                    html += "<p class=\"Mystatus\">待付款</p>";
-                                    html += "</div>";
-                                    html += "</li>";
-                                    html += "<li class=\"td td-change\">";
-                                    html += "<div class=\"am-btn am-btn-danger anniu\">";
-                                    html += "立即支付";
-                                    html += "</div>";
-                                    html += "</li>";
-                                    html += "</div>";
-                                    html += "</div>";
-                                    html += "</div>";
-                                }else if(element.productOrderState === 2){
-                                    html += "<div class=\"move-right\">";
-                                    html += "<li class=\"td td-status\">";
-                                    html += "<div class=\"item-status\">";
-                                    html += "<p class=\"Mystatus\">已付款</p>";
-                                    html += "</div>";
-                                    html += "</li>";
-                                    html += "<li class=\"td td-change\">";
-                                    html += "<div class=\"am-btn am-btn-danger anniu\">";
-                                    html += "提醒发货";
-                                    html += "</div>";
-                                    html += "</li>";
-                                    html += "</div>";
-                                    html += "</div>";
-                                    html += "</div>";
-                                }else if(element.productOrderState === 3){
-                                    html += "<div class=\"move-right\">";
-                                    html += "<li class=\"td td-status\">";
-                                    html += "<div class=\"item-status\">";
-                                    html += "<p class=\"Mystatus\">待收货</p>";
-                                    html += "</div>";
-                                    html += "</li>";
-                                    html += "<li class=\"td td-change\">";
-                                    html += "<div class=\"am-btn am-btn-danger anniu\">";
-                                    html += "确认收货";
-                                    html += "</div>";
-                                    html += "</li>";
-                                    html += "</div>";
-                                    html += "</div>";
-                                    html += "</div>";
-                                }else if(element.productOrderState === 4){
-                                    html += "<div class=\"move-right\">";
-                                    html += "<li class=\"td td-status\">";
-                                    html += "<div class=\"item-status\">";
-                                    html += "<p class=\"Mystatus\">交易成功</p>";
-                                    html += "</div>";
-                                    html += "</li>";
-                                    html += "<li class=\"td td-change\">";
-                                    html += "<div class=\"am-btn am-btn-danger anniu\">";
-                                    html += "删除订单";
-                                    html += "</div>";
-                                    html += "</li>";
-                                    html += "</div>";
-                                    html += "</div>";
-                                    html += "</div>";
-                                    html += "</div>";
-                                }
+                                html += advanceHtml;
+                                sumPrice = 0;
                             }
                         })
                         resultHTML += html;
@@ -1461,6 +1463,43 @@
                 })
             }
             $("#AllState").empty().append(resultHTML);
+        }
+
+        /*删除订单*/
+        function deleteOrder(productOrderNumber) {
+            $.ajax({
+                url:"/mall/foreground/product/order/delete/order",
+                type:"POST",
+                data:{"productOrderNumber" : productOrderNumber},
+                async: false,//设置为同步
+                success:function(data){
+                    if(data.code == 200){
+                        allOrderLoad();
+                    }else{
+                        alert(data.message);
+                    }
+                }
+            })
+        }
+        /*立即支付*/
+        function paymentOrder(productOrderNumber) {
+            window.location.href = "/mall/foreground/product/order/success/submit?productOrderNumber=" + productOrderNumber;
+        }
+        /*确认收货*/
+        function confirmReceipt(productOrderNumber) {
+            $.ajax({
+                url:"/mall/foreground/product/order/confirm/receipt",
+                type:"POST",
+                data:{"productOrderNumber" : productOrderNumber},
+                async: false,//设置为同步
+                success:function(data){
+                    if(data.code == 200){
+                        allOrderLoad();
+                    }else{
+                        alert(data.message);
+                    }
+                }
+            })
         }
     </script>
     <aside class="menu">
