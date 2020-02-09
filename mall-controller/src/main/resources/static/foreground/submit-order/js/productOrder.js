@@ -37,7 +37,8 @@ function productOrderData(){
 $(function(){
     /*下单点击事件*/
     $("#checkoutToPay").on("click", function(){
-        clearInterval(iCount);
+        /*取消定时器*/
+        // clearInterval(iCount);
         $.ajax({
             url:"/mall/foreground/product/order/submit/order",
             type:"POST",
@@ -56,13 +57,15 @@ $(function(){
         })
     })
 /*如果用户没有在倒计时30分钟时间之内下单将自动删除该订单*/
-var iCount = setInterval(delCustomerOrder, 1800000);
+// var iCount = setInterval(delCustomerOrder, 1800000);
 /*取消下单点击事件*/
 $("#cancelA").on("click", function(){
-    delCustomerOrder()
+    window.location.href = "/mall/foreground/home";
+    // delCustomerOrder()
 })
     /*删除用户未下单数据*/
     function delCustomerOrder() {
+        /*取消定时器*/
         clearInterval(iCount);
         $.ajax({
             url:"/mall/foreground/product/order/delete/order",

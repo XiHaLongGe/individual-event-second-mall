@@ -32,9 +32,15 @@ public class ForegroundProductInfController {
      * @return
      */
     @GetMapping("/home")
-    public String home(Model model, Integer productInfId){
+    public String homeView(Model model, Integer productInfId){
         model.addAttribute("productInfId", productInfId);
         return "foreground/product-inf/productInf";
+    }
+
+    @GetMapping("/query/product")
+    public String queryProductView(Model model, String productInfName){
+        model.addAttribute("productInfName", productInfName);
+        return "foreground/product-inf/queryProductInf";
     }
 
 

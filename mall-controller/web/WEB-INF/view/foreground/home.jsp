@@ -57,12 +57,19 @@
         <b class="logo"><img src="/static/foreground/home/images/logo.png"></b>
         <search>
             <form>
-                <input type="text" placeholder="查询关键词..." required style=" width:440px; height:30px; text-indent:2em; float:left; box-shadow:none">
-                <button>搜索</button>
+                <input id="queryINPUT" type="text" placeholder="查询关键词..." required style=" width:440px; height:30px; text-indent:2em; float:left; box-shadow:none">
+                <button><a href="javascript:;" onclick="queryClick()">搜索</a></button>
             </form>
         </search>
     </header>
 </div>
+<script>
+    function queryClick() {
+        if($("#queryINPUT").val() != ""){
+            window.location.href = "/mall/foreground/product/inf/query/product?productInfName=" + $("#queryINPUT").val();
+        }
+    }
+</script>
 <!--导航-->
 <section class="dao_hang">
     <nav>
@@ -211,7 +218,6 @@
     <div class="currency f-1-lt01">
         <ul>
             <li>
-
                 <a href="Blessingpackage.html"><img src="/static/foreground/home/images/56da66aeN557ae881.jpg" style=" margin:0 auto; display:block; width:220px; height:220px"></a>
                 <light1>
                     <img src="/static/foreground/home/images/saoguang.png">

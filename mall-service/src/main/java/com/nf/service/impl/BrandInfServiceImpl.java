@@ -38,6 +38,11 @@ public class BrandInfServiceImpl implements BrandInfService {
     }
 
     @Override
+    public List<BrandInfEntity> getBelongByProductInfName(String productInfName) {
+        return brandInfDao.getBelongByProductInfName(productInfName);
+    }
+
+    @Override
     public List<BrandInfEntity> getExistData(Integer[] brandInfIdArray) {
         return brandInfDao.getExistData(brandInfIdArray);
     }

@@ -10,6 +10,10 @@
         brand_inf_id,
         brand_inf_name
     </sql>
+    <sql id="joinProductParams">
+        bi.brand_inf_id,
+        bi.brand_inf_name
+    </sql>
     <sql id="pbrParams">
         pbr.pbr_id,
         bi.brand_inf_id,
@@ -34,6 +38,14 @@
                 and brand_inf_name like '%' #{brandInfEntity.brandInfName} '%'
             </when>
         </choose>
+    </select>
+
+    <!--根据商品名称获取相对应的品牌信息-->
+    <select id="getBelongByProductInfName" resultType="com.nf.entity.BrandInfEntity">
+        select <include refid="joinProductParams"/>
+        from brand_inf bi join product_inf pi
+        on bi.brand_inf_id = pi.brand_inf_id
+        where pi.product_inf_name like '%' #{productInfName} '%'
     </select>
 
     <!--根据品牌信息id获得列表数据-->

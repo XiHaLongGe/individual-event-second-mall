@@ -69,7 +69,6 @@ public class ResponseVo {
             return this;
         }
 
-
         public ResponseVo build() {
             return new ResponseVo(this);
         }

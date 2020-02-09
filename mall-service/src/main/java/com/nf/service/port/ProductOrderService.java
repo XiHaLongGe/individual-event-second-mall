@@ -20,12 +20,30 @@ public interface ProductOrderService {
      */
     ReceivingInfEntity getReceivingData(String productOrderNumber);
 
+
+    /**
+     * 获取到相应订单状态的列表数据
+     * @param loginId 登录id
+     * @param state 订单状态
+     * @return
+     */
+    List<ProductOrderEntity> getCategoryListData(Integer loginId, Integer state);
+
+
+    /**
+     * 获取到相应订单状态的数据条目
+     * @param loginId 登录id
+     * @param state 订单状态
+     * @return
+     */
+    Integer getCategoryCountData(Integer loginId, Integer state);
+
     /**
      * 获得属于订单编号的商品信息
      * @param productOrderNumber 订单编号
      * @return
      */
-    List<ProductCartEntity> getSubmitData(String productOrderNumber);
+    List<ProductOrderEntity> getSubmitData(String productOrderNumber);
     /**
      * 添加订单信息(商品信息界面结算)
      * @param productCartEntity 用来保存添加的订单信息

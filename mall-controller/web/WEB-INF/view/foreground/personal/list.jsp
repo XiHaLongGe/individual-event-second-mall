@@ -27,6 +27,11 @@
 </head>
 
 <body>
+<ul style="position: fixed; float:left">
+    <br/>
+    <h3><li><a href="/mall/foreground/home" style="text-decoration:none;"><p>首页</p></a></li></h3><br/>
+    <h3><li><a href="javascript:;" onclick="self.location=document.referrer;" style="text-decoration:none;"><p>返回</p></a></li></h3><br/>
+</ul>
 <div class="center">
     <div class="col-main">
         <div class="main-wrap">
@@ -57,15 +62,33 @@
                     <div class="m-order">
                         <div class="s-bar">
                             <i class="s-icon"></i>我的订单
-                            <a class="i-load-more-item-shadow" href="order.html">全部订单</a>
+                            <a class="i-load-more-item-shadow" href="/mall/foreground/product/order/category">全部订单</a>
                         </div>
                         <ul>
-                            <li><a href="order.html"><i><img src="/static/foreground/personal/images/pay.png"/></i><span>待付款</span></a></li>
-                            <li><a href="order.html"><i><img src="/static/foreground/personal/images/send.png"/></i><span>待发货<em class="m-num">1</em></span></a></li>
-                            <li><a href="order.html"><i><img src="/static/foreground/personal/images/receive.png"/></i><span>待收货</span></a></li>
-<%--                            <li><a href="order.html"><i><img src="/static/foreground/personal/images/comment.png"/></i><span>待评价<em class="m-num">3</em></span></a></li>--%>
+                            <li><a href="/mall/foreground/product/order/category"><i><img src="/static/foreground/personal/images/pay.png"/></i><span id="span1">待付款</span></a></li>
+                            <li><a href="/mall/foreground/product/order/category"><i><img src="/static/foreground/personal/images/send.png"/></i><span id="span2">待发货<em class="m-num">1</em></span></a></li>
+                            <li><a href="/mall/foreground/product/order/category"><i><img src="/static/foreground/personal/images/receive.png"/></i><span id="span3">待收货</span></a></li>
+                            <li><a href="/mall/foreground/product/order/category"><i><img src="/static/foreground/personal/images/comment.png"/></i><span id="span4">交易成功<em class="m-num">3</em></span></a></li>
 <%--                            <li><a href="change.html"><i><img src="/static/foreground/personal/images/refund.png"/></i><span>退换货</span></a></li>--%>
                         </ul>
+                        <script>
+                            $(function () {
+                                for (var i = 1; i <= 4; i++) {
+                                    $.ajax({
+                                        url: "/mall/foreground/product/order/state/count/data?loginId=${loginId}&state=" + i,
+                                        type: "GET",
+                                        async: false,//设置为同步
+                                        contentType: "application/json;charset=utf-8",
+                                        success: function (data) {
+                                            var spanId = "#span" + i;
+                                            var stateName = i === 1 ? "待付款" : i === 2 ? "待发货" : i === 3 ? "待收货" : "交易成功";
+                                            var stateNum = data.data == null || data.data == 0 ? "" : "<em class=\"m-num\">" + data.data + "</em>"
+                                            $(spanId).empty().append(stateName + stateNum);
+                                        }
+                                    })
+                                }
+                            })
+                        </script>
                     </div>
                 </div>
             </div>
@@ -87,7 +110,7 @@
             <li class="person">
                 <a>我的交易</a>
                 <ul>
-                    <li><a href="order.html">订单管理</a></li>
+                    <li><a href="/mall/foreground/product/order/category">订单管理</a></li>
                 </ul>
             </li>
         </ul>

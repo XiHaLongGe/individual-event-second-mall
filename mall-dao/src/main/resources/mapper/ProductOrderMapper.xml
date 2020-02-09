@@ -76,6 +76,26 @@
         LIMIT 1
     </select>
 
+    <!--获取到相应订单状态的数据条目-->
+    <select id="getCategoryCountData" resultType="integer">
+        select count(product_order_state)
+        from product_order
+        where login_id = #{loginId} and product_order_state = #{state}
+    </select>
+
+
+    <!--获取到相应订单状态的列表数据-->
+    <select id="getCategoryListData" resultMap="productOrderResultMap">
+        select <include refid="joinProductParam"/>
+        from product_order po join product_inf pi
+        on po.product_inf_id = pi.product_inf_id
+        join picture_inf pi2
+        on po.product_inf_id = pi2.product_inf_id
+        where po.login_id = #{loginId}
+        and po.product_order_state = #{state}
+        and pi2.picture_inf_master = 1
+    </select>
+
 
     <!--获得属于订单编号的商品信息-->
     <select id="getSubmitData" resultMap="productOrderResultMap">

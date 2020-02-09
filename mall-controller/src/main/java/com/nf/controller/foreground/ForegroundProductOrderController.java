@@ -28,9 +28,18 @@ public class ForegroundProductOrderController {
      * @return
      */
     @GetMapping("/home")
-    public String home(Model model, String productOrderNumber){
+    public String homeView(Model model, String productOrderNumber){
         model.addAttribute("productOrderNumber", productOrderNumber);
         return "foreground/product-order/submitOrder";
+    }
+
+    /**
+     * 订单的分类视图：待付款 待发货 待收货
+     * @return
+     */
+    @GetMapping("/category")
+    public String categoryView(){
+        return "foreground/personal/productOrderInf";
     }
 
     /**
@@ -38,7 +47,7 @@ public class ForegroundProductOrderController {
      * @return
      */
     @GetMapping("/success/submit")
-    public String successSubmit(Model model, String productOrderNumber){
+    public String successSubmitView(Model model, String productOrderNumber){
         model.addAttribute("productOrderNumber", productOrderNumber);
         return "foreground/product-order/successSubmit";
     }
@@ -48,7 +57,7 @@ public class ForegroundProductOrderController {
      * @return
      */
     @GetMapping("/payment/success")
-    public String paymentSuccess(){
+    public String paymentSuccessView(){
         return "foreground/product-order/paymentSuccess";
     }
 
@@ -57,9 +66,61 @@ public class ForegroundProductOrderController {
      * @return
      */
     @GetMapping("/payment/loser")
-    public String paymentLoser(){
+    public String paymentLoserView(){
         return "foreground/product-order/paymentLoser";
     }
+
+
+    /**
+     * 获取到相应订单状态的数据条目
+     * @param loginId 登录id
+     * @param state 订单状态
+     * @return
+     */
+    @GetMapping("/state/count/data")
+    @ResponseBody
+    public ResponseVo categoryCountData(Integer loginId, Integer state){
+        boolean result = true;
+        Integer stateDataNum = null;
+        try{
+            stateDataNum = productOrderService.getCategoryCountData(loginId, state);
+        }catch (Exception e){
+            e.printStackTrace();
+            result = false;
+        }
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "数据获取成功" : "数据获取失败")
+                .data(stateDataNum)
+                .build();
+    }
+
+    /**
+     * 获取到相应订单状态的列表数据
+     * @param loginId 登录id
+     * @param state 订单状态
+     * @return
+     */
+    @GetMapping("/state/list/data")
+    @ResponseBody
+    public ResponseVo categoryListData(Integer loginId, Integer state){
+        boolean result = true;
+        List<ProductOrderEntity> productOrderEntities = null;
+        try{
+            productOrderEntities = productOrderService.getCategoryListData(loginId, state);
+        }catch (Exception e){
+            e.printStackTrace();
+            result = false;
+        }
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "数据获取成功" : "数据获取失败")
+                .data(productOrderEntities)
+                .build();
+    }
+
+
+
 
     /**
      * 获得属于订单编号的商品信息
@@ -70,7 +131,7 @@ public class ForegroundProductOrderController {
     @ResponseBody
     public ResponseVo submitData(String productOrderNumber){
         boolean result = true;
-        List<ProductCartEntity> productCartEntities = null;
+        List<ProductOrderEntity> productCartEntities = null;
         try{
             productCartEntities = productOrderService.getSubmitData(productOrderNumber);
         }catch (Exception e){

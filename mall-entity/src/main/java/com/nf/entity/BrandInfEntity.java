@@ -44,6 +44,10 @@ public class BrandInfEntity {
      */
     private String productCategoryId;
     /**
+     * product_inf_name: 商品名称
+     */
+    private String productInfName;
+    /**
      * productCategoryName: 类型名称
      */
     private String productCategoryName;

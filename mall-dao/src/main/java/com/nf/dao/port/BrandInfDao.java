@@ -32,6 +32,14 @@ public interface BrandInfDao {
 
 
     /**
+     * 根据商品名称获取相对应的品牌信息
+     * @param productInfName 商品名称
+     * @return
+     */
+    List<BrandInfEntity> getBelongByProductInfName(@Param("productInfName") String productInfName);
+
+
+    /**
      * 根据品牌信息id获得列表数据
      * @param brandInfIdArray 用来接收品牌信息id
      * @return

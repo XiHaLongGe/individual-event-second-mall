@@ -28,6 +28,12 @@ public interface BrandInfService {
                                             Integer pageSize,
                                             BrandInfEntity brandInfEntity);
 
+    /**
+     * 根据商品名称获取相对应的品牌信息
+     * @param productInfName 商品名称
+     * @return
+     */
+    List<BrandInfEntity> getBelongByProductInfName(String productInfName);
 
     /**
      * 根据品牌信息id获得列表数据

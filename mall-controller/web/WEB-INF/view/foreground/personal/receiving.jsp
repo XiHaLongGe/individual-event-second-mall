@@ -34,6 +34,11 @@
 </head>
 
 <body>
+<ul style="position: fixed; float:left">
+    <br/>
+    <h3><li><a href="/mall/foreground/home" style="text-decoration:none;"><p>首页</p></a></li></h3><br/>
+    <h3><li><a href="javascript:;" onclick="self.location=document.referrer;" style="text-decoration:none;"><p>返回</p></a></li></h3><br/>
+</ul>
 <div class="center" style="overflow: visible">
     <div class="col-main">
         <div class="main-wrap">
@@ -194,7 +199,7 @@
             <li class="person">
                 <a>我的交易</a>
                 <ul>
-                    <li><a href="order.html">订单管理</a></li>
+                    <li><a href="/mall/foreground/product/order/category">订单管理</a></li>
                 </ul>
             </li>
         </ul>

@@ -32,7 +32,17 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     }
 
     @Override
-    public List<ProductCartEntity> getSubmitData(String productOrderNumber) {
+    public List<ProductOrderEntity> getCategoryListData(Integer loginId, Integer state) {
+        return productOrderDao.getCategoryListData(loginId, state);
+    }
+
+    @Override
+    public Integer getCategoryCountData(Integer loginId, Integer state) {
+        return productOrderDao.getCategoryCountData(loginId, state);
+    }
+
+    @Override
+    public List<ProductOrderEntity> getSubmitData(String productOrderNumber) {
         return productOrderDao.getSubmitData(productOrderNumber);
     }
 
