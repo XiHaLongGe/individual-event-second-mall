@@ -162,16 +162,17 @@ CREATE TABLE product_inf(
 	product_inf_carousel BIT DEFAULT 0 COMMENT '是否轮播展示(0:"否",1:"是")'
 )ENGINE = innodb COMMENT '商品信息表';
 
-INSERT INTO product_inf(brand_inf_id, product_category_id, product_inf_name, product_inf_describe, product_inf_price, product_inf_sales, product_inf_stockpile) VALUES
-(1, '3-2-1', '远行客登山包双肩男户外背包40L50L徒步旅行包60升','',268.00,1,345),
-(1, '3-2-2', 'Topsky户外高帮登山鞋男鞋运动徒步爬山鞋防泼水登山靴旅游骑行鞋','玩转户外 攀山涉水 防水袜套 护踝高帮设计',159.00,2,567),
-(2, '3-1', '德芙礼盒装丝滑牛奶纯黑白夹心巧克力3碗排块送女友小零食喜糖果','热销600万碗 多种组合可选 纵享丝滑',89.97,3,234),
-(3, '3-1', 'Huawei/华为P30 Pro手机官方旗舰店曲面屏麒麟980智能商务手机mate20x5g正版','直降500 再享优惠200元 6期免息 延保2年',4899.00,4,657),
-(4, '3-1', '联想ThinkBook 14/15 .6英寸十代酷睿i5/i7独显轻薄便携','金属机身 轻薄高颜值 读秒开机',4699,5,673);
+INSERT INTO product_inf(brand_inf_id, product_category_id, product_inf_name, product_inf_describe, product_inf_price, product_inf_sales, product_inf_stockpile, product_inf_carousel) VALUES
+(1, '3-2-1', '远行客登山包双肩男户外背包40L50L徒步旅行包60升','',268.00,1,345,1),
+(1, '3-2-2', 'Topsky户外高帮登山鞋男鞋运动徒步爬山鞋防泼水登山靴旅游骑行鞋','玩转户外 攀山涉水 防水袜套 护踝高帮设计',159.00,2,567,0),
+(2, '3-1', '德芙礼盒装丝滑牛奶纯黑白夹心巧克力3碗排块送女友小零食喜糖果','热销600万碗 多种组合可选 纵享丝滑',89.97,3,234,0),
+(3, '3-1', 'Huawei/华为P30 Pro手机官方旗舰店曲面屏麒麟980智能商务手机mate20x5g正版','直降500 再享优惠200元 6期免息 延保2年',4899.00,4,657,1),
+(4, '3-1', '联想ThinkBook 14/15 .6英寸十代酷睿i5/i7独显轻薄便携','金属机身 轻薄高颜值 读秒开机',4699,5,673,1);
 
 -- /////////////////////////////////
 select * from product_inf where product_category_id = '3-2-2';
 -- /////////////////////////////////
+
 
 DROP TABLE IF	EXISTS picture_inf;
 CREATE TABLE picture_inf(
@@ -271,6 +272,7 @@ VALUES
 
 -- /////////////////////////////////
 select * from receiving_inf;
+
 -- /////////////////////////////////
 
 DROP TABLE IF	EXISTS product_order;
@@ -282,10 +284,9 @@ CREATE TABLE product_order(
   product_inf_id INT COMMENT '商品信息表ID',
 	product_num INT COMMENT '商品数量',
 	leave_word VARCHAR(200) COMMENT '用户留言',
-	payment INT DEFAULT 0 COMMENT '支付方式：0未支付，1支付宝，2微信，3现金',
 	submit_time DATETIME COMMENT '下单时间',
 	payment_time DATETIME COMMENT '付款时间',
-	product_order_state INT DEFAULT 1 COMMENT '订单状态：1待付款，2待收货，3已收货',
+	product_order_state INT DEFAULT 0 COMMENT '订单状态：0交易关闭, 1待付款，2待发货，3待收货，4交易成功',
 	product_order_number VARCHAR(18) COMMENT '订单编号'
 )ENGINE=innodb COMMENT '商品订单表';
 
@@ -295,23 +296,16 @@ INSERT INTO product_order
 									product_inf_id,
 									product_num,
 									leave_word,
-									payment,
 									submit_time,
 									payment_time,
 									product_order_state,
 									product_order_number)
 VALUES
-			(1, 1, 1, 1, '发货速度要快哦！！！', 0, '2019-12-19 08:40:40', null, 1, '283948566858674324');
+			(1, 1, 1, 1, '发货速度要快哦！！！', '2019-12-19 08:40:40', '2019-12-19 09:40:40', 2, '283948566858674324');
 
 -- /////////////////////////////////
 select * from product_order;
 -- /////////////////////////////////
-
-
-
-
-
-
 
 
 
