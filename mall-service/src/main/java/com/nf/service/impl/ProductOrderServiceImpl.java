@@ -80,6 +80,11 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     }
 
     @Override
+    public boolean confirmDeliver(String productOrderNumber) {
+        return productOrderDao.confirmDeliver(productOrderNumber) > 0;
+    }
+
+    @Override
     public boolean confirmReceipt(String productOrderNumber) {
         return productOrderDao.confirmReceipt(productOrderNumber) > 0;
     }
@@ -87,5 +92,10 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     @Override
     public boolean deleteOrder(String productOrderNumber) {
         return productOrderDao.deleteOrder(productOrderNumber) > 0;
+    }
+
+    @Override
+    public boolean batchDeleteOrderInf(String[] productOrderIdArray) {
+        return productOrderDao.batchDeleteOrderInf(productOrderIdArray) > 0;
     }
 }

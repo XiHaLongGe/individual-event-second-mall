@@ -1,6 +1,5 @@
 $(function(){
     pageSearch(1);
-    checkboxChecked();
     /*以下是条件查询的点击事件*/
     $("#searchBTN").click(function(){
         pageSearch(1);
@@ -15,22 +14,6 @@ $(function(){
     })
     clickLoader();
 })
-
-/*以下是查询条件多选框的相关处理*/
-function checkboxChecked(){
-    $("#activateDIV").click(function () {
-        $(this).next().removeClass("layui-form-checked");
-    })
-    $("#notActivateDIV").click(function () {
-        $(this).prev().removeClass("layui-form-checked");
-    })
-    $("#adminDIV").click(function () {
-        $("#ordinaryDIV").removeClass("layui-form-checked");
-    })
-    $("#ordinaryDIV").click(function () {
-        $("#adminDIV").removeClass("layui-form-checked");
-    })
-}
 
 /*下面是查询用户订单信息以分页的形式展现*/
 function customerCount(data){
@@ -61,7 +44,6 @@ function pageSearch(pageNum){
             */
             $(".layui-form-checkbox").unbind('click');
             tableCheck.init();
-            checkboxChecked();
         }
     })
 }
@@ -71,7 +53,7 @@ function customerPageList(data){
     $.each(data.data.list,function(index, element){
         resultValue += "<tr>";
         resultValue += "<td>";
-        resultValue += "<div class=\"layui-unselect layui-form-checkbox\" lay-skin=\"primary\" data-id='" + element.receivingInfId + "'><i class=\"layui-icon\">&#xe605;</i></div>";
+        resultValue += "<div class=\"layui-unselect layui-form-checkbox\" lay-skin=\"primary\" data-id='" + element.productOrderId + "'><i class=\"layui-icon\">&#xe605;</i></div>";
         resultValue += "</td>";
         resultValue += "<td>" + parseInt(index + 1) + "</td>";
         resultValue += "<td>" + element.productOrderNumber + "</td>";
@@ -83,15 +65,17 @@ function customerPageList(data){
         var orderState = element.productOrderState;
         resultValue += orderState == 0 ? "交易关闭" :
                         orderState == 1 ? "待付款" :
-                        orderState == 2 ? "待收货" :
-                        orderState == 3 ? "已收货" : "交易成功";
+                        orderState == 2 ? "待发货" :
+                        orderState == 3 ? "待收货" : "交易成功";
         resultValue += "</td>";
         resultValue += "<td>" + element.paymentTime + "</td>";
         resultValue += "<td class=\"td-manage\">";
-        resultValue += "<a onclick=\"resetPassword(" + element.loginId + " , '/mall/background/customer/login/reset/password')\" title='重置密码' href=\"javascript:;\">";
-        resultValue += "<i class=\"layui-icon\">&#xe631;</i>";
-        resultValue += "</a>";
-        resultValue += "<a title=\"删除\" onclick=\"member_del(this," + element.loginId + ")\" href=\"javascript:;\">";
+        if(orderState == 2){
+            resultValue += "<a onclick=\"deliver('" + element.productOrderNumber + "')\" title='发货' href=\"javascript:;\">";
+            resultValue += "<i class=\"iconfont\">&#xe828;</i>";
+            resultValue += "</a>";
+        }
+        resultValue += "<a title=\"删除\" onclick=\"member_del(this," + element.productOrderId + ")\" href=\"javascript:;\">";
         resultValue += "<i class=\"layui-icon\">&#xe640;</i>";
         resultValue += "</a>";
         resultValue += "</td>";
@@ -131,76 +115,35 @@ function clickLoader(){
     })
 }
 
-/*用户账号状态的修改*/
-function member_stop(obj,id){
-    var state = $(obj).attr("title");
-    layer.confirm("确认要" + state + "吗？",function(index){
-        if(state == '注销激活'){
-            if(updateState(id,0)){
-                //发异步把用户状态进行更改
-                $(obj).attr('title','激活')
-                $(obj).find('i').html('&#xe62f;');
-                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('未激活');
-                layer.msg('已注销激活!',{icon: 2,time:1000});
-            }else{
-                alert("注销激活失败！")
-            }
-        }else{
-            if(updateState(id,1)){
-                $(obj).attr('title','注销激活')
-                $(obj).find('i').html('&#xe601;');
-                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已激活');
-                layer.msg('已激活!',{icon: 1,time:1000});
-            }else{
-                alert("激活失败！")
-            }
-        }
-    });
-}
-//更新账号状态
-function updateState(id, state){
-    var yn = false;
+/*发货*/
+function deliver(productOrderNumber){
     $.ajax({
-        url:"/mall/background/customer/login/update/state",
+        url:"/mall/background/product/order/confirm/deliver",
         type:"POST",
-        data:JSON.stringify({"loginId" : id, "accountStats" : state}),
+        data:{"productOrderNumber" : productOrderNumber},
         dataType:"json",
         async: false,//设置为同步
-        contentType: "application/json",
         success:function(data){
-            yn = data.data;
-        }
-    })
-    return yn;
-}
-//重置密码
-function resetPassword(loginId, url) {
-    $.ajax({
-        url:url,
-        type:"POST",
-        data:JSON.stringify({"loginId" : loginId}),
-        dataType:"json",
-        async: false,//设置为同步
-        contentType: "application/json",
-        success:function (data) {
-            if(data.code == 200){
-                alert("密码以重置为：111111")
+            if(data.code === 200){
+                pageSearch(1);
             }else{
-                alert("密码重置失败")
+                alert(data.message);
             }
         }
     })
 }
 
 
-
-/*用户订单信息的删除*/
-function member_del(obj,loginId){
+/*以下是单条数据的删除*/
+function member_del(obj,productOrderId){
     layer.confirm('确认要删除吗？',function(index){
+        var arr = [];
+        arr.push(productOrderId)
         //发异步删除数据
-        if(singleDelete(loginId)){
+        if(batchDelete(arr)){
             $(obj).parents("tr").remove();
             layer.msg('已删除!',{icon:1,time:1000});
+            $("#parentDIV").removeClass("layui-form-checked");
             var pageNum = $("#pageSPAN").attr("num");
             pageSearch(pageNum);
         }else{
@@ -208,30 +151,14 @@ function member_del(obj,loginId){
         }
     });
 }
-function singleDelete(loginId){
-    var yn = false;
-    $.ajax({
-        url:"/mall/background/customer/login/delete/customer",
-        type:"POST",
-        data:JSON.stringify({"loginId" : loginId}),
-        dataType:"json",
-        async: false,//设置为同步
-        contentType: "application/json",
-        success:function(data){
-            yn = data.data;
-        }
-    })
-    return yn;
-}
-
 
 /*批量删除*/
-function delAll (argument) {
+function delAll () {
     /*获取到所有被选中的id*/
-    var loginIdArray = tableCheck.getData();
+    var productOrderId = tableCheck.getData();
     layer.confirm('确认要删除吗？',function(index){
         //捉到所有被选中的，发异步进行删除
-        if(batchDelete(loginIdArray)){
+        if(batchDelete(productOrderId)){
             layer.msg('删除成功', {icon: 1});
             $(".layui-form-checked").not('.header').parents('tr').remove();
             $("#parentDIV").removeClass("layui-form-checked");
@@ -243,12 +170,12 @@ function delAll (argument) {
     });
 }
 
-function batchDelete(loginIdArray){
+function batchDelete(productOrderIdArray){
     var result = false;
     $.ajax({
-        url:"/mall/background/customer/login/batch/delete/customer",
+        url:"/mall/background/product/order/batch/delete",
         type:"POST",
-        data:JSON.stringify(loginIdArray),
+        data:JSON.stringify(productOrderIdArray),
         dataType:"json",
         async: false,//设置为同步
         contentType: "application/json",

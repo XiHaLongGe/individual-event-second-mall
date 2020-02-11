@@ -78,6 +78,10 @@ public class ReceivingInfEntity {
 
 
     /**
+     * product_order_id: 商品订单表ID
+     */
+    private Integer productOrderId;
+    /**
      * productInfName: 商品名称
      */
     private String productInfName;

@@ -7,10 +7,7 @@ import com.nf.service.port.ProductOrderService;
 import com.nf.vo.ResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -61,5 +58,39 @@ public class BackgroundProductOrderController {
                 .data(pageInfo)
                 .build();
     }
+
+
+    /**
+     * 发货
+     * @param productOrderNumber 订单编号
+     * @return
+     */
+    @PostMapping("/confirm/deliver")
+    @ResponseBody
+    public ResponseVo confirmDeliver(String productOrderNumber){
+        boolean result = productOrderService.confirmDeliver(productOrderNumber);
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "成功发货" : "发货失败")
+                .data(result)
+                .build();
+    }
+
+    /**
+     * 批量删除
+     * @param productOrderIdArray
+     * @return
+     */
+    @PostMapping("/batch/delete")
+    @ResponseBody
+    public ResponseVo batchDeleteOrderInf(@RequestBody String[] productOrderIdArray){
+        boolean result = productOrderService.batchDeleteOrderInf(productOrderIdArray);
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "成功删除" : "删除失败")
+                .data(result)
+                .build();
+    }
+
 
 }

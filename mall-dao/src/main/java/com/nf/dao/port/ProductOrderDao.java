@@ -110,4 +110,13 @@ public interface ProductOrderDao {
      * @return
      */
     Integer deleteOrder(@Param("productOrderNumber") String productOrderNumber);
+
+
+
+    /**
+     * 批量删除
+     * @param productOrderIdArray 订单id
+     * @return
+     */
+    Integer batchDeleteOrderInf(@Param("productOrderIdArray") String[] productOrderIdArray);
 }

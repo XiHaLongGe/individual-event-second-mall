@@ -85,6 +85,14 @@ public interface ProductOrderService {
      */
     boolean paymentOrder(String productOrderNumber);
 
+
+    /**
+     * 确认发货
+     * @param productOrderNumber 订单编号
+     * @return
+     */
+    boolean confirmDeliver(String productOrderNumber);
+
     /**
      * 确认收货
      * @param productOrderNumber 订单编号
@@ -99,4 +107,12 @@ public interface ProductOrderService {
      * @return
      */
     boolean deleteOrder(String productOrderNumber);
+
+
+    /**
+     * 批量删除
+     * @param productOrderIdArray 订单id
+     * @return
+     */
+    boolean batchDeleteOrderInf(String[] productOrderIdArray);
 }

@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nf.dao.port.ProductOrderDao">
     <sql id="joinReceivingParam">
-        po.product_order_id,
+        po.product_order_id as productOrderId,
         po.login_id,
         po.receiving_inf_id,
         po.product_inf_id,
@@ -47,6 +47,7 @@
     </sql>
 
     <resultMap id="receivingInfResultMap" type="com.nf.entity.ReceivingInfEntity">
+        <result property="productOrderId" column="productOrderId"/>
         <result property="paymentTime" column="paymentTime"/>
         <result property="productNum" column="productNum"/>
         <result property="productOrderNumber" column="productOrderNumber"/>
@@ -195,6 +196,7 @@
     </update>
 
 
+
     <!--确认收货-->
     <update id="confirmReceipt">
         update product_order
@@ -207,6 +209,15 @@
     <!--对用户没有下单的订单进行删除-->
     <delete id="deleteOrder">
         delete from product_order where product_order_number = #{productOrderNumber}
+    </delete>
+
+
+    <delete id="batchDeleteOrderInf">
+        delete from product_order
+        where product_order_id in
+        <foreach collection="productOrderIdArray" item="productOrderId" open="(" separator="," close=")">
+            #{productOrderId}
+        </foreach>
     </delete>
 
 
