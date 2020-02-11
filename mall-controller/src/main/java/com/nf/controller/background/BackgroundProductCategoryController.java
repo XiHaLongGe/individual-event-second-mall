@@ -19,7 +19,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/mall/background/product/category")
-public class ProductCategoryController {
+public class BackgroundProductCategoryController {
     @Autowired
     private ProductCategoryService productCategoryService;
 

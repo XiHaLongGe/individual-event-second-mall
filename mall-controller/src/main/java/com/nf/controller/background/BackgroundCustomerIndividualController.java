@@ -18,7 +18,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/mall/background/customer/individual")
-public class CustomerIndividualController {
+public class BackgroundCustomerIndividualController {
     @Autowired
     private CustomerIndividualService customerIndividualService;
 

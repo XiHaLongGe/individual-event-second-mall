@@ -11,8 +11,8 @@
         po.product_num as productNum,
         po.leave_word,
         po.submit_time,
-        po.payment_time,
-        po.product_order_state,
+        po.payment_time as paymentTime,
+        po.product_order_state as productOrderState,
         po.product_order_number as productOrderNumber,
         pi.product_inf_name as productInfName,
         pi.product_inf_price as productInfPrice,
@@ -47,8 +47,10 @@
     </sql>
 
     <resultMap id="receivingInfResultMap" type="com.nf.entity.ReceivingInfEntity">
+        <result property="paymentTime" column="paymentTime"/>
         <result property="productNum" column="productNum"/>
         <result property="productOrderNumber" column="productOrderNumber"/>
+        <result property="productOrderState" column="productOrderState"/>
         <result property="productInfName" column="productInfName"/>
         <result property="productInfPrice" column="productInfPrice"/>
         <result property="receivingInfName" column="receivingInfName"/>
@@ -57,6 +59,7 @@
         <result property="receivingInfCity" column="receivingInfCity"/>
         <result property="receivingInfDistrict" column="receivingInfDistrict"/>
         <result property="receivingInfAddress" column="receivingInfAddress"/>
+        <result property="productOrderState" column="productOrderState"/>
     </resultMap>
 
     <resultMap id="productOrderResultMap" type="com.nf.entity.ProductOrderEntity">
@@ -64,6 +67,33 @@
         <result property="productInfPrice" column="productInfPrice"/>
         <result property="pictureInfUrl" column="pictureInfUrl"/>
     </resultMap>
+
+    <!--订单信息的条件查询-->
+    <select id="getPageByCondition" resultMap="receivingInfResultMap">
+        select <include refid="joinReceivingParam"/>
+        from product_order po join product_inf pi
+        on po.product_inf_id = pi.product_inf_id
+        join receiving_inf ri
+        on po.receiving_inf_id = ri.receiving_inf_id
+        where 1=1
+        <if test="receivingInfEntity.beginTime != null">
+            and str_to_date(po.payment_time, '%Y-%m-%d') >= str_to_date(#{receivingInfEntity.beginTime}, '%Y-%m-%d')
+        </if>
+        <if test="receivingInfEntity.endTime != null">
+            and str_to_date(po.payment_time, '%Y-%m-%d') &lt;= str_to_date(#{receivingInfEntity.endTime}, '%Y-%m-%d')
+        </if>
+        <choose>
+            <when test="receivingInfEntity.productOrderState != null">
+                and po.product_order_state = #{receivingInfEntity.productOrderState}
+            </when>
+        </choose>
+        <choose>
+            <when test='receivingInfEntity.productOrderNumber != null and receivingInfEntity.productOrderNumber != "" '>
+                and po.product_order_number = #{receivingInfEntity.productOrderNumber}
+            </when>
+        </choose>
+        order by po.product_order_number
+    </select>
 
     <!--获得属于订单编号的收货信息-->
     <select id="getReceivingData" resultMap="receivingInfResultMap">

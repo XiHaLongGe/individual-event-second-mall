@@ -19,7 +19,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/mall/background/brand/inf")
-public class BrandInfController {
+public class BackgroundBrandInfController {
     @Autowired
     private BrandInfService brandInfService;
     /**

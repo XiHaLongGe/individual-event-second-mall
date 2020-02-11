@@ -20,11 +20,17 @@ import java.util.List;
  * @Description: 商品信息service层
  */
 @Service
+
 public class ProductOrderServiceImpl implements ProductOrderService {
     @Autowired
     private ProductOrderDao productOrderDao;
     @Autowired
     private ProductCartService productCartService;
+
+    @Override
+    public List<ProductOrderEntity> getPageByCondition(Integer pageNum, Integer pageSize, ReceivingInfEntity receivingInfEntity) {
+        return productOrderDao.getPageByCondition(pageNum, pageSize, receivingInfEntity);
+    }
 
     @Override
     public ReceivingInfEntity getReceivingData(String productOrderNumber) {

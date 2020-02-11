@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/mall/background/pbr")
-public class PbrController {
+public class BackgroundPbrController {
     @Autowired
     private PbrService pbrService;
     @Autowired

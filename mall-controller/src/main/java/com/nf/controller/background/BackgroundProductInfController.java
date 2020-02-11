@@ -23,7 +23,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/mall/background/product/inf")
-public class ProductInfController {
+public class BackgroundProductInfController {
 
     @Autowired
     private ProductInfService productInfService;

@@ -81,7 +81,7 @@
                     <i class="iconfont nav_right">&#xe6a7;</i>
                 </a>
                 <ul class="sub-menu">
-                    <li><a _href="/static/background/home/html/welcome.html"><i class="iconfont">&#xe6a7;</i><cite>控制台</cite></a></li >
+                    <li><a _href="/mall/background/welcome"><i class="iconfont">&#xe6a7;</i><cite>控制台</cite></a></li >
                 </ul>
             </li>
             <li >
@@ -144,9 +144,9 @@
                 </a>
                 <ul class="sub-menu">
                     <li>
-                        <a _href="/static/background/home/html/order-list.html">
+                        <a _href="/mall/background/product/order/home">
                             <i class="iconfont">&#xe6a7;</i>
-                            <cite>订单列表</cite>
+                            <cite>订单信息</cite>
                         </a>
                     </li >
                 </ul>
@@ -216,65 +216,6 @@
                     </li>--%>
                 </ul>
             </li>
-
-
-            <li>
-                <a href="javascript:;">
-                    <i class="iconfont">&#xe6ae;</i>
-                    <cite>系统统计</cite>
-                    <i class="iconfont nav_right">&#xe6a7;</i>
-                </a>
-                <ul class="sub-menu">
-                    <li>
-                        <a _href="/static/background/home/html/echarts1.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>拆线图</cite>
-                        </a>
-                    </li >
-                    <li>
-                        <a _href="/static/background/home/html/echarts2.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>柱状图</cite>
-                        </a>
-                    </li>
-                    <li>
-                        <a _href="/static/background/home/html/echarts3.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>地图</cite>
-                        </a>
-                    </li>
-                    <li>
-                        <a _href="/static/background/home/html/echarts4.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>饼图</cite>
-                        </a>
-                    </li>
-                    <li>
-                        <a _href="/static/background/home/html/echarts5.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>雷达图</cite>
-                        </a>
-                    </li>
-                    <li>
-                        <a _href="/static/background/home/html/echarts6.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>k线图</cite>
-                        </a>
-                    </li>
-                    <li>
-                        <a _href="/static/background/home/html/echarts7.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>热力图</cite>
-                        </a>
-                    </li>
-                    <li>
-                        <a _href="/static/background/home/html/echarts8.html">
-                            <i class="iconfont">&#xe6a7;</i>
-                            <cite>仪表图</cite>
-                        </a>
-                    </li>
-                </ul>
-            </li>
         </ul>
     </div>
 </div>
@@ -288,7 +229,7 @@
         </ul>
         <div class="layui-tab-content">
             <div class="layui-tab-item layui-show">
-                <iframe src='/static/background/home/html/welcome.html' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+                <iframe src='/mall/background/welcome' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
             </div>
         </div>
     </div>

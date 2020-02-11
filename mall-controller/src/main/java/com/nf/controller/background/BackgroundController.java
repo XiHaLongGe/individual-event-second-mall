@@ -23,12 +23,21 @@ import javax.servlet.http.HttpSession;
 public class BackgroundController {
     @Autowired
     private CustomerLoginService  customerLoginService;
+
+    /**
+     * 后台主界面视图
+     * @return
+     */
     @GetMapping("/home")
-    public String home(Model model, HttpServletRequest request){
-        HttpSession session = request.getSession();
-        Integer loginId = (Integer) session.getAttribute("loginId");
-        CustomerLoginEntity customerLoginEntity = customerLoginService.getByLoginId(loginId);
-        model.addAttribute("loginName", customerLoginEntity.getLoginName());
+    public String home(){
         return "background/home";
     }
+
+
+    @GetMapping("/welcome")
+    public String welcome(){
+        return "background/welcome";
+    }
+
+
 }

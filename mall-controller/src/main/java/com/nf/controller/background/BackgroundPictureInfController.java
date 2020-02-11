@@ -26,7 +26,7 @@ import java.util.UUID;
  */
 @Controller
 @RequestMapping("/mall/background/picture/inf")
-public class PictureInfController {
+public class BackgroundPictureInfController {
     /**
      * FILE_DIRECTORY: 文件上传的路径   相对路径
      */

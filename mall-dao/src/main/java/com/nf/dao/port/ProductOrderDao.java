@@ -14,6 +14,17 @@ import java.util.List;
  * @Description: 订单表dao层接口
  */
 public interface ProductOrderDao {
+
+    /**
+     * 订单信息的条件查询
+     * @param pageNum 用来接收当前页数
+     * @param pageSize 用来接收每页显示的条目
+     * @param receivingInfEntity 用来接收查询条件
+     * @return
+     */
+    List<ProductOrderEntity> getPageByCondition(@Param("pageNum") Integer pageNum,
+                                                @Param("pageSize") Integer pageSize,
+                                                @Param("receivingInfEntity")ReceivingInfEntity receivingInfEntity);
     /**
      * 获得属于订单编号的收货信息
      * @param productOrderNumber 订单编号
