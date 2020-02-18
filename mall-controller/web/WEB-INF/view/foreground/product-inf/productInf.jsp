@@ -13,7 +13,7 @@
     <%--提示框的样式与脚本---------------------------------------------------------%>
 
     <link rel="stylesheet" href="/static/toosTips/example/example.css">
-    <script src="/static/toosTips/lib/sweet-alert.js"></script>
+    <script src="/static/toolTip/lib/sweet-alert.js"></script>
     <link rel="stylesheet" href="/static/toosTips/lib/sweet-alert.css">
 
     <%----------------------------------------------------------------------------%>

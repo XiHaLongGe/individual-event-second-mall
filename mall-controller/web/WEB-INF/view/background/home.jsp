@@ -86,37 +86,6 @@
             </li>
             <li >
                 <a href="javascript:;">
-                    <i class="iconfont">&#xe6e4;</i>
-                    <cite>基本元素</cite>
-                    <i class="iconfont nav_right">&#xe6a7;</i>
-                </a>
-                <ul class="sub-menu">
-                    <li><a _href="/static/background/home/html/unicode.html"><i class="iconfont">&#xe6a7;</i><cite>图标字体</cite></a></li>
-                    <li><a _href="/static/background/home/html/form1.html"><i class="iconfont">&#xe6a7;</i><cite>表单元素</cite></a></li>
-                    <li> <a _href="/static/background/home/html/form2.html"><i class="iconfont">&#xe6a7;</i><cite>表单组合</cite></a></li>
-                    <li><a _href="/static/background/home/html/buttons.html"><i class="iconfont">&#xe6a7;</i><cite>按钮</cite></a></li>
-                    <li><a _href="/static/background/home/html/nav.html"><i class="iconfont">&#xe6a7;</i><cite>导航/面包屑</cite></a></li>
-                    <li><a _href="/static/background/home/html/tab.html"><i class="iconfont">&#xe6a7;</i><cite>选项卡</cite></a></li>
-                    <li><a _href="/static/background/home/html/progress-bar.html"><i class="iconfont">&#xe6a7;</i><cite>进度条</cite></a></li>
-                    <li><a _href="/static/background/home/html/panel.html"><i class="iconfont">&#xe6a7;</i><cite>面板</cite></a></li>
-                    <li><a _href="/static/background/home/html/badge.html"><i class="iconfont">&#xe6a7;</i><cite>微章</cite></a></li>
-                    <li><a _href="/static/background/home/html/timeline.html"><i class="iconfont">&#xe6a7;</i><cite>时间线</cite></a></li>
-                    <li><a _href="/static/background/home/html/table-element.html"><i class="iconfont">&#xe6a7;</i><cite>静态表格</cite></a></li>
-                    <li><a _href="/static/background/home/html/anim.html"><i class="iconfont">&#xe6a7;</i><cite>动画</cite></a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="javascript:;"><i class="iconfont">&#xe6f6;</i><cite>组件页面</cite><i class="iconfont nav_right">&#xe6a7;</i></a>
-                <ul class="sub-menu">
-                    <li><a _href="/static/background/home/html/upload.html"><i class="iconfont">&#xe6a7;</i><cite>文件上传</cite></a></li>
-                    <li><a _href="/static/background/home/html/page.html"><i class="iconfont">&#xe6a7;</i><cite>分页</cite></a></li>
-                    <li><a _href="/static/background/home/html/cate.html"><i class="iconfont">&#xe6a7;</i><cite>多级分类</cite></a></li>
-                    <li><a _href="/static/background/home/html/carousel.html"><i class="iconfont">&#xe6a7;</i><cite>轮播图</cite></a></li>
-                    <li><a _href="/static/background/home/html/city.html"><i class="iconfont">&#xe6a7;</i><cite>城市三级联动</cite></a></li>
-                </ul>
-            </li>
-            <li >
-                <a href="javascript:;">
                     <i class="iconfont">&#xe6c5;</i>
                     <cite>品牌管理</cite>
                     <i class="iconfont nav_right">&#xe6a7;</i>

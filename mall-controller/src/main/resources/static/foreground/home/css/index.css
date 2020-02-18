@@ -203,7 +203,7 @@ footer{ width:100%; height:auto; overflow:hidden; background:#f7f7f5; margin-top
 /*购物车fly插件*/
 .u-flyer{display: block;width: 100px;height: 100px;position: fixed;z-index: 9999; border:1px solid #eb4e01}
 /* 侧边fixed */
-.toolbar-item,.toolbar-layer{background:url(/static/home/images/toolbar.png) no-repeat;}
+.toolbar-item,.toolbar-layer{background:url(/static/foreground/home/images/toolbar.png) no-repeat;}
 .toolbar{position:fixed;right:0px;bottom:50px; z-index:10000}/*假设网页宽度为1200px，导航条在右侧悬浮*/
 .toolbar-item{display:block;width:52px;height:52px;margin-top:1px;position:relative;-moz-transition:background-position 0.5s;-ms-transition:background-position 0.5s;-o-moz-transition:background-position 0.5s;-webkit-moz-transition:background-position 0.5s;transition:background-position 0.5s;}
 .toolbar-item:hover .toolbar-layer{opacity:1;filter:alpha(opacity=100);transform:scale(1);-webkit-transform:scale(1);-moz-transform:scale(1);-ms-transform:scale(1);-o-transform:scale(1);}
