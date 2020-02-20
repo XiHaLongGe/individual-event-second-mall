@@ -1,4 +1,4 @@
-# individual-event-second-mall
+# individual-event-mall
 二学年个人项目
 
 ## 登录系统
