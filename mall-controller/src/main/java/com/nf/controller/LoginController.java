@@ -126,7 +126,7 @@ public class LoginController {
                 .code(result ? 200 : 500)
                 .message(result ? "会话信息成功清除！" : "会话信息清除失败！")
                 //这里返回登录视图的访问地址
-                .data("/mall/login")
+                .data("/mall/login/home")
                 .build();
     }
 

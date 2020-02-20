@@ -16,7 +16,7 @@ function categorySale(){
                     resultVal += "<span class=\"as blessing_package\">";
                     resultVal += "<a href=\"#\" style=\" color:#000\">";
                     resultVal += "<h3 style=\"float:left\">&nbsp;" + element.productCategoryName + "<font>" + element.sidebarCategoryDescribe + "</font>";
-                    resultVal += "<img src=\"/static/home/images/zd.png\" style=\"display:block; float:left; margin-top:5px\">";
+                    resultVal += "<img src=\"/static/foreground/home/images/zd.png\" style=\"display:block; float:left; margin-top:5px\">";
                     resultVal += "</h3>";
                     resultVal += "<div class=\"detailed_navigation\">";
                     resultVal += "<ul>";
@@ -60,7 +60,7 @@ function categoryProduct(categoryId, prefixIndex, suffixIndex){
             $.each(data.data, function(index, element){
                 resultDIV += "<li>";
                 resultDIV += "<a href=\"/mall/foreground/product/inf/home?productInfId=" + element.productInfId + "\" target=\"_blank\"><img src=\"" + element.pictureInfUrl + "\" style=\" margin:0 auto; display:block; width:220px; height:220px\"></a>";
-                resultDIV += "<light1><img src=\"/static/home/images/saoguang.png\"></light1>";
+                resultDIV += "<light1><img src=\"/static/foreground/home/images/saoguang.png\"></light1>";
                 resultDIV += "<span>￥" + element.productInfPrice + "</span>";
                 resultDIV += "<a href=\"/mall/foreground/product/inf/home?productInfId=" + element.productInfId + "\" target=\"_blank\"><p>" + element.productInfName + "</p></a>";
                 resultDIV += "<em>";

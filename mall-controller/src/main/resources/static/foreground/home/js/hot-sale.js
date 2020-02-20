@@ -30,7 +30,7 @@ function hotProductBody(){
             $.each(data.data, function(index,element) {
                 resultVal += "<li>";
                 resultVal += "<light>";
-                resultVal += "<img src=\"/static/home/images/saoguang1.png\">";
+                resultVal += "<img src=\"/static/foreground/home/images/saoguang1.png\">";
                 resultVal += "</light>";
                 resultVal += "<a href=\"/mall/foreground/product/inf/home?productInfId=" + element.productInfId + "\" target=\"_blank\"><img src=\"" + element.pictureInfUrl + "\"></a>";
                 resultVal += "<span>价值" + element.productInfPrice + "元</span>";

@@ -85,13 +85,13 @@ function productBuyData(){
             /*数量一栏*/
             resultValue +="<div class=\"Xcontent30\">";
             resultValue +="<p class=\"Xcontent31\">数量</p>";
-            resultValue +="<div class=\"Xcontent32\"><img src=\"/static/home/product-inf-list/images/shangpinxiangqing/X15.png\"></div>";
+            resultValue +="<div class=\"Xcontent32\"><img src=\"/static/foreground/product-inf/images/shangpinxiangqing/X15.png\"></div>";
             resultValue +="<input id='productCartNumINPUT' onkeyup='positive(this)' class=\"input\" value=\"1\">";
-            resultValue +="<div class=\"Xcontent33\"><img src=\"/static/home/product-inf-list/images/shangpinxiangqing/16.png\"></div>";
+            resultValue +="<div class=\"Xcontent33\"><img src=\"/static/foreground/product-inf/images/shangpinxiangqing/16.png\"></div>";
             resultValue +="</div>";
             /*立即购买  &  加入购物车*/
-            resultValue +="<div id=\"submitOrderDIV\" class=\"Xcontent34\"><a href=\"#\"><img src=\"/static/home/product-inf-list/images/shangpinxiangqing/X17.png\"></a></div>";
-            resultValue +="<div id=\"addCartDIV\" class=\"Xcontent35\"><a href=\"javascript:;\"><img src=\"/static/home/product-inf-list/images/shangpinxiangqing/X18.png\"></a></div>";
+            resultValue +="<div id=\"submitOrderDIV\" class=\"Xcontent34\"><a href=\"#\"><img src=\"/static/foreground/product-inf/images/shangpinxiangqing/X17.png\"></a></div>";
+            resultValue +="<div id=\"addCartDIV\" class=\"Xcontent35\"><a href=\"javascript:;\"><img src=\"/static/foreground/product-inf/images/shangpinxiangqing/X18.png\"></a></div>";
             $("#title").empty().append($productName)
             $("#productBuyOL").empty().append(resultValue)
         }
