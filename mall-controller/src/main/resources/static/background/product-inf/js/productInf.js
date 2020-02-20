@@ -171,12 +171,15 @@ function customerPageList(data){
                 async: false,
                 contentType: "application/json",
                 success:function (data) {
+                    var param = "/static/images/暂无图片.jpg";
                     $.each(data.data,function (index, element) {
                         if(element.pictureInfMaster == 1){
-                            resultValue += element.pictureInfUrl;
+                            if(param != null || param !== ""){
+                                param = element.pictureInfUrl;
+                            }
                         }
-
                     })
+                    resultValue += param;
                 }
             })
         resultValue += "\"></td>";
@@ -196,7 +199,12 @@ function customerPageList(data){
                 async: false,
                 contentType: "application/json",
                 success:function (data) {
-                    resultValue += "<b>" + data.data.parentCategoryName + "</b>>" + element.productCategoryName;
+                    var param = data.data.parentCategoryName;
+                    if(param == null || param === ""){
+                        resultValue += element.productCategoryName;
+                    }else{
+                        resultValue += "<b>" + param + "</b>>" + element.productCategoryName;
+                    }
                 }
             })
         }else{
@@ -205,8 +213,12 @@ function customerPageList(data){
         resultValue += "</td>";
 
 
-
-        resultValue += "<td>" + element.productInfDescribe + "</td>";
+        var describe = element.productInfDescribe;
+        if(describe == null || describe === ""){
+            resultValue += "<td>" + "暂无描述" + "</td>";
+        }else{
+            resultValue += "<td>" + describe + "</td>";
+        }
         resultValue += "<td>" + element.productInfPrice + "</td>";
         resultValue += "<td>" + element.productInfSales + "</td>";
         resultValue += "<td>" + element.productInfStockpile + "</td>";

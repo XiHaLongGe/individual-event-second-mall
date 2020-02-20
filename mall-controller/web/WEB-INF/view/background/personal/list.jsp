@@ -36,7 +36,7 @@
                         <div class="filePic">
                             <input id="headIconUrl" type="hidden" value="${customerLoginEntity.headIconUrl}" >
                             <input id="multipartFile" type="file" class="inputPic" allowexts="gif,jpeg,jpg,png,bmp">
-                            <img id="headIconIMG" class="am-circle am-img-thumbnail" src="${customerLoginEntity.headIconUrl}" alt="" />
+                            <img id="headIconIMG" class="am-circle am-img-thumbnail" src="${customerLoginEntity.headIconUrl == null || customerLoginEntity.headIconUrl == "" ? "/static/images/暂无图片.jpg" : customerLoginEntity.headIconUrl}" alt="" />
                         </div>
 
                         <p class="am-form-help">头像</p>
