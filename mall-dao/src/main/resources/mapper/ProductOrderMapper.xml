@@ -96,6 +96,14 @@
         order by po.product_order_number
     </select>
 
+    <!--获得属于订单编号的总价-->
+    <select id="getSumPrice" resultType="float">
+        select sum(pi.product_inf_price * po.product_num)
+        from product_order po join product_inf pi
+        on po.product_inf_id = pi.product_inf_id
+        where po.product_order_number = #{productOrderNumber}
+    </select>
+
     <!--获得属于订单编号的收货信息-->
     <select id="getReceivingData" resultMap="receivingInfResultMap">
         select <include refid="joinReceivingParam"/>

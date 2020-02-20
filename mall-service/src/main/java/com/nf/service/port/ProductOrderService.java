@@ -4,6 +4,7 @@ import com.nf.entity.ProductCartEntity;
 import com.nf.entity.ProductOrderEntity;
 import com.nf.entity.ReceivingInfEntity;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -23,6 +24,15 @@ public interface ProductOrderService {
     List<ProductOrderEntity> getPageByCondition(Integer pageNum,
                                                 Integer pageSize,
                                                 ReceivingInfEntity receivingInfEntity);
+
+    /**
+     * 获得属于订单编号的总价
+     * @param productOrderNumber 订单编号
+     * @return
+     */
+    Float getSumPrice(String productOrderNumber);
+
+
     /**
      * 获得属于订单编号的收货信息
      * @param productOrderNumber 订单编号

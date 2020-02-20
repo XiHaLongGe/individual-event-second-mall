@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -21,6 +22,7 @@ import java.util.List;
  */
 @Service
 
+
 public class ProductOrderServiceImpl implements ProductOrderService {
     @Autowired
     private ProductOrderDao productOrderDao;
@@ -30,6 +32,11 @@ public class ProductOrderServiceImpl implements ProductOrderService {
     @Override
     public List<ProductOrderEntity> getPageByCondition(Integer pageNum, Integer pageSize, ReceivingInfEntity receivingInfEntity) {
         return productOrderDao.getPageByCondition(pageNum, pageSize, receivingInfEntity);
+    }
+
+    @Override
+    public Float getSumPrice(String productOrderNumber) {
+        return productOrderDao.getSumPrice(productOrderNumber);
     }
 
     @Override

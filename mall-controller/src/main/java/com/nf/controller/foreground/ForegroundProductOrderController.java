@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -146,6 +147,29 @@ public class ForegroundProductOrderController {
     }
 
     /**
+     * 获得属于订单编号的总价
+     * @param productOrderNumber
+     * @return
+     */
+    @GetMapping("/order/sum/price")
+    @ResponseBody
+    public ResponseVo orderSumPrice(String productOrderNumber){
+        boolean result = true;
+        Float sumPrice = null;
+        try{
+            sumPrice = productOrderService.getSumPrice(productOrderNumber);
+        }catch (Exception e){
+            e.printStackTrace();
+            result = false;
+        }
+        return ResponseVo.newBuilder()
+                .code(result ? 200 : 500)
+                .message(result ? "数据获取成功" : "数据获取失败")
+                .data(sumPrice)
+                .build();
+    }
+
+    /**
      * 获得属于订单编号的收货信息
      * @param productOrderNumber 订单编号
      * @return
@@ -157,7 +181,6 @@ public class ForegroundProductOrderController {
         ReceivingInfEntity receivingInfEntity = null;
         try{
             receivingInfEntity = productOrderService.getReceivingData(productOrderNumber);
-            System.out.println(receivingInfEntity);
         }catch (Exception e){
             e.printStackTrace();
             result = false;

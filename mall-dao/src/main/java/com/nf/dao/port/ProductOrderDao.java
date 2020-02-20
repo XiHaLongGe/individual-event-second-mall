@@ -5,6 +5,7 @@ import com.nf.entity.ProductOrderEntity;
 import com.nf.entity.ReceivingInfEntity;
 import org.apache.ibatis.annotations.Param;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -25,6 +26,16 @@ public interface ProductOrderDao {
     List<ProductOrderEntity> getPageByCondition(@Param("pageNum") Integer pageNum,
                                                 @Param("pageSize") Integer pageSize,
                                                 @Param("receivingInfEntity")ReceivingInfEntity receivingInfEntity);
+
+
+    /**
+     * 获得属于订单编号的总价
+     * @param productOrderNumber 订单编号
+     * @return
+     */
+    Float getSumPrice(@Param("productOrderNumber") String productOrderNumber);
+
+
     /**
      * 获得属于订单编号的收货信息
      * @param productOrderNumber 订单编号

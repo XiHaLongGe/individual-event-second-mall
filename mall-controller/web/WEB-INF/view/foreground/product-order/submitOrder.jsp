@@ -9,7 +9,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>锡货超市</title>
+    <title>提交订单</title>
     <link href="/static/foreground/submit-order/css/public.css?v=<%= System.currentTimeMillis()%>" type="text/css" rel="stylesheet"/>
     <link rel="stylesheet" type="text/css" href="/static/foreground/submit-order/css/base.css?v=<%= System.currentTimeMillis()%>"/>
     <script type="text/javascript" src="/static/foreground/submit-order/js/jquery_cart.js?v=<%= System.currentTimeMillis()%>"></script>

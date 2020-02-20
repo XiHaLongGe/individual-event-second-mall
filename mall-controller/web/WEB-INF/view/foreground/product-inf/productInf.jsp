@@ -12,9 +12,9 @@
     <title id="title">商品信息</title>
     <%--提示框的样式与脚本---------------------------------------------------------%>
 
-    <link rel="stylesheet" href="/static/toosTips/example/example.css">
+    <link rel="stylesheet" href="/static/toolTip/example/example.css">
     <script src="/static/toolTip/lib/sweet-alert.js"></script>
-    <link rel="stylesheet" href="/static/toosTips/lib/sweet-alert.css">
+    <link rel="stylesheet" href="/static/toolTip/lib/sweet-alert.css">
 
     <%----------------------------------------------------------------------------%>
     <link rel="stylesheet" href="/static/foreground/product-inf/css/shouye.css?v=<%= System.currentTimeMillis()%>">

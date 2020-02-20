@@ -45,7 +45,7 @@ $(function(){
             data:JSON.stringify({
                 "receivingInfId" : $("input[name='receivingInfId']").val(),
                 "leaveWord" : $("input[name='leaveWord']").val(),
-                "productOrderNumber" : $("input[name='productOrderNumber']").val(),
+                "productOrderNumber" : $("input[name='productOrderNumber']").val()
             }),
             async:false,
             contentType: "application/json;charset=utf-8",
