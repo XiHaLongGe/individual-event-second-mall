@@ -34,7 +34,7 @@
         <servlet.version>3.1.0</servlet.version>
         <mysql.version>5.1.47</mysql.version>
         <junit.version>4.12</junit.version>
-        <jackson.version>2.10.1</jackson.version>
+        <jackson.version>2.12.7.1</jackson.version>
         <mail.version>1.4.7</mail.version>
         <alipay.version>3.3.49.ALL</alipay.version>
     </properties>
